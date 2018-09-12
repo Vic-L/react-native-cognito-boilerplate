@@ -2,17 +2,29 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 
-import Startup from './Startup'
-import Welcome from './Welcome'
+import Startup from './screens/Startup'
+import Welcome from './screens/auth/Welcome'
+import Login from './screens/auth/Login'
 
-const AuthStack = createStackNavigator({
-  Welcome: {
-    screen: Welcome,
-    navigationOptions: {
-      headerTransparent: true
+const AuthStack = createStackNavigator(
+  {
+    Welcome: {
+      screen: Welcome,
+      navigationOptions: {
+        headerTransparent: true
+      }
+    },
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        headerTransparent: true
+      }
     }
   },
-})
+  {
+    initialRouteName: 'Welcome',
+  }
+)
 
 const RootStack = createSwitchNavigator(
   {
