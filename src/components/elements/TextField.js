@@ -1,13 +1,18 @@
 import _ from 'lodash'
-import React, { Component } from 'react'
-import { View, Text, TextInput, TouchableWithoutFeedback } from 'react-native'
+import React from 'react'
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback
+} from 'react-native'
 
 import { 
   COLOR,
 } from '../../constants'
 
 // uncontrolle
-class TextField extends Component {
+class TextField extends React.Component {
   render() {
     const { label, value, error, style, ...props } = this.props
 

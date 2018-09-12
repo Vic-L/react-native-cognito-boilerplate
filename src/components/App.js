@@ -5,6 +5,7 @@ import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import Startup from './screens/Startup'
 import Welcome from './screens/auth/Welcome'
 import Login from './screens/auth/Login'
+import ForgotPassword from './screens/auth/ForgotPassword'
 
 const AuthStack = createStackNavigator(
   {
@@ -16,6 +17,12 @@ const AuthStack = createStackNavigator(
     },
     Login: {
       screen: Login,
+      navigationOptions: {
+        headerTransparent: true
+      }
+    },
+    ForgotPassword: {
+      screen: ForgotPassword,
       navigationOptions: {
         headerTransparent: true
       }
