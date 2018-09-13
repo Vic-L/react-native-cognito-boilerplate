@@ -16,9 +16,9 @@ class Login extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
 
-        <View>
+        <View style={{ flex: 0.8 }}>
           <TextField
             label='EMAIL'
             placeholder='Email'
