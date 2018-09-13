@@ -14,7 +14,7 @@ import {
 // uncontrolle
 class TextField extends React.Component {
   render() {
-    const { label, value, error, style, ...props } = this.props
+    const { label, value, error, ...props } = this.props
 
     const hasError = !_.isNil(error) && error !== ""
 
@@ -43,7 +43,7 @@ class TextField extends React.Component {
       padding: 16,
       height: fieldContainerHeight,
       justifyContent: 'center',
-      backgroundColor: 'white'
+      backgroundColor: 'white',
     }
 
     return (
