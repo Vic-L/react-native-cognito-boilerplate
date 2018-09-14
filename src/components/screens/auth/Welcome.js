@@ -10,13 +10,20 @@ class Welcome extends React.Component {
         <Text>Welcome page</Text>
         <Button
           text="LOGIN"
-          onPress={this.onPress.bind(this)}/>
+          onPress={this.onLogin.bind(this)}/>
+        <Button
+          text="SIGN UP"
+          onPress={this.onSignup.bind(this)}/>
       </View>
     )
   }
 
-  onPress() {
+  onLogin() {
     this.props.navigation.navigate('Login')
+  }
+
+  onSignup() {
+    this.props.navigation.navigate('Signup')
   }
 }
 
