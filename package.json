@@ -12,7 +12,8 @@
     "react": "16.4.1",
     "react-native": "0.56.1",
     "react-native-config": "^0.11.5",
-    "react-navigation": "^2.13.0"
+    "react-navigation": "^2.13.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
