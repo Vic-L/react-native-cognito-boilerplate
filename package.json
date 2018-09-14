@@ -7,9 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "amazon-cognito-identity-js": "^2.0.26",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-native": "0.56.1",
+    "react-native-config": "^0.11.5",
     "react-navigation": "^2.13.0"
   },
   "devDependencies": {

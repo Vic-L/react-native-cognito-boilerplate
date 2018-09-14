@@ -1,3 +1,9 @@
+### Setup
+
+#### react-native-config
+
+Extra steps required for [android](https://github.com/luggit/react-native-config#extra-step-for-android) and [ios](https://github.com/luggit/react-native-config#extra-step-for-ios-to-support-infoplist).
+
 ### Clean
 
 * ios
