@@ -1,5 +1,9 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import {
+  View,
+  Text,
+  Alert
+} from 'react-native'
 import {
   CognitoUserPool,
   CognitoUserAttribute,
@@ -107,12 +111,17 @@ class Signup extends React.Component {
     }))
 
     userPool.signUp(uuidv4(), this.state.password, attributeList, null, (err,result) => {
-     if (err) {
-        console.log('Error at signup ', err)
+      if (err) {
+        Alert.alert(
+          "Alert",
+          err.message.replace("PreSignUp failed with error ", ""),
+          [{text: "OK"}]
+        )
+
         return
-     }
-     
-     console.log('cognitoUser', result.user)
+      }
+
+      console.log('cognitoUser', result.user)
     })
   }
 }
