@@ -4,12 +4,8 @@ import {
   Text,
   Alert
 } from 'react-native'
-import {
-  CognitoUserPool,
-  CognitoUserAttribute,
-} from "amazon-cognito-identity-js"
 import uuidv4 from 'uuid/v4'
-import Config from 'react-native-config'
+import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
 import Button from '../../elements/Button'
@@ -91,37 +87,23 @@ class Signup extends React.Component {
   }
 
   onSignup() {
-    const userPool = new CognitoUserPool({
-        UserPoolId: Config.COGNITO_USER_POOL_ID,
-        ClientId: Config.COGNITO_CLIENT_ID
+    Auth.signUp({
+      username: uuidv4(),
+      password: this.state.password,
+      attributes: {
+          email: this.state.email,
+          given_name: this.state.firstName,
+          family_name: this.state.lastName,
+      },
+      validationData: []  //optional
     })
-
-    const attributeList = []
-    attributeList.push(new CognitoUserAttribute({
-      Name: 'given_name',
-      Value: this.state.firstName
-    }))
-    attributeList.push(new CognitoUserAttribute({
-      Name: 'family_name',
-      Value: this.state.lastName
-    }))
-    attributeList.push(new CognitoUserAttribute({
-      Name: 'email',
-      Value: this.state.email
-    }))
-
-    userPool.signUp(uuidv4(), this.state.password, attributeList, null, (err,result) => {
-      if (err) {
-        Alert.alert(
-          "Alert",
-          err.message.replace("PreSignUp failed with error ", ""),
-          [{text: "OK"}]
-        )
-
-        return
-      }
-
-      console.log('cognitoUser', result.user)
+    .then((data) => console.log(data))
+    .catch((err) => {
+      Alert.alert(
+        "Alert",
+        err.message.replace("PreSignUp failed with error ", ""),
+        [{text: "OK"}]
+      )
     })
   }
 }
