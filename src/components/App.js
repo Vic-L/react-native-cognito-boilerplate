@@ -56,7 +56,7 @@ Auth.configure({
   // storage: new MyStorage(),
   
   // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
-  authenticationFlowType: 'USER_PASSWORD_AUTH'
+  // authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
 
 // middlewares
