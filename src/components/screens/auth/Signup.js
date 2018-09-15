@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {
   View,
   Text,
@@ -87,6 +88,7 @@ class Signup extends React.Component {
   }
 
   onSignup() {
+    this.props.dispatchSignupRequest()
     Auth.signUp({
       username: uuidv4(),
       password: this.state.password,
@@ -97,8 +99,12 @@ class Signup extends React.Component {
       },
       validationData: []  //optional
     })
-    .then((data) => console.log(data))
+    .then((data) => {
+      this.props.dispatchSignupSuccess()
+      console.log(data)
+    })
     .catch((err) => {
+      this.props.dispatchSignupFailure()
       Alert.alert(
         "Alert",
         err.message.replace("PreSignUp failed with error ", ""),
@@ -108,4 +114,21 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatchSignupRequest: () => {
+      console.log('dispatching', 'SIGNUP_REQUEST')
+      dispatch({type: 'SIGNUP_REQUEST'})
+    },
+    dispatchSignupSuccess: () => {
+      console.log('dispatching', 'SIGNUP_SUCCESS')
+      dispatch({type: 'SIGNUP_SUCCESS'})
+    },
+    dispatchSignupFailure: () => {
+      console.log('dispatching', 'SIGNUP_FAILURE')
+      dispatch({type: 'SIGNUP_FAILURE'})
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Signup)
