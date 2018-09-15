@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import createSagaMiddleware from 'redux-saga'
 import { compose, createStore, applyMiddleware } from 'redux'
@@ -7,7 +7,9 @@ import { Provider } from  'react-redux'
 
 import rootReducers from '../reducers'
 
+// components
 import Startup from './screens/Startup'
+import Loader from './screens/Loader'
 import Welcome from './screens/auth/Welcome'
 import Login from './screens/auth/Login'
 import Signup from './screens/auth/Signup'
@@ -114,7 +116,10 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <RootStack />
+        <View style={{flex: 1}}>
+          <Loader/>
+          <RootStack/>
+        </View>
       </Provider>
     )
   }
