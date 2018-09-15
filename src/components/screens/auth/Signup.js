@@ -101,7 +101,9 @@ class Signup extends React.Component {
     .then((data) => {
       this.props.dispatchSignupSuccess()
       console.log('onSignup', data)
-      this.props.navigation.navigate('ConfirmSignup', { username: data.user.username})
+      this.props.navigation.navigate('ConfirmSignup', { username: data.user.username,
+        signupScreenKey: this.props.navigation.state.key
+      })
     })
     .catch((err) => {
       this.props.dispatchSignupFailure()

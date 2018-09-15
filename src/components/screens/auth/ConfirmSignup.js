@@ -51,9 +51,12 @@ class ConfirmSignup extends React.Component {
     }).then((data) => {
       this.props.dispatchConfirmSignupSuccess()
       console.log('confirmSignUp', data)
-      this.props.navigation.dispatch(StackActions.pop({
-        n: 2,
-      }))
+      this.props.navigation.replace({
+        key: this.props.navigation.getParam('signupScreenKey', null),
+        routeName: 'Login',
+        immediate: true // currently no effect
+      })
+      this.props.navigation.goBack()
     })
     .catch((err) => {
       this.props.dispatchConfirmSignupFailure()
