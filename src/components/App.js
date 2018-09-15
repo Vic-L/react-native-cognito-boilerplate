@@ -14,6 +14,7 @@ import Welcome from './screens/auth/Welcome'
 import Login from './screens/auth/Login'
 import Signup from './screens/auth/Signup'
 import ForgotPassword from './screens/auth/ForgotPassword'
+import ConfirmSignup from './screens/auth/ConfirmSignup'
 
 // cognito
 import Config from 'react-native-config'
@@ -92,6 +93,12 @@ const AuthStack = createStackNavigator(
     },
     Signup: {
       screen: Signup,
+      navigationOptions: {
+        headerTransparent: true
+      }
+    },
+    ConfirmSignup: {
+      screen: ConfirmSignup,
       navigationOptions: {
         headerTransparent: true
       }

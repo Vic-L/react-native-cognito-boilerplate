@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
   View,
-  Text,
   Alert
 } from 'react-native'
 import uuidv4 from 'uuid/v4'
@@ -101,7 +100,8 @@ class Signup extends React.Component {
     })
     .then((data) => {
       this.props.dispatchSignupSuccess()
-      console.log(data)
+      console.log('onSignup', data)
+      this.props.navigation.navigate('ConfirmSignup', { username: data.user.username})
     })
     .catch((err) => {
       this.props.dispatchSignupFailure()
