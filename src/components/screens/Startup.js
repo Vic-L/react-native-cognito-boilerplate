@@ -1,10 +1,28 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import TimerMixin from 'react-timer-mixin'
+import {
+  View,
+  Text,
+  Alert,
+} from 'react-native'
+import Auth from '@aws-amplify/auth'
 
 class Startup extends React.Component {
   componentDidMount() {
-    TimerMixin.setTimeout(this.goToWelcomePage.bind(this), 1000)
+    Auth.currentAuthenticatedUser()
+    .then(data => {
+      console.log('currentAuthenticatedUser', data)
+    })
+    .catch((err) => {
+      if (err === "not authenticated") {
+        this.props.navigation.navigate('Welcome')
+      } else {
+        Alert.alert(
+          "Alert",
+          err.message || err,
+          [{text: "OK"}]
+        )
+      }
+    })
   }
 
   render() {
@@ -13,10 +31,6 @@ class Startup extends React.Component {
         <Text>Booting</Text>
       </View>
     )
-  }
-
-  goToWelcomePage() {
-    this.props.navigation.navigate('Welcome')
   }
 }
 
