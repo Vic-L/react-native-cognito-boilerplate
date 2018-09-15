@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { View, Image } from 'react-native'
 
 const Loader = ({loading}) => {
-  console.log(loading) //  for easy dev
+  console.log('loading', loading) //  for easy dev
   
   const isLoading = _.some(Object.keys(loading), (loadingKey) => {
     return loading[loadingKey]
