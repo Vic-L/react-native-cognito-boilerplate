@@ -4,10 +4,13 @@ import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import createSagaMiddleware from 'redux-saga'
 import { compose, createStore, applyMiddleware } from 'redux'
 import { Provider } from  'react-redux'
+import Config from 'react-native-config'
+import Auth from '@aws-amplify/auth'
 
 import rootReducers from '../reducers'
 
 // components
+//// authstack
 import Startup from './screens/Startup'
 import Loader from './screens/Loader'
 import Welcome from './screens/auth/Welcome'
@@ -16,9 +19,8 @@ import Signup from './screens/auth/Signup'
 import ForgotPassword from './screens/auth/ForgotPassword'
 import ConfirmSignup from './screens/auth/ConfirmSignup'
 
-// cognito
-import Config from 'react-native-config'
-import Auth from '@aws-amplify/auth'
+//// appstack
+import Main from './screens/app/Main'
 
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -109,10 +111,24 @@ const AuthStack = createStackNavigator(
   }
 )
 
+const AppStack = createStackNavigator({
+    Main: {
+      screen: Main,
+      navigationOptions: {
+        headerTransparent: true
+      }
+    },
+  },
+  {
+    initialRouteName: 'Main',
+  }
+)
+
 const RootStack = createSwitchNavigator(
   {
     Startup: Startup,
     Auth: AuthStack,
+    App: AppStack,
   },
   {
     initialRouteName: 'Startup',

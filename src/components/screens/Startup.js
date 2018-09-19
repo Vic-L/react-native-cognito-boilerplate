@@ -10,7 +10,7 @@ class Startup extends React.Component {
   componentDidMount() {
     Auth.currentAuthenticatedUser()
     .then(data => {
-      console.log('currentAuthenticatedUser', data)
+      this.props.navigation.navigate('Main')
     })
     .catch((err) => {
       if (err === "not authenticated") {
