@@ -17,6 +17,7 @@
     "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-apollo": "^2.1.11",
+    "react-apollo-network-status": "^1.1.0",
     "react-native": "0.56.1",
     "react-native-config": "^0.11.5",
     "react-navigation": "^2.13.0",
