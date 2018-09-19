@@ -1,8 +1,14 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import {
+  View,
+  Alert,
+} from 'react-native'
+import { connect } from 'react-redux'
+import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
 import TextLink from '../../elements/TextLink'
+import Button from '../../elements/Button'
 
 class Login extends React.Component {
   constructor(props) {
@@ -36,6 +42,11 @@ class Login extends React.Component {
             containerStyle={{alignSelf: 'center'}}
             text='Forgot password'
             onPress={this.onForgetPassword.bind(this)}/>
+
+          <Button
+            text="LOGIN"
+            onPress={this.onLogin.bind(this)}/>
+
         </View>
 
       </View>
@@ -57,6 +68,41 @@ class Login extends React.Component {
   onForgetPassword() {
     this.props.navigation.navigate('ForgotPassword')
   }
+
+  onLogin() {
+    this.props.dispatchLoginRequest()
+    Auth.signIn(this.state.email, this.state.password)
+    .then((user) => {
+      this.props.dispatchLoginSuccess()
+      this.props.navigation.navigate('Main')
+    })
+    .catch((err) => {
+      this.props.dispatchLoginFailure()
+      console.log(err)
+      Alert.alert(
+        "Alert",
+        err.message || err,
+        [{text: "OK"}]
+      )
+    })
+  }
 }
 
-export default Login
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatchLoginRequest: () => {
+      console.log('dispatching', 'LOGIN_REQUEST')
+      dispatch({type: 'LOGIN_REQUEST'})
+    },
+    dispatchLoginSuccess: () => {
+      console.log('dispatching', 'LOGIN_SUCCESS')
+      dispatch({type: 'LOGIN_SUCCESS'})
+    },
+    dispatchLoginFailure: () => {
+      console.log('dispatching', 'LOGIN_FAILURE')
+      dispatch({type: 'LOGIN_FAILURE'})
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login)
