@@ -43,9 +43,10 @@ class ForgotPassword extends React.Component {
   }
 
   onForgotPassword() {
+    this.props.dispatchForgotPasswordRequest()
     Auth.forgotPassword(this.state.email)
     .then((data) => {
-      console.log(data)
+      this.props.dispatchForgotPasswordSuccess()
       Alert.alert(
         "Alert",
         "A verification code has been sent to your email. Please use it and set your new password on the next page.",
@@ -66,6 +67,7 @@ class ForgotPassword extends React.Component {
     })
     .catch((err) => {
       console.log(err)
+      this.props.dispatchForgotPasswordFailure()
       Alert.alert(
         "Alert",
         err.message || err,

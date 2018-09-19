@@ -55,12 +55,14 @@ class ForgotPasswordSubmit extends React.Component {
   }
 
   onForgotPasswordSubmit() {
+    this.props.dispatchForgotPasswordSubmitRequest()
     Auth.forgotPasswordSubmit(
       this.props.navigation.getParam('email', null),
       this.state.verificationCode,
       this.state.newPassword,
     )
     .then(() => {
+      this.props.dispatchForgotPasswordSubmitSuccess()
       Alert.alert(
         "Alert",
         "Password successfully updated.",
@@ -77,6 +79,7 @@ class ForgotPasswordSubmit extends React.Component {
     })
     .catch((err) => {
       console.log(err)
+      this.props.dispatchForgotPasswordSubmitFailure()
       Alert.alert(
         "Alert",
         err.message || err,
