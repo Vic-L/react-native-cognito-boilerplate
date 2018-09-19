@@ -7,6 +7,26 @@ import { Provider } from  'react-redux'
 import Config from 'react-native-config'
 import Auth from '@aws-amplify/auth'
 
+// apollo
+import { ApolloClient } from 'apollo-client'
+import { ApolloProvider } from 'react-apollo'
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+
+const apolloClient = new ApolloClient({
+  link: new HttpLink({ uri: 'https://fakerql.com/graphql' }),
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    },
+  }
+})
 import rootReducers from '../reducers'
 
 // components
@@ -145,12 +165,14 @@ const RootStack = createSwitchNavigator(
 export default class App extends React.Component {
   render() {
     return (
-      <Provider store={store}>
-        <View style={{flex: 1}}>
-          <Loader/>
-          <RootStack/>
-        </View>
-      </Provider>
+      <ApolloProvider client={apolloClient}>
+        <Provider store={store}>
+          <View style={{flex: 1}}>
+            <Loader/>
+            <RootStack/>
+          </View>
+        </Provider>
+      </ApolloProvider>
     )
   }
 }
