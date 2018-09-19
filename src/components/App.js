@@ -93,7 +93,6 @@ import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator }
 /// misc
 import Startup from './screens/Startup'
 import Loader from './screens/Loader'
-import GraphQLLoader from './screens/GraphQLLoader'
 //// authstack
 import Welcome from './screens/auth/Welcome'
 import Login from './screens/auth/Login'
@@ -223,9 +222,8 @@ export default class App extends React.Component {
       <ApolloProvider client={apolloClient}>
         <Provider store={store}>
           <View style={{flex: 1}}>
-            <Loader/>
             <NetworkStatusNotifier render={({loading, error}) => (
-              <GraphQLLoader loading={loading} error={error}/>
+              <Loader loading={loading} error={error}/>
             )}/>
             <RootStack/>
           </View>

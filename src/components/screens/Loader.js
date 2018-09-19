@@ -1,16 +1,15 @@
 import _ from 'lodash'
 import React from 'react'
-import { connect } from 'react-redux'
 import { View, Image } from 'react-native'
+import { connect } from 'react-redux'
 
-const Loader = ({loading}) => {
-  console.log('loading', loading) //  for easy dev
-  
-  const isLoading = _.some(Object.keys(loading), (loadingKey) => {
-    return loading[loadingKey]
+const Loader = ({loadingFromReducer, loading: isLoadingFromGraphql, error}) => {
+  console.log('Loader error', error)
+    const isLoadingFromReducer = _.some(Object.keys(loadingFromReducer), (loadingKey) => {
+    return loadingFromReducer[loadingKey]
   })
 
-  if (isLoading) {
+  if (isLoadingFromGraphql || isLoadingFromReducer) {
     return (
       <View style={{
         zIndex: 9999,
@@ -39,7 +38,7 @@ const Loader = ({loading}) => {
 }
 
 function mapStateToProps({ loading }) {
-  return { loading }
+  return { loadingFromReducer: loading }
 }
 
 export default connect(mapStateToProps)(Loader)
