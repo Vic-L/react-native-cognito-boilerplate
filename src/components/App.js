@@ -1,6 +1,5 @@
 import React from 'react'
 import { View } from 'react-native'
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import createSagaMiddleware from 'redux-saga'
 import { compose, createStore, applyMiddleware } from 'redux'
 import { Provider } from  'react-redux'
@@ -27,21 +26,9 @@ const apolloClient = new ApolloClient({
     },
   }
 })
+
+// redux related
 import rootReducers from '../reducers'
-
-// components
-//// authstack
-import Startup from './screens/Startup'
-import Loader from './screens/Loader'
-import Welcome from './screens/auth/Welcome'
-import Login from './screens/auth/Login'
-import Signup from './screens/auth/Signup'
-import ForgotPassword from './screens/auth/ForgotPassword'
-import ConfirmSignup from './screens/auth/ConfirmSignup'
-import ForgotPasswordSubmit from './screens/auth/ForgotPasswordSubmit'
-
-//// appstack
-import Main from './screens/app/Main'
 
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -94,6 +81,26 @@ const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers
 // sagaMiddleware.run(sagas)
 
 // screens
+import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
+
+/// components
+//// authstack
+import Startup from './screens/Startup'
+import Loader from './screens/Loader'
+import Welcome from './screens/auth/Welcome'
+import Login from './screens/auth/Login'
+import Signup from './screens/auth/Signup'
+import ForgotPassword from './screens/auth/ForgotPassword'
+import ConfirmSignup from './screens/auth/ConfirmSignup'
+import ForgotPasswordSubmit from './screens/auth/ForgotPasswordSubmit'
+
+//// appstack
+import Main from './screens/app/Main'
+
+//// bottomTabsStack
+import Products from './screens/bottomTabs/Products'
+import Posts from './screens/bottomTabs/Posts'
+
 const AuthStack = createStackNavigator(
   {
     Welcome: {
@@ -151,11 +158,51 @@ const AppStack = createStackNavigator({
   }
 )
 
+const BottomTabs = createBottomTabNavigator({
+    Posts: {
+      screen: Posts,
+      navigationOptions: {
+        // tabBarIcon: TODO,
+        tabBarLabel: 'My Posts'
+      }
+    },
+    Products: {
+      screen: Products,
+    },
+  },
+  {
+    tabBarPosition: 'bottom',
+    swipeEnabled: true,
+    animationEnabled: true,
+    lazy: true,
+    initialRouteName: 'Posts',
+    order: ['Posts', 'Products'],
+    backBehavior: 'none',
+    tabBarOptions: {
+      activeTintColor: 'black',
+      activeBackgroundColor: 'red',
+      inactiveTintColor: 'white',
+      inactiveBackgroundColor: 'white',
+      showLabel: true,
+      style: {},
+      labelStyle: {
+        fontSize: 12,
+        color: 'blue'
+      },
+      tabStyle: {},
+      allowFontScaling: true,
+    }
+  }
+)
+
+// TODO createMaterialTopTabNavigator
+
 const RootStack = createSwitchNavigator(
   {
     Startup: Startup,
     Auth: AuthStack,
     App: AppStack,
+    BottomTabs: BottomTabs,
   },
   {
     initialRouteName: 'Startup',

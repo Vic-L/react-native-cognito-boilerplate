@@ -15,8 +15,16 @@ class Main extends React.Component {
         <Button
           text="LOGOUT"
           onPress={this.onLogout.bind(this)}/>
+
+        <Button
+          text="BottomTabs"
+          onPress={this.onTabs.bind(this)}/>
       </View>
     )
+  }
+
+  onTabs() {
+    this.props.navigation.navigate('BottomTabs')
   }
 
   onLogout() {
