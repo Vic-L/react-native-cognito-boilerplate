@@ -11,9 +11,16 @@ import { ApolloClient } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import {createNetworkStatusNotifier} from 'react-apollo-network-status'
+
+// for listening to `loading` value in each graphql query/mutation on global level
+const {
+  NetworkStatusNotifier,
+  link: networkStatusNotifierLink
+} = createNetworkStatusNotifier()
 
 const apolloClient = new ApolloClient({
-  link: new HttpLink({ uri: 'https://fakerql.com/graphql' }),
+  link: networkStatusNotifierLink.concat(new HttpLink({ uri: 'https://fakerql.com/graphql' })),
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
@@ -82,11 +89,12 @@ const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers
 
 // screens
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
-
 /// components
-//// authstack
+/// misc
 import Startup from './screens/Startup'
 import Loader from './screens/Loader'
+import GraphQLLoader from './screens/GraphQLLoader'
+//// authstack
 import Welcome from './screens/auth/Welcome'
 import Login from './screens/auth/Login'
 import Signup from './screens/auth/Signup'
@@ -216,6 +224,9 @@ export default class App extends React.Component {
         <Provider store={store}>
           <View style={{flex: 1}}>
             <Loader/>
+            <NetworkStatusNotifier render={({loading, error}) => (
+              <GraphQLLoader loading={loading} error={error}/>
+            )}/>
             <RootStack/>
           </View>
         </Provider>
