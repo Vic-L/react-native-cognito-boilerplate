@@ -18,6 +18,7 @@ import Login from './screens/auth/Login'
 import Signup from './screens/auth/Signup'
 import ForgotPassword from './screens/auth/ForgotPassword'
 import ConfirmSignup from './screens/auth/ConfirmSignup'
+import ForgotPasswordSubmit from './screens/auth/ForgotPasswordSubmit'
 
 //// appstack
 import Main from './screens/app/Main'
@@ -104,7 +105,13 @@ const AuthStack = createStackNavigator(
       navigationOptions: {
         headerTransparent: true
       }
-    }
+    },
+    ForgotPasswordSubmit: {
+      screen: ForgotPasswordSubmit,
+      navigationOptions: {
+        headerTransparent: true
+      }
+    },
   },
   {
     initialRouteName: 'Welcome',
