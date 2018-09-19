@@ -24,6 +24,7 @@ class ConfirmSignup extends React.Component {
           <TextField
             label='CONFIRMATION CODE'
             placeholder='Confirmation Code'
+            keyboardType='numeric'
             value={this.state.confirmationCode}
             onChangeText={this.onChangeConfirmationCode.bind(this)}/>
 

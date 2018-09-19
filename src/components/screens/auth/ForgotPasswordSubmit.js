@@ -27,11 +27,15 @@ class ForgotPasswordSubmit extends React.Component {
             label='VERIFICATION CODE'
             placeholder='Verification Code'
             value={this.state.verificationCode}
+            keyboardType='numeric'
+            autoCapitalize='none'
             onChangeText={this.onChangeVerificationCode.bind(this)}/>
 
           <TextField
             label='NEW PASSWORD'
             placeholder='New Password'
+            secureTextEntry={true}
+            autoCapitalize='none'
             value={this.state.newPassword}
             onChangeText={this.onChangeNewPassword.bind(this)}/>
           <Button

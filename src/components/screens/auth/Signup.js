@@ -43,12 +43,15 @@ class Signup extends React.Component {
             label='EMAIL'
             placeholder='Email'
             value={this.state.email}
+            keyboardType='email-address'
+            autoCapitalize='none'
             onChangeText={this.onChangeEmail.bind(this)}/>
 
           <TextField
             label='PASSWORD'
             placeholder='Password'
             secureTextEntry={true}
+            autoCapitalize='none'
             value={this.state.password}
             onChangeText={this.onChangePassword.bind(this)}/>
 
