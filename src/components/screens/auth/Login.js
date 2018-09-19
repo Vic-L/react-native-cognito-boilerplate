@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from 'react'
 import {
   View,
@@ -18,6 +19,19 @@ class Login extends React.Component {
       email: null,
       password: null,
     }
+  }
+
+  componentDidMount() {
+    this.props.navigation.addListener(
+      'willFocus',
+      (payload) => {
+        if (!_.isNil(payload.state.params)) {
+          this.setState({
+            email: payload.state.params.email || null
+          })
+        }
+      }
+    )
   }
 
   render() {
