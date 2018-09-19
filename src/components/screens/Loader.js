@@ -29,7 +29,7 @@ const Loader = ({loading}) => {
             width: 100,
             aspectRatio: 1,
           }}
-          source={{uri: 'https://media1.tenor.com/images/9459d9b8549852eae00433a7b3593d1c/tenor.gif?itemid=7567222'}}/>
+          source={require('../../images/loading.gif')}/>
       </View>
     )
   } else {
