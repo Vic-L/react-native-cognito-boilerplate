@@ -8,6 +8,8 @@ import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
 import Button from '../../elements/Button'
+import FormContainer from '../../elements/FormContainer'
+import NavbarSpacing from '../../elements/NavbarSpacing'
 
 class ForgotPassword extends React.Component {
   constructor(props) {
@@ -20,8 +22,13 @@ class ForgotPassword extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-        <View style={{flex: 0.8}}>
+      <View style={{ flex: 1 }}>
+
+        <FormContainer
+          style={{ flex: 1, padding: 15 }}
+          bounces={false}>
+          <NavbarSpacing/>
+
           <TextField
             label='EMAIL'
             placeholder='Email'
@@ -36,7 +43,8 @@ class ForgotPassword extends React.Component {
           <Button
             text="Submit"
             onPress={this.onForgotPassword.bind(this)}/>
-        </View>
+
+        </FormContainer>
       </View>
     )
   }

@@ -10,6 +10,8 @@ import Auth from '@aws-amplify/auth'
 import TextField from '../../elements/TextField'
 import TextLink from '../../elements/TextLink'
 import Button from '../../elements/Button'
+import FormContainer from '../../elements/FormContainer'
+import NavbarSpacing from '../../elements/NavbarSpacing'
 
 class Login extends React.Component {
   constructor(props) {
@@ -36,9 +38,13 @@ class Login extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+      <View style={{ flex: 1 }}>
 
-        <View style={{ flex: 0.8 }}>
+        <FormContainer
+          style={{ flex: 1, padding: 15 }}
+          bounces={false}>
+          <NavbarSpacing/>
+
           <TextField
             label='EMAIL'
             placeholder='Email'
@@ -72,7 +78,7 @@ class Login extends React.Component {
             text="LOGIN"
             onPress={this.onLogin.bind(this)}/>
 
-        </View>
+        </FormContainer>
 
       </View>
     )
