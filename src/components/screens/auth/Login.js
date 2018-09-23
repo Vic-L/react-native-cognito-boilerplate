@@ -45,13 +45,21 @@ class Login extends React.Component {
             value={this.state.email}
             keyboardType='email-address'
             autoCapitalize='none'
+            onSubmitEditing={() => {
+              this.refs.passwordField.refs.input.focus()
+            }}
+            autoFocus={true}
+            returnKeyType='next'
             onChangeText={this.onChangeEmail.bind(this)}/>
 
           <TextField
+            ref='passwordField'
             label='PASSWORD'
             placeholder='Password'
             secureTextEntry={true}
             autoCapitalize='none'
+            onSubmitEditing={this.onLogin.bind(this)}
+            returnKeyType='done'
             value={this.state.password}
             onChangeText={this.onChangePassword.bind(this)}/>
 

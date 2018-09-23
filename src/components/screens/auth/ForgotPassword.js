@@ -28,7 +28,9 @@ class ForgotPassword extends React.Component {
             value={this.state.email}
             keyboardType='email-address'
             autoCapitalize='none'
-            onSumbitEditing={this.onForgotPassword.bind(this)}
+            autoFocus={true}
+            returnKeyType='done'
+            onSubmitEditing={this.onForgotPassword.bind(this)}
             onChangeText={this.onChangeEmail.bind(this)}/>
 
           <Button
