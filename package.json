@@ -1,10 +1,13 @@
 {
   "name": "ReactNativeCognitoBoilerplate",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "cd node_modules/react-native ; ./scripts/ios-install-third-party.sh ; cd ../../ && cd node_modules/react-native/third-party/glog-0.3.*/ ; ./configure ; cd ../../../../",
+    "iphoneX": "ENVFILE=.env.development react-native run-ios --simulator='iPhone X' # --scheme CustomScheme",
+    "iphonePlus": "ENVFILE=.env.development react-native run-ios --simulator='iPhone 6 Plus' # --scheme CustomScheme",
+    "android": "cd android && ./gradlew clean && cd .. && react-native run-android",
     "test": "jest"
   },
   "dependencies": {

@@ -28,7 +28,19 @@ This will also run the `postinstall` script after `install` to handle name chang
 
 ### Env files
 
-TODO Setup `.env` files.
+2 env files are assumed for this boilerplate. `.env.development` for debug build and `.env.production` for release build.
+
+For iOS builds, this will be set when running the iOS commands in `package.json`.
+
+For android, refer to `project.ext.envConfigFiles` in `android/app/build.gradle` for more information.
+
+Refer to `package.json` to run the commands to start your project on the desired simulator. They are mainly
+```
+npm run iphoneX
+npm run iphonePlus # notchless
+npm run android
+```
+NOTE: For iOS you may wan to add the `--scheme` option in the event you are running multiple targets.
 
 ## Clean
 
