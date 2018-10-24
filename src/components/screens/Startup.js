@@ -1,9 +1,9 @@
 import React from 'react'
 import {
-  View,
-  Text,
   Alert,
 } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
+
 import Auth from '@aws-amplify/auth'
 
 class Startup extends React.Component {
@@ -25,12 +25,12 @@ class Startup extends React.Component {
     })
   }
 
+  componentWillUnmount() {
+    SplashScreen.hide()
+  }
+
   render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Booting</Text>
-      </View>
-    )
+    return null
   }
 }
 
