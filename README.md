@@ -14,6 +14,7 @@ npm update -g react-native-rename
 To rename, run command:
 ```
 react-native-rename "new-app-name"
+watchman watch-del-all
 ```
 
 ### Install
@@ -21,6 +22,7 @@ react-native-rename "new-app-name"
 Run command:
 ```
 npm install
+react-native start reset-cache # in another window
 ```
 This will also run the `postinstall` script after `install` to handle name changes that will [affect ios builds on Xcode 10](https://github.com/facebook/react-native/issues/21168).
 
