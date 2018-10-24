@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "postinstall": "cd node_modules/react-native ; ./scripts/ios-install-third-party.sh ; cd ../../ && cd node_modules/react-native/third-party/glog-0.3.*/ ; ./configure ; cd ../../../../",
     "test": "jest"
   },
   "dependencies": {
