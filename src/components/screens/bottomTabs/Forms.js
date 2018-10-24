@@ -4,7 +4,7 @@ import {
   Text,
 } from 'react-native'
 
-class Products extends React.Component {
+class Forms extends React.Component {
   render() {
     return (
       <View style={{
@@ -12,10 +12,10 @@ class Products extends React.Component {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <Text>Products</Text>
+        <Text>Forms</Text>
       </View>
     )
   }
 }
 
-export default Products
+export default Forms

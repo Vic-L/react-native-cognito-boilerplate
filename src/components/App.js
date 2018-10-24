@@ -105,7 +105,7 @@ import ForgotPasswordSubmit from './screens/auth/ForgotPasswordSubmit'
 import Main from './screens/app/Main'
 
 //// bottomTabsStack
-import Products from './screens/bottomTabs/Products'
+import Forms from './screens/bottomTabs/Forms'
 import Posts from './screens/bottomTabs/Posts'
 
 const AuthStack = createStackNavigator(
@@ -173,8 +173,8 @@ const BottomTabs = createBottomTabNavigator({
         tabBarLabel: 'My Posts'
       }
     },
-    Products: {
-      screen: Products,
+    Forms: {
+      screen: Forms,
     },
   },
   {
@@ -183,7 +183,7 @@ const BottomTabs = createBottomTabNavigator({
     animationEnabled: true,
     lazy: true,
     initialRouteName: 'Posts',
-    order: ['Posts', 'Products'],
+    order: ['Posts', 'Forms'],
     backBehavior: 'none',
     tabBarOptions: {
       activeTintColor: 'black',
