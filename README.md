@@ -13,7 +13,7 @@ npm update -g react-native-rename
 
 To rename, run command:
 ```
-react-native-rename "new-app-name"
+react-native-rename "NewAppName"
 watchman watch-del-all
 ```
 
