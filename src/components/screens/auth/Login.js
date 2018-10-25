@@ -13,6 +13,8 @@ import Button from '../../elements/Button'
 import FormContainer from '../../elements/FormContainer'
 import NavbarSpacing from '../../elements/NavbarSpacing'
 
+import RequestNotificationPermission from '../../../services/RequestNotificationPermission'
+
 class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -103,7 +105,8 @@ class Login extends React.Component {
   onLogin() {
     this.props.dispatchLoginRequest()
     Auth.signIn(this.state.email, this.state.password)
-    .then((user) => {
+    .then(async (user) => {
+      RequestNotificationPermission()
       this.props.dispatchLoginSuccess()
       this.props.navigation.navigate('Main')
     })
