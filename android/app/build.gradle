@@ -43,6 +43,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        vectorDrawables.useSupportLibrary = true // react-native-image-crop-picker
     }
     splits {
         abi {
@@ -74,6 +75,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-image-crop-picker')
     implementation project(':react-native-splash-screen')
     implementation project(':amazon-cognito-identity-js')
     implementation project(':react-native-config')

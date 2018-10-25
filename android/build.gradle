@@ -18,6 +18,7 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         mavenLocal()
         jcenter()
         maven {
@@ -28,6 +29,9 @@ allprojects {
             url 'https://maven.google.com/'
             name 'Google'
         }
+
+        // react-native-image-crop-picker
+        maven { url "https://jitpack.io" }
     }
 }
 

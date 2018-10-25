@@ -4,6 +4,7 @@ import {
   Keyboard,
   ActionSheetIOS,
   Platform,
+  Alert,
 } from 'react-native'
 import ImagePicker from 'react-native-image-crop-picker'
 import PropTypes from 'prop-types'
@@ -67,32 +68,26 @@ class ImageField extends React.Component {
         }
       })
     } else {
-      // TODO do AlertsReducer first
-      // this.props.showAlert(
-      //   title,
-      //   message,
-      //   [
-      //     {
-      //       text: 'Cancel',
-      //       onPress: this.props.dismissAlert
-      //     },
-      //     {
-      //       text: 'Gallery',
-      //       onPress: () => {
-      //         this.props.dismissAlert()
-      //         this.openGallery()
-      //       }
-      //     },
-      //     {
-      //       text: 'Camera',
-      //       onPress: () => {
-      //         this.props.dismissAlert()
-      //         this.openCamera()
-      //       }
-      //     },
-      //   ],
-      //   { cancelable: true }
-      // )
+      Alert.alert(
+        title,
+        message,
+        [
+          {text: 'Cancel'},
+          {
+            text: 'Gallery',
+            onPress: () => {
+              this.openGallery()
+            }
+          },
+          {
+            text: 'Camera',
+            onPress: () => {
+              this.openCamera()
+            }
+          },
+        ],
+        { cancelable: true }
+      )
     }
   }
 
