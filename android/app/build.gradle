@@ -109,6 +109,8 @@ dependencies {
     // Firebase dependencies
     implementation "com.google.android.gms:play-services-base:15.0.1"
     implementation "com.google.firebase:firebase-core:16.0.1"
+    implementation "com.google.firebase:firebase-messaging:17.1.0"
+    implementation 'me.leolin:ShortcutBadger:1.1.21@aar' // Add this line if you wish to use badge on Android
 
     implementation project(':react-native-image-crop-picker')
     implementation project(':react-native-splash-screen')
