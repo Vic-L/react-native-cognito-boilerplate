@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "224651910052",
+    "firebase_url": "https://rn-cognito-boilerplate.firebaseio.com",
+    "project_id": "rn-cognito-boilerplate",
+    "storage_bucket": "rn-cognito-boilerplate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224651910052:android:51f30b59e08ac64b",
+        "android_client_info": {
+          "package_name": "com.reactnativecognitoboilerplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224651910052-hu9j9fa29bo5me9cisvjk6h1bbvtm5n7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reactnativecognitoboilerplate",
+            "certificate_hash": "c40096a019b910d486098b6d7891941b947589ea"
+          }
+        },
+        {
+          "client_id": "224651910052-2f8sbnv4gbgl56ibahpbgd0pi4ecarc5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwoy8TZ9FHuYQLwJLxc6zUMm6rbzNOAAY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224651910052-2f8sbnv4gbgl56ibahpbgd0pi4ecarc5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

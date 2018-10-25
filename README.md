@@ -26,6 +26,13 @@ react-native start reset-cache # in another window
 ```
 This will also run the `postinstall` script after `install` to handle name changes that will [affect ios builds on Xcode 10](https://github.com/facebook/react-native/issues/21168).
 
+### Firebase
+
+* Replace android keystores.
+* Change `applicationId` in `android/app/build.gradle`.
+* Setup project in firebase.
+* Replace `google-services.json` files in `android/app/src/<BUILD_TYPE>`.
+
 ## Setup
 
 ### Env files
@@ -70,7 +77,6 @@ Uses [`react-native-splash-screen`](https://github.com/crazycodeboy/react-native
 The steps to generate keystores. The keystores are committed to git for this boilerplate.
 ```
 # in project root directory
-
 ## debug
 sudo keytool -genkey -v \
 -keystore debug.keystore \
@@ -91,3 +97,21 @@ sudo keytool -genkey -v \
 -keysize 2048 \
 -validity 10000
 ```
+
+Steps to get SHA of keystore:
+```
+# in project root directory
+## debug
+keytool -exportcert -list -v \
+-alias androiddebugkey \
+-keystore ./debug.keystore \
+-storepass android
+
+## production
+keytool -exportcert -list -v \
+-alias reactnativecognitoboilerplate \
+-keystore ./production.keystore \
+-storepass onepiecerox
+```
+
+`google-services.json` are stored in `android/app/src/<BUILD_TYPE>`, courtesy of [`react-native-config`](https://github.com/luggit/react-native-config/issues/245).
