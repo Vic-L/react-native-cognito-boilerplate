@@ -62,6 +62,32 @@ cd android && ./gradlew clean && cd ..
 
 ## Project Notes
 
-#### Launch screen
+### Launch screen
 
 Uses [`react-native-splash-screen`](https://github.com/crazycodeboy/react-native-splash-screen).
+
+### Android Keystores
+The steps to generate keystores. The keystores are committed to git for this boilerplate.
+```
+# in project root directory
+
+## debug
+sudo keytool -genkey -v \
+-keystore debug.keystore \
+-keypass android \
+-storepass android \
+-alias androiddebugkey \
+-keyalg RSA \
+-keysize 2048 \
+-validity 10000
+
+## production
+sudo keytool -genkey -v \
+-keystore production.keystore \
+-keypass imgonnnabethekingofpirates \
+-storepass onepiecerox \
+-alias reactnativecognitoboilerplate \
+-keyalg RSA \
+-keysize 2048 \
+-validity 10000
+```
