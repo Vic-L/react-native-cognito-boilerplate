@@ -24,7 +24,7 @@ Run command:
 npm install
 react-native start reset-cache # in another window
 ```
-This will also run the `postinstall` script after `install` to handle name changes that will [affect ios builds on Xcode 10](https://github.com/facebook/react-native/issues/21168).
+This will also run the `prepare` script after `install` to handle name changes that will [affect ios builds on Xcode 10](https://github.com/facebook/react-native/issues/21168).
 
 ### Firebase
 
