@@ -75,6 +75,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-firebase')
     compile project(':react-native-image-crop-picker')
     implementation project(':react-native-splash-screen')
     implementation project(':amazon-cognito-identity-js')
