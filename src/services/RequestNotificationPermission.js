@@ -1,5 +1,3 @@
-import firebase from 'react-native-firebase'
-
 import {
   PushNotificationIOS,
   Platform,
@@ -10,11 +8,17 @@ export default async function RequestNotificationPermission() {
   if (Platform.OS === 'ios') {
     await PushNotificationIOS.requestPermissions() // PushNotificationIOS listener event will handle the rest
   } else {
+    const firebase = await importFirebase()
     const fcmToken = await firebase.messaging().getToken()
     if (fcmToken) {
-        return fcmToken
+      return fcmToken
     } else {
-        return null
+      return null
     }
   }
+}
+
+async function importFirebase() {
+  const firebase = await import('react-native-firebase')
+  return firebase.default.default
 }

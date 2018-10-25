@@ -100,6 +100,7 @@ import Signup from './screens/auth/Signup'
 import ForgotPassword from './screens/auth/ForgotPassword'
 import ConfirmSignup from './screens/auth/ConfirmSignup'
 import ForgotPasswordSubmit from './screens/auth/ForgotPasswordSubmit'
+import IOSPushNotificationListener from './IOSPushNotificationListener'
 
 //// appstack
 import Main from './screens/app/Main'
@@ -225,6 +226,7 @@ export default class App extends React.Component {
             <NetworkStatusNotifier render={({loading, error}) => (
               <Loader loading={loading} error={error}/>
             )}/>
+            <IOSPushNotificationListener/>
             <RootStack/>
           </View>
         </Provider>
