@@ -1463,6 +1463,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vic-l.ReactNativeCognitoBoilerplate";
 				PRODUCT_NAME = ReactNativeCognitoBoilerplate;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1490,6 +1491,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vic-l.ReactNativeCognitoBoilerplate";
 				PRODUCT_NAME = ReactNativeCognitoBoilerplate;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
