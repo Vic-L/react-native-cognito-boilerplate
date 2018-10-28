@@ -5,6 +5,7 @@ import {
   Alert,
 } from 'react-native'
 import { connect } from 'react-redux'
+import * as Keychain from 'react-native-keychain'
 import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
@@ -25,7 +26,20 @@ class Login extends React.Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    try {
+      // Retreive the credentials
+      const credentials = await Keychain.getGenericPassword()
+      if (credentials) {
+        console.log('Credentials successfully loaded for user ' + credentials.username);
+        this.setState({email: credentials.username})
+      } else {
+        console.log('No credentials stored')
+      }
+    } catch (error) {
+      console.log('Keychain couldn\'t be accessed!', error);
+    }
+
     this.props.navigation.addListener(
       'willFocus',
       (payload) => {
