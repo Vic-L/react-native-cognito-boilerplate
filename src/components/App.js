@@ -84,8 +84,9 @@ middlewares.push(sagaMiddleware)
  
 const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers)
 
-// TODO implement
-// sagaMiddleware.run(sagas)
+// sagas
+import sagas from '../sagas'
+sagaMiddleware.run(sagas, store.dispatch)
 
 // screens
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'

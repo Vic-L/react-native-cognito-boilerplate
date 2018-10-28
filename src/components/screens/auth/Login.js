@@ -103,11 +103,12 @@ class Login extends React.Component {
   }
 
   onLogin() {
+    const { email, password } = this.state
     this.props.dispatchLoginRequest()
-    Auth.signIn(this.state.email, this.state.password)
+    Auth.signIn(email, password)
     .then(async (user) => {
       RequestNotificationPermission()
-      this.props.dispatchLoginSuccess()
+      this.props.dispatchLoginSuccess(email, password)
       this.props.navigation.navigate('Main')
     })
     .catch((err) => {
@@ -128,9 +129,13 @@ function mapDispatchToProps(dispatch) {
       console.log('dispatching', 'LOGIN_REQUEST')
       dispatch({type: 'LOGIN_REQUEST'})
     },
-    dispatchLoginSuccess: () => {
+    dispatchLoginSuccess: (email, password) => {
       console.log('dispatching', 'LOGIN_SUCCESS')
-      dispatch({type: 'LOGIN_SUCCESS'})
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        email,
+        password
+      })
     },
     dispatchLoginFailure: () => {
       console.log('dispatching', 'LOGIN_FAILURE')
