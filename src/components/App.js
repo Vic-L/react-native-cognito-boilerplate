@@ -224,11 +224,11 @@ export default class App extends React.Component {
       <ApolloProvider client={apolloClient}>
         <Provider store={store}>
           <View style={{flex: 1}}>
+            <IOSPushNotificationListener/>
+            <RootStack/>
             <NetworkStatusNotifier render={({loading, error}) => (
               <Loader loading={loading} error={error}/>
             )}/>
-            <IOSPushNotificationListener/>
-            <RootStack/>
           </View>
         </Provider>
       </ApolloProvider>
