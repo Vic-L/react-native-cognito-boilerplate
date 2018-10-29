@@ -4,7 +4,7 @@ import {
   createDrawerNavigator,
 } from 'react-navigation'
 
-import NavStack from './NavStack'
+import StackNavigator from './StackNavigator'
 
 import Products from '../screens/Products'
 
@@ -17,9 +17,9 @@ const DrawerNavigatorConfig = {
   drawerBackgroundColor: 'yellow' // - Use the Drawer background for some color. The Default is white.
 }
 
-const DrawerStack = createDrawerNavigator(
+const DrawerNavigator = createDrawerNavigator(
   {
-    Posts: NavStack,
+    Posts: StackNavigator,
     Products,
   },
   {
@@ -28,4 +28,4 @@ const DrawerStack = createDrawerNavigator(
   }
 )
 
-export default DrawerStack
+export default DrawerNavigator

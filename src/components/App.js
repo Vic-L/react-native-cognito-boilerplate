@@ -110,7 +110,7 @@ import IOSPushNotificationListener from './IOSPushNotificationListener'
 //// appstack
 import Main from './screens/app/Main'
 
-const AppStack = createStackNavigator(
+const AppNavigator = createStackNavigator(
   {
     Main: {
       screen: Main,
@@ -126,17 +126,17 @@ const AppStack = createStackNavigator(
 
 ////////// ROOT STACK //////////
 
-import BottomTabs from './navigators/BottomTabs'
-import AuthStack from './navigators/AuthStack'
-import DrawerStack from './navigators/DrawerStack'
+import BottomTabNavigator from './navigators/BottomTabNavigator'
+import AuthNavigator from './navigators/AuthNavigator'
+import DrawerNavigator from './navigators/DrawerNavigator'
 
 const RootStack = createSwitchNavigator(
   {
     Startup: Startup,
-    Auth: AuthStack,
-    App: AppStack,
-    BottomTabs: BottomTabs,
-    DrawerStack: DrawerStack,
+    Auth: AuthNavigator,
+    App: AppNavigator,
+    BottomTabNavigator: BottomTabNavigator,
+    DrawerNavigator: DrawerNavigator,
   },
   {
     initialRouteName: 'Startup',

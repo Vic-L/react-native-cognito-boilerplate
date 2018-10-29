@@ -16,21 +16,21 @@ class Main extends React.Component {
           text="LOGOUT"
           onPress={this.onLogout.bind(this)}/>
         <Button
-          text="BottomTabs"
+          text="BottomTabNavigator"
           onPress={this.onTabs.bind(this)}/>
         <Button
-          text="Drawer"
+          text="DrawerNavigator"
           onPress={this.onDrawer.bind(this)}/>
       </View>
     )
   }
 
   onTabs() {
-    this.props.navigation.navigate('BottomTabs')
+    this.props.navigation.navigate('BottomTabNavigator')
   }
 
   onDrawer() {
-    this.props.navigation.navigate('DrawerStack')
+    this.props.navigation.navigate('DrawerNavigator')
   }
 
   onLogout() {

@@ -5,7 +5,7 @@ import {
 import Posts from '../screens/Posts'
 import Forms from '../screens/Forms'
 
-const BottomTabs = createBottomTabNavigator({
+const BottomTabNavigator = createBottomTabNavigator({
     Posts: {
       screen: Posts,
       navigationOptions: {
@@ -42,4 +42,4 @@ const BottomTabs = createBottomTabNavigator({
   }
 )
 
-export default BottomTabs
+export default BottomTabNavigator

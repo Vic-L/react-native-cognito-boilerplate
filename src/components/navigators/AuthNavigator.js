@@ -9,7 +9,7 @@ import ForgotPassword from '../screens/auth/ForgotPassword'
 import ConfirmSignup from '../screens/auth/ConfirmSignup'
 import ForgotPasswordSubmit from '../screens/auth/ForgotPasswordSubmit'
 
-const AuthStack = createStackNavigator(
+const AuthNavigator = createStackNavigator(
   {
     Welcome: {
       screen: Welcome,
@@ -53,4 +53,4 @@ const AuthStack = createStackNavigator(
   }
 )
 
-export default AuthStack
+export default AuthNavigator
