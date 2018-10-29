@@ -1,7 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
 import createSagaMiddleware from 'redux-saga'
-import { compose, createStore, applyMiddleware } from 'redux'
+import {
+  compose,
+  createStore,
+  applyMiddleware
+} from 'redux'
 import { Provider } from  'react-redux'
 import Config from 'react-native-config'
 import Auth from '@aws-amplify/auth'
@@ -89,7 +93,12 @@ import sagas from '../sagas'
 sagaMiddleware.run(sagas, store.dispatch)
 
 // screens
-import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
+import {
+  createStackNavigator,
+  createSwitchNavigator,
+  createBottomTabNavigator,
+  createDrawerNavigator,
+} from 'react-navigation'
 /// components
 /// misc
 import Startup from './screens/Startup'
@@ -109,6 +118,7 @@ import Main from './screens/app/Main'
 //// bottomTabsStack
 import Forms from './screens/bottomTabs/Forms'
 import Posts from './screens/bottomTabs/Posts'
+import PostsWithDrawer from './screens/drawer/PostsWithDrawer'
 
 const AuthStack = createStackNavigator(
   {
@@ -204,6 +214,12 @@ const BottomTabs = createBottomTabNavigator({
   }
 )
 
+const Drawer = createDrawerNavigator({
+  PostsWithDrawer: {
+    screen: PostsWithDrawer,
+  }
+})
+
 // TODO createMaterialTopTabNavigator
 
 const RootStack = createSwitchNavigator(
@@ -212,6 +228,7 @@ const RootStack = createSwitchNavigator(
     Auth: AuthStack,
     App: AppStack,
     BottomTabs: BottomTabs,
+    Drawer: Drawer,
   },
   {
     initialRouteName: 'Startup',
