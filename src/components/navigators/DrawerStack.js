@@ -4,7 +4,10 @@ import {
   createDrawerNavigator,
 } from 'react-navigation'
 
+import NavStack from './NavStack'
+
 import Posts from '../screens/bottomTabs/Posts'
+import Products from '../screens/common/Products'
 
 const DrawerNavigatorConfig = {
   drawerWidth: 200, // - Width of the drawer or a function returning it.
@@ -17,20 +20,13 @@ const DrawerNavigatorConfig = {
 
 const DrawerStack = createDrawerNavigator(
   {
-    Posts: {
-      screen: Posts,
-      navigationOptions: {
-        title: 'Posts From DrawerStack',
-        drawerLabel: 'Posts >',
-        drawerIcon: ({ tintColor }) => (
-          <Image
-            source={require('../../images/icons/magnifying_glass.jpg')}
-          />
-        ),
-      }
-    },
+    Posts: NavStack,
+    Products,
   },
-  DrawerNavigatorConfig
+  {
+    ...DrawerNavigatorConfig,
+    initialRouteName: 'Posts'
+  }
 )
 
 export default DrawerStack
