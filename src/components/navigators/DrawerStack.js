@@ -6,7 +6,6 @@ import {
 
 import NavStack from './NavStack'
 
-import Posts from '../screens/bottomTabs/Posts'
 import Products from '../screens/common/Products'
 
 const DrawerNavigatorConfig = {
