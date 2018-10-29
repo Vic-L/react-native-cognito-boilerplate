@@ -1,5 +1,8 @@
 import React from 'react'
-import { View } from 'react-native'
+import {
+  View,
+  Image,
+} from 'react-native'
 import createSagaMiddleware from 'redux-saga'
 import {
   compose,
@@ -118,7 +121,6 @@ import Main from './screens/app/Main'
 //// bottomTabsStack
 import Forms from './screens/bottomTabs/Forms'
 import Posts from './screens/bottomTabs/Posts'
-import PostsWithDrawer from './screens/drawer/PostsWithDrawer'
 
 const AuthStack = createStackNavigator(
   {
@@ -214,13 +216,32 @@ const BottomTabs = createBottomTabNavigator({
   }
 )
 
-const Drawer = createDrawerNavigator({
-  PostsWithDrawer: {
-    screen: PostsWithDrawer,
+const PostsStack = createStackNavigator(
+  {
+    Posts: {
+      screen: Posts,
+    }
+  },
+  {
+    navigationOptions: ({ navigation }) => ({
+      initialRouteName: 'Posts',
+      headerMode: 'screen',
+      headerTitle: 'Posts',
+      drawerLabel: 'Posts >',
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          source={require('../images/icons/magnifying_glass.jpg')}
+        />
+      ),
+    }),
   }
+)
+
+const Drawer = createDrawerNavigator({
+  PostsStack: PostsStack
 })
 
-// TODO createMaterialTopTabNavigator
+////////// ROOT STACK //////////
 
 const RootStack = createSwitchNavigator(
   {
