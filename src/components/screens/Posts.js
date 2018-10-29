@@ -21,8 +21,8 @@ const GET_POSTS_QUERY = gql`
 
 class Posts extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
-    title: "Menu",
-    headerLeft: <TouchableOpacity onPress={() => { navigation.openDrawer(); }}><Text>Test</Text></TouchableOpacity>,
+    title: "Screen Post Title",
+    headerLeft: <TouchableOpacity onPress={() => { navigation.openDrawer(); }}><Text>Menu</Text></TouchableOpacity>,
   })
 
   render() {

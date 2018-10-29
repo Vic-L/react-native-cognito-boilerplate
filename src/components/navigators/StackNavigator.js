@@ -10,14 +10,14 @@ const StackNavigator = createStackNavigator(
     Posts: {
       screen: Posts,
       navigationOptions: {
-        headerTitle: 'Posts',
+        headerTitle: 'StackNav Posts Header',
       }
     },
     Products: {
       screen: Products,
       navigationOptions: {
         headerTransparent: true,
-        headerTitle: 'Products',
+        headerTitle: 'StackNav Products Header',
       }
     },
   },
