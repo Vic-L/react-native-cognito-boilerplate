@@ -3,6 +3,7 @@ import React from 'react'
 import {
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
@@ -19,6 +20,11 @@ const GET_POSTS_QUERY = gql`
 `;
 
 class Posts extends React.Component {
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: "Menu",
+    headerLeft: <TouchableOpacity onPress={() => { navigation.openDrawer(); }}><Text>Test</Text></TouchableOpacity>,
+  })
+
   render() {
     return (
       <View style={{
@@ -28,7 +34,12 @@ class Posts extends React.Component {
       }}>
         <Button
           text="To Products"
-          onPress={this.navigateToProducts.bind(this)}/>
+          onPress={() => {
+            this.props.navigation.navigate('Products')
+          }}/>
+        <Button
+          text="Toggle Drawer"
+          onPress={this.props.navigation.toggleDrawer}/>
         <Text>Posts</Text>
         <Query query={GET_POSTS_QUERY}>
           {({ loading, error, data }) => {
@@ -44,10 +55,6 @@ class Posts extends React.Component {
         </Query>
       </View>
     )
-  }
-
-  navigateToProducts() {
-    this.props.navigation.navigate('Products')
   }
 }
 

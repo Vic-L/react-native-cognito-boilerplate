@@ -129,6 +129,7 @@ const AppStack = createStackNavigator(
 import NavStack from './navigators/NavStack'
 import BottomTabs from './navigators/BottomTabs'
 import AuthStack from './navigators/AuthStack'
+import DrawerStack from './navigators/DrawerStack'
 
 const RootStack = createSwitchNavigator(
   {
@@ -137,6 +138,7 @@ const RootStack = createSwitchNavigator(
     App: AppStack,
     BottomTabs: BottomTabs,
     NavStack: NavStack,
+    DrawerStack: DrawerStack,
   },
   {
     initialRouteName: 'Startup',

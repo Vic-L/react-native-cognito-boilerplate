@@ -38,6 +38,7 @@ class Main extends React.Component {
 
   onNavigation() {
     this.props.navigation.navigate('NavStack')
+    this.props.navigation.navigate('DrawerStack')
   }
 
   onLogout() {
