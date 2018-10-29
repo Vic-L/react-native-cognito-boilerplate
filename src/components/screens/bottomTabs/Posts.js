@@ -5,9 +5,9 @@ import {
   Text,
 } from 'react-native'
 import gql from 'graphql-tag'
-import { graphql } from 'react-apollo'
+import { Query } from 'react-apollo'
 
-const getPostsQuery = gql`
+const GET_POSTS_QUERY = gql`
   query getPosts {
     allPosts(count:4) {
       id
@@ -25,21 +25,21 @@ class Posts extends React.Component {
         alignItems: 'center',
       }}>
         <Text>Posts</Text>
-        {this.renderPosts()}
+        <Query query={GET_POSTS_QUERY}>
+          {({ loading, error, data }) => {
+            if (loading) return <Text>Loading...</Text>
+            if (error) return <Text>Error! {error.message}</Text>
+
+            return data.allPosts.map((post) => {
+              return (
+                <Text key={post.id}>{post.title}</Text>
+              )
+            })
+          }}
+        </Query>
       </View>
     )
   }
-
-  renderPosts() {
-    if (_.isNil(this.props.data.allPosts)) {
-      return null
-    }
-    return this.props.data.allPosts.map((post) => {
-      return (
-        <Text key={post.id}>{post.title}</Text>
-      )
-    })
-  }
 }
 
-export default graphql(getPostsQuery)(Posts)
+export default Posts
