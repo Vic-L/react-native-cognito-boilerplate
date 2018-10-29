@@ -121,6 +121,7 @@ import Main from './screens/app/Main'
 //// bottomTabsStack
 import Forms from './screens/bottomTabs/Forms'
 import Posts from './screens/bottomTabs/Posts'
+import Products from './screens/common/Products'
 
 const AuthStack = createStackNavigator(
   {
@@ -220,13 +221,22 @@ const NavStack = createStackNavigator(
   {
     Posts: {
       screen: Posts,
-    }
+      navigationOptions: {
+        headerTitle: 'Posts',
+      }
+    },
+    Products: {
+      screen: Products,
+      navigationOptions: {
+        headerTransparent: true,
+        headerTitle: 'Products',
+      }
+    },
   },
   {
     navigationOptions: ({ navigation }) => ({
       initialRouteName: 'Posts',
       headerMode: 'screen',
-      headerTitle: 'Posts',
       drawerLabel: 'Posts >',
       drawerIcon: ({ tintColor }) => (
         <Image
