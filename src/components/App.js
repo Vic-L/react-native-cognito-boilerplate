@@ -216,7 +216,7 @@ const BottomTabs = createBottomTabNavigator({
   }
 )
 
-const PostsStack = createStackNavigator(
+const NavStack = createStackNavigator(
   {
     Posts: {
       screen: Posts,
@@ -238,7 +238,7 @@ const PostsStack = createStackNavigator(
 )
 
 const Drawer = createDrawerNavigator({
-  PostsStack: PostsStack
+  NavStack: NavStack
 })
 
 ////////// ROOT STACK //////////
