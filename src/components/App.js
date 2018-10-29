@@ -99,75 +99,19 @@ sagaMiddleware.run(sagas, store.dispatch)
 import {
   createStackNavigator,
   createSwitchNavigator,
-  createBottomTabNavigator,
   createDrawerNavigator,
 } from 'react-navigation'
 /// components
 /// misc
 import Startup from './screens/Startup'
 import Loader from './screens/Loader'
-//// authstack
-import Welcome from './screens/auth/Welcome'
-import Login from './screens/auth/Login'
-import Signup from './screens/auth/Signup'
-import ForgotPassword from './screens/auth/ForgotPassword'
-import ConfirmSignup from './screens/auth/ConfirmSignup'
-import ForgotPasswordSubmit from './screens/auth/ForgotPasswordSubmit'
 import IOSPushNotificationListener from './IOSPushNotificationListener'
 
 //// appstack
 import Main from './screens/app/Main'
 
-//// bottomTabsStack
-import Forms from './screens/bottomTabs/Forms'
-import Posts from './screens/bottomTabs/Posts'
-import Products from './screens/common/Products'
-
-const AuthStack = createStackNavigator(
+const AppStack = createStackNavigator(
   {
-    Welcome: {
-      screen: Welcome,
-      navigationOptions: {
-        headerTransparent: true
-      }
-    },
-    Login: {
-      screen: Login,
-      navigationOptions: {
-        headerTransparent: true
-      }
-    },
-    ForgotPassword: {
-      screen: ForgotPassword,
-      navigationOptions: {
-        headerTransparent: true
-      }
-    },
-    Signup: {
-      screen: Signup,
-      navigationOptions: {
-        headerTransparent: true
-      }
-    },
-    ConfirmSignup: {
-      screen: ConfirmSignup,
-      navigationOptions: {
-        headerTransparent: true
-      }
-    },
-    ForgotPasswordSubmit: {
-      screen: ForgotPasswordSubmit,
-      navigationOptions: {
-        headerTransparent: true
-      }
-    },
-  },
-  {
-    initialRouteName: 'Welcome',
-  }
-)
-
-const AppStack = createStackNavigator({
     Main: {
       screen: Main,
       navigationOptions: {
@@ -180,78 +124,11 @@ const AppStack = createStackNavigator({
   }
 )
 
-const BottomTabs = createBottomTabNavigator({
-    Posts: {
-      screen: Posts,
-      navigationOptions: {
-        // tabBarIcon: TODO,
-        tabBarLabel: 'My Posts'
-      }
-    },
-    Forms: {
-      screen: Forms,
-    },
-  },
-  {
-    tabBarPosition: 'bottom',
-    swipeEnabled: true,
-    animationEnabled: true,
-    lazy: true,
-    initialRouteName: 'Posts',
-    order: ['Posts', 'Forms'],
-    backBehavior: 'none',
-    tabBarOptions: {
-      activeTintColor: 'black',
-      activeBackgroundColor: 'red',
-      inactiveTintColor: 'white',
-      inactiveBackgroundColor: 'white',
-      showLabel: true,
-      style: {},
-      labelStyle: {
-        fontSize: 12,
-        color: 'blue'
-      },
-      tabStyle: {},
-      allowFontScaling: true,
-    }
-  }
-)
-
-const NavStack = createStackNavigator(
-  {
-    Posts: {
-      screen: Posts,
-      navigationOptions: {
-        headerTitle: 'Posts',
-      }
-    },
-    Products: {
-      screen: Products,
-      navigationOptions: {
-        headerTransparent: true,
-        headerTitle: 'Products',
-      }
-    },
-  },
-  {
-    navigationOptions: ({ navigation }) => ({
-      initialRouteName: 'Posts',
-      headerMode: 'screen',
-      drawerLabel: 'Posts >',
-      drawerIcon: ({ tintColor }) => (
-        <Image
-          source={require('../images/icons/magnifying_glass.jpg')}
-        />
-      ),
-    }),
-  }
-)
-
-const Drawer = createDrawerNavigator({
-  NavStack: NavStack
-})
-
 ////////// ROOT STACK //////////
+
+import NavStack from './navigators/NavStack'
+import BottomTabs from './navigators/BottomTabs'
+import AuthStack from './navigators/AuthStack'
 
 const RootStack = createSwitchNavigator(
   {
@@ -259,7 +136,7 @@ const RootStack = createSwitchNavigator(
     Auth: AuthStack,
     App: AppStack,
     BottomTabs: BottomTabs,
-    Drawer: Drawer,
+    NavStack: NavStack,
   },
   {
     initialRouteName: 'Startup',
