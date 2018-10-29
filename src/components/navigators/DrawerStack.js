@@ -6,7 +6,7 @@ import {
 
 import NavStack from './NavStack'
 
-import Products from '../screens/common/Products'
+import Products from '../screens/Products'
 
 const DrawerNavigatorConfig = {
   drawerWidth: 200, // - Width of the drawer or a function returning it.

@@ -8,7 +8,7 @@ import {
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 
-import Button from '../../elements/Button'
+import Button from '../elements/Button'
 
 const GET_POSTS_QUERY = gql`
   query getPosts {

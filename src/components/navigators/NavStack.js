@@ -2,8 +2,8 @@ import {
   createStackNavigator,
 } from 'react-navigation'
 
-import Posts from '../screens/bottomTabs/Posts'
-import Products from '../screens/common/Products'
+import Posts from '../screens/Posts'
+import Products from '../screens/Products'
 
 const NavStack = createStackNavigator(
   {

@@ -6,7 +6,7 @@ import {
   Text,
 } from 'react-native'
 
-import ImageField from '../../forms/ImageField'
+import ImageField from '../forms/ImageField'
 
 class Forms extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class Forms extends React.Component {
           render={({ imagePath }) => {
             let image = null
             if (_.isNil(imagePath)) {
-              image = <Image source={require('../../../images/icons/magnifying_glass.jpg')}/>
+              image = <Image source={require('../../images/icons/magnifying_glass.jpg')}/>
             } else {
               debugger
               image = <Image 

@@ -2,8 +2,8 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation'
 
-import Posts from '../screens/bottomTabs/Posts'
-import Forms from '../screens/bottomTabs/Forms'
+import Posts from '../screens/Posts'
+import Forms from '../screens/Forms'
 
 const BottomTabs = createBottomTabNavigator({
     Posts: {
