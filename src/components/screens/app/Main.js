@@ -21,9 +21,6 @@ class Main extends React.Component {
         <Button
           text="Drawer"
           onPress={this.onDrawer.bind(this)}/>
-        <Button
-          text="Navigation"
-          onPress={this.onNavigation.bind(this)}/>
       </View>
     )
   }
@@ -33,11 +30,6 @@ class Main extends React.Component {
   }
 
   onDrawer() {
-    this.props.navigation.navigate('Drawer')
-  }
-
-  onNavigation() {
-    this.props.navigation.navigate('NavStack')
     this.props.navigation.navigate('DrawerStack')
   }
 
