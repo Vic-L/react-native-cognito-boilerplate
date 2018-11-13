@@ -17,6 +17,11 @@ react-native-rename "NewAppName"
 watchman watch-del-all
 ```
 
+To change remote
+```
+git remote set-url origin <YOUR_REMOTE_URL>
+```
+
 ### Install
 
 Run command:
