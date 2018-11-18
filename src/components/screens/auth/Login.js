@@ -15,12 +15,15 @@ import FormContainer from '../../elements/FormContainer'
 import NavbarSpacing from '../../elements/NavbarSpacing'
 
 import RequestNotificationPermission from '../../../services/RequestNotificationPermission'
+import ValidateField from '../../../services/ValidateField'
+import ValidateFormObject from '../../../services/ValidateFormObject'
 
 class Login extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      submittedFormBefore: false,
       email: null,
       password: null,
     }
@@ -53,6 +56,7 @@ class Login extends React.Component {
   }
 
   render() {
+    const { email, password, submittedFormBefore } = this.state
     return (
       <View style={{ flex: 1 }}>
 
@@ -64,7 +68,8 @@ class Login extends React.Component {
           <TextField
             label='EMAIL'
             placeholder='Email'
-            value={this.state.email}
+            value={email}
+            error={ValidateField('login-email', email, submittedFormBefore)}
             keyboardType='email-address'
             autoCapitalize='none'
             onSubmitEditing={() => {
@@ -82,8 +87,10 @@ class Login extends React.Component {
             autoCapitalize='none'
             onSubmitEditing={this.onLogin.bind(this)}
             returnKeyType='done'
-            value={this.state.password}
-            onChangeText={this.onChangePassword.bind(this)}/>
+            value={password}
+            error={ValidateField('login-password', password, submittedFormBefore)}
+            onChangeText={this.onChangePassword.bind(this)}
+            onSubmitEditing={this.onLogin.bind(this)}/>
 
           <TextLink
             containerStyle={{alignSelf: 'center'}}
@@ -117,23 +124,28 @@ class Login extends React.Component {
   }
 
   onLogin() {
-    const { email, password } = this.state
-    this.props.dispatchLoginRequest()
-    Auth.signIn(email, password)
-    .then(async (user) => {
-      RequestNotificationPermission()
-      this.props.dispatchLoginSuccess(email, password)
-      this.props.navigation.navigate('Main')
+    this.setState({
+      submittedFormBefore: true
     })
-    .catch((err) => {
-      this.props.dispatchLoginFailure()
-      console.log(err)
-      Alert.alert(
-        "Alert",
-        err.message || err,
-        [{text: "OK"}]
-      )
-    })
+    if (ValidateFormObject('login', _.pick(this.state, ['email', 'password']))) {
+      const { email, password } = this.state
+      this.props.dispatchLoginRequest()
+      Auth.signIn(email, password)
+      .then(async (user) => {
+        RequestNotificationPermission()
+        this.props.dispatchLoginSuccess(email, password)
+        this.props.navigation.navigate('Main')
+      })
+      .catch((err) => {
+        this.props.dispatchLoginFailure()
+        console.log(err)
+        Alert.alert(
+          "Alert",
+          err.message || err,
+          [{text: "OK"}]
+        )
+      })
+    }
   }
 }
 

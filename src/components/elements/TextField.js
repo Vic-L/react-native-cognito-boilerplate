@@ -26,7 +26,7 @@ class TextField extends React.Component {
 
     const labelStyle = {
       fontSize: value ? floatLabelFontSize : inputFontSize,
-      color: value ? (hasError ? COLOR.RED : COLOR.BLUE) : 'transparent',
+      color: value ? (hasError ? COLOR.RED : COLOR.BLACK) : 'transparent',
       marginBottom: 4,
     }
 
