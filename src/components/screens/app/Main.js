@@ -51,7 +51,7 @@ class Main extends React.Component {
           default:
             Alert.alert(
               'TouchID Alert',
-              err.message,
+              JSON.stringify(err),
               [{text: 'OK'}],
               { cancelable: false }
             )
