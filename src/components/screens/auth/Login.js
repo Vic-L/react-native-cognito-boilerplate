@@ -247,12 +247,41 @@ class Login extends React.Component {
         )
       }
     } catch (err) {
-      Alert.alert(
-        'Alert',
-        err.message,
-        [{text: 'OK'}],
-        { cancelable: false }
-      )
+      // handle unified TouchID errors
+      if (err.name === 'TouchIDError') {
+        switch(err.code) {
+          case 'USER_CANCELED':
+          case 'SYSTEM_CANCELED':
+            break
+          case 'NOT_PRESENT':
+          case 'NOT_AVAILABLE':
+          case 'NOT_ENROLLED':
+          case 'NOT_SUPPORTED':
+          case 'AUTHENTICATION_FAILED':
+          case 'TIMEOUT':
+          case 'LOCKOUT':
+          case 'LOCKOUT_PERMANENT':
+          case 'PROCESSING_ERROR':
+          case 'USER_FALLBACK':
+          case 'FALLBACK_NOT_ENROLLED':
+          case 'UNKNOWN_ERROR':
+          default:
+            Alert.alert(
+              'TouchID Alert',
+              JSON.stringify(err),
+              [{text: 'OK'}],
+              { cancelable: false }
+            )
+        }
+      // handle other errors (Keychain errors)
+      } else {
+        Alert.alert(
+          'Alert',
+          err.message,
+          [{text: 'OK'}],
+          { cancelable: false }
+        )
+      }
     }
   }
 }

@@ -11,43 +11,39 @@ import Button from '../../elements/Button'
 
 class Main extends React.Component {
   async componentDidMount() {
-    const optionalConfigObject = {
-      title: "Authentication Required", // Android
-      imageColor: "#e00606", // Android
-      imageErrorColor: "#ff0000", // Android
-      sensorDescription: "Touch sensor", // Android
-      sensorErrorDescription: "Failed", // Android
-      cancelText: "Cancel", // Android
-      fallbackLabel: "Show Passcode", // iOS (if empty, then label is hidden)
-      unifiedErrors: false, // use unified error messages (default false)
-      passcodeFallback: false // iOS
-    }
     try {
-      const shouldSetupTouchID = await AsyncStorage.getItem('SETUP_TOUCH_ID')
-      // shouldSetupTouchID === false if user cancel setup the first time
-      // shouldSetupTouchID === null if first time login n set up per device
-      // shouldSetupTouchID === true if user login before and setup touch id
-      if (shouldSetupTouchID) {
-        // do nothing
+      // use non unified errors which is the default
+      const touchIDSupported = await TouchID.isSupported()
+
+      if (touchIDSupported) {
+        // ask to setup touchID
       } else {
-        await TouchID.authenticate('to demo this react-native component', optionalConfigObject)
-
-        await AsyncStorage.setItem('SETUP_TOUCH_ID', JSON.stringify(true))
-
+        // do nothing
         Alert.alert(
-          'Alert',
-          'Authenticated Successfully',
+          'TouchID Not Supported Alert',
+          JSON.stringify(touchIDSupported),
           [{text: 'OK'}],
           { cancelable: false }
         )
       }
     } catch (err) {
-      // handle TouchID errors
+      // handle unified TouchID errors
       if (err.name === 'TouchIDError') {
         switch(err.code) {
+          case 'AUTHENTICATION_FAILED':
           case 'USER_CANCELED':
-            await AsyncStorage.setItem('SETUP_TOUCH_ID', JSON.stringify(false))
-            break
+          case 'SYSTEM_CANCELED':
+          case 'NOT_PRESENT':
+          case 'NOT_SUPPORTED':
+          case 'NOT_AVAILABLE':
+          case 'NOT_ENROLLED':
+          case 'TIMEOUT':
+          case 'LOCKOUT':
+          case 'LOCKOUT_PERMANENT':
+          case 'PROCESSING_ERROR':
+          case 'USER_FALLBACK':
+          case 'FALLBACK_NOT_ENROLLED':
+          case 'UNKNOWN_ERROR':
           default:
             Alert.alert(
               'TouchID Alert',
