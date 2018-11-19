@@ -24,6 +24,7 @@ class Login extends React.Component {
     super(props)
 
     this.state = {
+      touchIDSupported: false,
       hasStoredCredentials: false,
       submittedFormBefore: false,
       email: null,
@@ -32,19 +33,70 @@ class Login extends React.Component {
   }
 
   async componentDidMount() {
+    // check if touchIDSupported
     try {
-      // Retreive the credentials
+      const optionalConfigObject = {
+        unifiedErrors: true, // use unified error messages (default false)
+      }
+      const touchIDSupported = await TouchID.isSupported(optionalConfigObject)
+
+      this.setState({touchIDSupported: true})
+    } catch(err) {
+      if (err.name === 'TouchIDError') {
+        switch(err.code) {
+          case 'USER_CANCELED':
+          case 'SYSTEM_CANCELED':
+            break
+          case 'AUTHENTICATION_FAILED':
+          case 'NOT_PRESENT':
+          case 'NOT_SUPPORTED':
+          case 'NOT_AVAILABLE':
+          case 'NOT_ENROLLED':
+          case 'TIMEOUT':
+          case 'LOCKOUT':
+          case 'LOCKOUT_PERMANENT':
+          case 'PROCESSING_ERROR':
+          case 'USER_FALLBACK':
+          case 'FALLBACK_NOT_ENROLLED':
+          case 'UNKNOWN_ERROR':
+          default:
+            this.setState({touchIDSupported: false})
+
+            Alert.alert(
+              'TouchID Alert',
+              JSON.stringify(err),
+              [{text: 'OK'}],
+              { cancelable: false }
+            )
+        }
+      } else {
+        // should not happen
+        Alert.alert(
+          'Alert',
+          err.message,
+          [{text: 'OK'}],
+          { cancelable: false }
+        )
+      }
+    }
+
+    // Retreive the credentials
+    try {
       const credentials = await Keychain.getGenericPassword()
       if (credentials) {
-        console.log('Credentials successfully loaded for user ' + credentials.username);
         this.setState({
           hasStoredCredentials: true,
-          email: credentials.username})
-      } else {
-        console.log('No credentials stored')
+          email: credentials.username
+        })
       }
-    } catch (error) {
-      console.log('Keychain couldn\'t be accessed!', error);
+    } catch (err) {
+      // should not happen
+      Alert.alert(
+        'Alert',
+        err.message,
+        [{text: 'OK'}],
+        { cancelable: false }
+      )
     }
 
     this.props.navigation.addListener(
@@ -106,7 +158,7 @@ class Login extends React.Component {
             onPress={this.onLogin.bind(this)}/>
 
           {
-            this.state.hasStoredCredentials ? (
+            this.shouldAllowLoginByTouchID() ? (
               <Button
                 text="LOGIN WITH TOUCH ID"
                 onPress={this.onAuthenticateWithTouchID.bind(this)}/>
@@ -117,6 +169,10 @@ class Login extends React.Component {
 
       </View>
     )
+  }
+
+  shouldAllowLoginByTouchID() {
+    return this.state.touchIDSupported && this.state.hasStoredCredentials
   }
 
   onChangeEmail(email) {
@@ -179,7 +235,7 @@ class Login extends React.Component {
       const credentials = await Keychain.getGenericPassword()
       
       if (credentials) {
-        await TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+        await TouchID.authenticate('Optional text here', optionalConfigObject)
 
         this.login(credentials.username, credentials.password)
       } else {
