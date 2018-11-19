@@ -105,7 +105,8 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-keychain')
+    implementation project(':react-native-touch-id')
+    implementation project(':react-native-keychain')
     implementation project(':react-native-firebase')
     // Firebase dependencies
     implementation "com.google.android.gms:play-services-base:15.0.1"
