@@ -26,17 +26,17 @@ class TextField extends React.Component {
 
     const labelStyle = {
       fontSize: value ? floatLabelFontSize : inputFontSize,
-      color: value ? (hasError ? COLOR.RED : COLOR.BLACK) : 'transparent',
+      color: value ? (hasError ? COLOR.ERROR : COLOR.BLACK) : 'transparent',
       marginBottom: 4,
     }
 
     const inputStyle = {
       fontSize: inputFontSize,
-      color: hasError ? COLOR.ERROR : (value ? COLOR.BLACK : 'gray'),
+      color: hasError ? COLOR.ERROR : COLOR.BLACK,
       borderWidth: 0,
       padding: 0,
       width: '100%',
-      // selectionColor: this.props.error ? COLOR.RED : COLOR.FONT_BLACK // does not seem to work yet
+      // selectionColor: this.props.error ? COLOR.ERROR : COLOR.FONT_BLACK // does not seem to work yet
     }
 
     const fieldContainerStyle = {
@@ -61,7 +61,7 @@ class TextField extends React.Component {
           <TextInput
             {...props}
             ref='input'
-            placeholderTextColor={hasError ? COLOR.RED : (_.isUndefined(props.editable) || props.editable) ? COLOR.FONT_GRAY : '#ccc'}
+            placeholderTextColor={hasError ? COLOR.ERROR : 'gray'}
             value={value}
             underlineColorAndroid='transparent'
             style={inputStyle}
