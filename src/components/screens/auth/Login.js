@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as Keychain from 'react-native-keychain'
+import TouchID from 'react-native-touch-id'
 import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
@@ -23,6 +24,7 @@ class Login extends React.Component {
     super(props)
 
     this.state = {
+      hasStoredCredentials: false,
       submittedFormBefore: false,
       email: null,
       password: null,
@@ -35,7 +37,9 @@ class Login extends React.Component {
       const credentials = await Keychain.getGenericPassword()
       if (credentials) {
         console.log('Credentials successfully loaded for user ' + credentials.username);
-        this.setState({email: credentials.username})
+        this.setState({
+          hasStoredCredentials: true,
+          email: credentials.username})
       } else {
         console.log('No credentials stored')
       }
@@ -101,6 +105,14 @@ class Login extends React.Component {
             text="LOGIN"
             onPress={this.onLogin.bind(this)}/>
 
+          {
+            this.state.hasStoredCredentials ? (
+              <Button
+                text="LOGIN WITH TOUCH ID"
+                onPress={this.onAuthenticateWithTouchID.bind(this)}/>
+            ) : null
+          }
+
         </FormContainer>
 
       </View>
@@ -128,23 +140,63 @@ class Login extends React.Component {
       submittedFormBefore: true
     })
     if (ValidateFormObject('login', _.pick(this.state, ['email', 'password']))) {
-      const { email, password } = this.state
-      this.props.dispatchLoginRequest()
-      Auth.signIn(email, password)
-      .then(async (user) => {
-        RequestNotificationPermission()
-        this.props.dispatchLoginSuccess(email, password)
-        this.props.navigation.navigate('Main')
-      })
-      .catch((err) => {
-        this.props.dispatchLoginFailure()
-        console.log(err)
+      this.login(this.state).bind(this)
+    }
+  }
+
+  login({email, password}) {
+    this.props.dispatchLoginRequest()
+    Auth.signIn(email, password)
+    .then(async (user) => {
+      RequestNotificationPermission()
+      this.props.dispatchLoginSuccess(email, password)
+      this.props.navigation.navigate('Main')
+    })
+    .catch((err) => {
+      this.props.dispatchLoginFailure()
+      console.log(err)
+      Alert.alert(
+        "Alert",
+        err.message || err,
+        [{text: "OK"}]
+      )
+    })
+  }
+
+  async onAuthenticateWithTouchID() {
+    const optionalConfigObject = {
+      title: "Authentication Required", // Android
+      imageColor: "#e00606", // Android
+      imageErrorColor: "#ff0000", // Android
+      sensorDescription: "Touch sensor", // Android
+      sensorErrorDescription: "Failed", // Android
+      cancelText: "Cancel", // Android
+      fallbackLabel: "Show Passcode", // iOS (if empty, then label is hidden)
+      unifiedErrors: false, // use unified error messages (default false)
+      passcodeFallback: false // iOS
+    }
+    try {
+      const credentials = await Keychain.getGenericPassword()
+      
+      if (credentials) {
+        await TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+
+        this.login(credentials).bind(this)
+      } else {
         Alert.alert(
-          "Alert",
-          err.message || err,
-          [{text: "OK"}]
+          'Alert',
+          'No credentials stored; should not happen',
+          [{text: 'OK'}],
+          { cancelable: false }
         )
-      })
+      }
+    } catch (err) {
+      Alert.alert(
+        'Alert',
+        err.message,
+        [{text: 'OK'}],
+        { cancelable: false }
+      )
     }
   }
 }
