@@ -140,7 +140,7 @@ class Login extends React.Component {
       submittedFormBefore: true
     })
     if (ValidateFormObject('login', _.pick(this.state, ['email', 'password']))) {
-      this.login(this.state).bind(this)
+      this.login(this.state)
     }
   }
 
@@ -181,7 +181,7 @@ class Login extends React.Component {
       if (credentials) {
         await TouchID.authenticate('to demo this react-native component', optionalConfigObject)
 
-        this.login(credentials).bind(this)
+        this.login(credentials)
       } else {
         Alert.alert(
           'Alert',
