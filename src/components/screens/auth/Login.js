@@ -148,7 +148,7 @@ class Login extends React.Component {
     this.props.dispatchLoginRequest()
     Auth.signIn(email, password)
     .then(async (user) => {
-      RequestNotificationPermission()
+      await RequestNotificationPermission()
       this.props.dispatchLoginSuccess(email, password)
       this.props.navigation.navigate('Main')
     })
