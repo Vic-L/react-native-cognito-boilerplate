@@ -3,6 +3,8 @@ package com.reactnativecognitoboilerplate;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.krazylabs.OpenAppSettingsPackage;
 import com.oblador.keychain.KeychainPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -32,6 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNDeviceInfo(),
+            new OpenAppSettingsPackage(),
             new KeychainPackage(),
             new PickerPackage(),
             new SplashScreenReactPackage(),
