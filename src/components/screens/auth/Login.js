@@ -7,6 +7,7 @@ import {
 import { connect } from 'react-redux'
 import * as Keychain from 'react-native-keychain'
 import TouchID from 'react-native-touch-id'
+import OpenAppSettings from 'react-native-app-settings'
 import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
@@ -33,7 +34,7 @@ class Login extends React.Component {
   }
 
   async componentDidMount() {
-    // check if touchIDSupported
+    // check if touchIDSupported to determine if should show button or not
     try {
       const optionalConfigObject = {
         unifiedErrors: true, // use unified error messages (default false)
@@ -47,9 +48,10 @@ class Login extends React.Component {
           case 'USER_CANCELED':
           case 'SYSTEM_CANCELED':
             break
+          case 'NOT_SUPPORTED':
+            // library return 'NOT_SUPPORTED' for ios that did not set up touchID; will consider as not supported
           case 'AUTHENTICATION_FAILED':
           case 'NOT_PRESENT':
-          case 'NOT_SUPPORTED':
           case 'NOT_AVAILABLE':
           case 'NOT_ENROLLED':
           case 'TIMEOUT':
@@ -61,13 +63,6 @@ class Login extends React.Component {
           case 'UNKNOWN_ERROR':
           default:
             this.setState({touchIDSupported: false})
-
-            Alert.alert(
-              'TouchID Alert',
-              JSON.stringify(err),
-              [{text: 'OK'}],
-              { cancelable: false }
-            )
         }
       } else {
         // should not happen
@@ -228,7 +223,7 @@ class Login extends React.Component {
       sensorErrorDescription: "Failed", // Android
       cancelText: "Cancel", // Android
       fallbackLabel: "Show Passcode", // iOS (if empty, then label is hidden)
-      unifiedErrors: false, // use unified error messages (default false)
+      unifiedErrors: true, // use unified error messages (default false)
       passcodeFallback: false // iOS
     }
     try {
@@ -253,10 +248,26 @@ class Login extends React.Component {
           case 'USER_CANCELED':
           case 'SYSTEM_CANCELED':
             break
+          case 'NOT_SUPPORTED':
+            // library return 'NOT_SUPPORTED' for ios that did not set up touchID, so will prompt to setup
+            // NOTE this code will not run on device based on current setup as during componentDidMount, the LOGIN WITH TOUCH ID button is not shown
+            // This will run on simulator however as simulator return truthy for TouchId.isSupported() but falsy for TouchId.authenticate()
+            Alert.alert(
+              'Alert',
+              "TODO You have not setup Biometric system or your phone does not support it. Setup now?",
+              [
+                {text: 'Not now'},
+                {
+                  text: 'Settings',
+                  onPress: () => OpenAppSettings.open()
+                },
+              ],
+              { cancelable: false }
+            )
+            break
           case 'NOT_PRESENT':
           case 'NOT_AVAILABLE':
           case 'NOT_ENROLLED':
-          case 'NOT_SUPPORTED':
           case 'AUTHENTICATION_FAILED':
           case 'TIMEOUT':
           case 'LOCKOUT':
@@ -277,7 +288,7 @@ class Login extends React.Component {
       } else {
         Alert.alert(
           'Alert',
-          err.message,
+          JSON.stringify(err),
           [{text: 'OK'}],
           { cancelable: false }
         )
