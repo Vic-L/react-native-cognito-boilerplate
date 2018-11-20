@@ -3,10 +3,10 @@ import React from 'react'
 import {
   View,
   Alert,
+  AsyncStorage,
 } from 'react-native'
 import { connect } from 'react-redux'
 import * as Keychain from 'react-native-keychain'
-import TouchID from 'react-native-touch-id'
 import OpenAppSettings from 'react-native-app-settings'
 import DeviceInfo from 'react-native-device-info'
 import Auth from '@aws-amplify/auth'
@@ -26,7 +26,7 @@ class Login extends React.Component {
     super(props)
 
     this.state = {
-      touchIDSupported: false,
+      biometricSupported: null,
       hasStoredCredentials: false,
       submittedFormBefore: false,
       email: null,
@@ -35,54 +35,19 @@ class Login extends React.Component {
   }
 
   async componentDidMount() {
-    // check if touchIDSupported to determine if should show button or not
-    try {
-      const optionalConfigObject = {
-        unifiedErrors: true, // use unified error messages (default false)
-      }
-      const touchIDSupported = await TouchID.isSupported(optionalConfigObject)
+    // check if biometricSupported to determine if should show button or not
+    // return null if not supported
+    const biometricSupported = await Keychain.getSupportedBiometryType()
+    this.setState({biometricSupported})
 
-      this.setState({touchIDSupported: true})
-    } catch(err) {
-      if (err.name === 'TouchIDError') {
-        switch(err.code) {
-          case 'USER_CANCELED':
-          case 'SYSTEM_CANCELED':
-            break
-          case 'NOT_SUPPORTED':
-            // library return 'NOT_SUPPORTED' for ios that did not set up touchID; will consider as not supported
-          case 'AUTHENTICATION_FAILED':
-          case 'NOT_PRESENT':
-          case 'NOT_AVAILABLE':
-          case 'NOT_ENROLLED':
-          case 'TIMEOUT':
-          case 'LOCKOUT':
-          case 'LOCKOUT_PERMANENT':
-          case 'PROCESSING_ERROR':
-          case 'USER_FALLBACK':
-          case 'FALLBACK_NOT_ENROLLED':
-          case 'UNKNOWN_ERROR':
-          default:
-            this.setState({touchIDSupported: false})
-        }
-      } else {
-        // should not happen
-        Alert.alert(
-          'Alert',
-          err.message,
-          [{text: 'OK'}],
-          { cancelable: false }
-        )
-      }
-    }
-
-    // Retreive the credentials
+    // Retreive email from AsyncStorage
     try {
-      const credentials = await Keychain.getGenericPassword({service: DeviceInfo.getBundleId()})
-      if (credentials) {
+      const email = await AsyncStorage.getItem(`${DeviceInfo.getBundleId()}:email`)
+
+      if (email) {
         this.setState({
           hasStoredCredentials: true,
-          email: credentials.username
+          email
         })
       }
     } catch (err) {
@@ -154,10 +119,10 @@ class Login extends React.Component {
             onPress={this.onLogin.bind(this)}/>
 
           {
-            this.shouldAllowLoginByTouchID() ? (
+            this.shouldAllowLoginByBiometric() ? (
               <Button
-                text="LOGIN WITH TOUCH ID"
-                onPress={this.onAuthenticateWithTouchID.bind(this)}/>
+                text="LOGIN WITH Biometric"
+                onPress={this.onAuthenticateWithBiometric.bind(this)}/>
             ) : null
           }
 
@@ -167,8 +132,8 @@ class Login extends React.Component {
     )
   }
 
-  shouldAllowLoginByTouchID() {
-    return this.state.touchIDSupported && this.state.hasStoredCredentials
+  shouldAllowLoginByBiometric() {
+    return this.state.biometricSupported && this.state.hasStoredCredentials
   }
 
   onChangeEmail(email) {
@@ -215,24 +180,11 @@ class Login extends React.Component {
     })
   }
 
-  async onAuthenticateWithTouchID() {
-    const optionalConfigObject = {
-      title: "Authentication Required", // Android
-      imageColor: "#e00606", // Android
-      imageErrorColor: "#ff0000", // Android
-      sensorDescription: "Touch sensor", // Android
-      sensorErrorDescription: "Failed", // Android
-      cancelText: "Cancel", // Android
-      fallbackLabel: "Show Passcode", // iOS (if empty, then label is hidden)
-      unifiedErrors: true, // use unified error messages (default false)
-      passcodeFallback: false // iOS
-    }
+  async onAuthenticateWithBiometric() {
     try {
       const credentials = await Keychain.getGenericPassword({service: DeviceInfo.getBundleId()})
       
       if (credentials) {
-        await TouchID.authenticate('Optional text here', optionalConfigObject)
-
         this.login(credentials.username, credentials.password)
       } else {
         Alert.alert(
@@ -243,57 +195,12 @@ class Login extends React.Component {
         )
       }
     } catch (err) {
-      // handle unified TouchID errors
-      if (err.name === 'TouchIDError') {
-        switch(err.code) {
-          case 'USER_CANCELED':
-          case 'SYSTEM_CANCELED':
-            break
-          case 'NOT_SUPPORTED':
-            // library return 'NOT_SUPPORTED' for ios that did not set up touchID or no fingerprint enrolled, so will prompt to setup
-            // NOTE this code will not run on device based on current setup as during componentDidMount, the LOGIN WITH TOUCH ID button is not shown
-            // This will run on simulator however as simulator return truthy for TouchId.isSupported() but falsy for TouchId.authenticate()
-            Alert.alert(
-              'Alert',
-              "TODO You have not setup Biometric system or your phone does not support it. Setup now?",
-              [
-                {text: 'Not now'},
-                {
-                  text: 'Settings',
-                  onPress: () => OpenAppSettings.open()
-                },
-              ],
-              { cancelable: false }
-            )
-            break
-          case 'NOT_PRESENT':
-          case 'NOT_AVAILABLE':
-          case 'NOT_ENROLLED':
-          case 'AUTHENTICATION_FAILED':
-          case 'TIMEOUT':
-          case 'LOCKOUT':
-          case 'LOCKOUT_PERMANENT':
-          case 'PROCESSING_ERROR':
-          case 'USER_FALLBACK':
-          case 'FALLBACK_NOT_ENROLLED':
-          case 'UNKNOWN_ERROR':
-          default:
-            Alert.alert(
-              'TouchID Alert',
-              JSON.stringify(err),
-              [{text: 'OK'}],
-              { cancelable: false }
-            )
-        }
-      // handle other errors (Keychain errors)
-      } else {
-        Alert.alert(
-          'Alert',
-          JSON.stringify(err),
-          [{text: 'OK'}],
-          { cancelable: false }
-        )
-      }
+      Alert.alert(
+        'Alert',
+        JSON.stringify(err),
+        [{text: 'OK'}],
+        { cancelable: false }
+      )
     }
   }
 }
