@@ -195,12 +195,16 @@ class Login extends React.Component {
         )
       }
     } catch (err) {
-      Alert.alert(
-        'Alert',
-        JSON.stringify(err),
-        [{text: 'OK'}],
-        { cancelable: false }
-      )
+      if (err.message === 'User canceled the operation.') {
+
+      } else {
+        Alert.alert(
+          'Alert',
+          JSON.stringify(err),
+          [{text: 'OK'}],
+          { cancelable: false }
+        )
+      }
     }
   }
 }
