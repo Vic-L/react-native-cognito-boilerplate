@@ -31,6 +31,14 @@ react-native start reset-cache # in another window
 ```
 This will also run the `prepare` script after `install` to handle some bugs that [affect ios builds on Xcode 10](https://github.com/facebook/react-native/issues/20774).
 
+### Development
+
+To run on iphoneX simulator, run the command `npm run iphoneX`.
+To run on iphonePlus simulator, run the command `npm run iphonePlus`.
+To run on device, change the name in the `iphoneDevice` script in `package.json` to your device name and run the command `npm run iphoneDevice`.
+
+To run different schemes, change the value for the `--scheme` flag in the desired script command in `package.json`.
+
 ### Firebase
 
 * Replace android keystores.
