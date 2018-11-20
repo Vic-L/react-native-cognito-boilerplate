@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -53,7 +52,6 @@
 		949383D1583D46B5996F801D /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2619CB3208B34B23930A2273 /* libRNDeviceInfo-tvOS.a */; };
 		9D4F9DB7078A4E3FB2CA203C /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8B71B8F1BE4CB49D5A4EE9 /* libRNKeychain.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		ED85926AA73E47E78C7E4E6F /* libTouchID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF8825C8F18A49C286131CDD /* libTouchID.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,27 +152,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 3D7682761D8E76B80014119E;
 			remoteInfo = SplashScreen;
-		};
-		237E6A5D21A23AEE0083D6F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 78729BAA270B4B1C8A8A5EF3 /* RNKeychain.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5D82366F1B0CE05B005A9EF3;
-			remoteInfo = RNKeychain;
-		};
-		237E6A5F21A23AEE0083D6F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 78729BAA270B4B1C8A8A5EF3 /* RNKeychain.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6478985F1F38BF9100DA1C12;
-			remoteInfo = "RNKeychain-tvOS";
-		};
-		237E6A6221A23AEE0083D6F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C196FD6563E245C4B82FEF3C /* TouchID.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = TouchID;
 		};
 		23DABCF7214C245800297F40 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -465,20 +442,18 @@
 		4338A97ADD6C4088960AA21D /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		44E4CE0E127C4C189B658F62 /* libRNOpenAppSettings.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNOpenAppSettings.a; sourceTree = "<group>"; };
 		450B067FAA504F7084CDAF59 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
-		4B8B71B8F1BE4CB49D5A4EE9 /* libRNKeychain.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKeychain.a; sourceTree = "<group>"; };
 		4F2314EE71FD4A188C5C16ED /* libRNAWSCognito.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAWSCognito.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		65F1FA8670114B7EAA8AFA0C /* RNAWSCognito.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNAWSCognito.xcodeproj; path = "../node_modules/amazon-cognito-identity-js/ios/RNAWSCognito.xcodeproj"; sourceTree = "<group>"; };
-		78729BAA270B4B1C8A8A5EF3 /* RNKeychain.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKeychain.xcodeproj; path = "../node_modules/react-native-keychain/RNKeychain.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		BF8825C8F18A49C286131CDD /* libTouchID.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTouchID.a; sourceTree = "<group>"; };
-		C196FD6563E245C4B82FEF3C /* TouchID.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TouchID.xcodeproj; path = "../node_modules/react-native-touch-id/TouchID.xcodeproj"; sourceTree = "<group>"; };
 		C82A96F5CCEE44E8B101D70F /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
 		CACAE763869B4F61806D2098 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		ECB43E64DCAF492F90670E65 /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		F1DFCEA224CC4F709745390A /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
+		78729BAA270B4B1C8A8A5EF3 /* RNKeychain.xcodeproj */ = {isa = PBXFileReference; name = "RNKeychain.xcodeproj"; path = "../node_modules/react-native-keychain/RNKeychain.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		4B8B71B8F1BE4CB49D5A4EE9 /* libRNKeychain.a */ = {isa = PBXFileReference; name = "libRNKeychain.a"; path = "libRNKeychain.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -517,7 +492,6 @@
 				23093A2221815DE30000087E /* QBImagePicker.framework in Frameworks */,
 				23093A2721815E020000087E /* QBImagePicker.framework in Frameworks */,
 				9D4F9DB7078A4E3FB2CA203C /* libRNKeychain.a in Frameworks */,
-				ED85926AA73E47E78C7E4E6F /* libTouchID.a in Frameworks */,
 				26E21A65ECA940B2B2CC1873 /* libRNOpenAppSettings.a in Frameworks */,
 				462ED1475B204CDBA2DF7107 /* libRNDeviceInfo.a in Frameworks */,
 			);
@@ -710,23 +684,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		237E6A5721A23AEE0083D6F3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				237E6A6321A23AEE0083D6F3 /* libTouchID.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		237E6A5921A23AEE0083D6F3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				237E6A5E21A23AEE0083D6F3 /* libRNKeychain.a */,
-				237E6A6021A23AEE0083D6F3 /* libRNKeychain.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		23DABCCE214C245500297F40 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,7 +692,6 @@
 				C82A96F5CCEE44E8B101D70F /* libSplashScreen.a */,
 				ECB43E64DCAF492F90670E65 /* libimageCropPicker.a */,
 				4B8B71B8F1BE4CB49D5A4EE9 /* libRNKeychain.a */,
-				BF8825C8F18A49C286131CDD /* libTouchID.a */,
 				44E4CE0E127C4C189B658F62 /* libRNOpenAppSettings.a */,
 				F1DFCEA224CC4F709745390A /* libRNDeviceInfo.a */,
 				2619CB3208B34B23930A2273 /* libRNDeviceInfo-tvOS.a */,
@@ -815,7 +771,6 @@
 				CACAE763869B4F61806D2098 /* SplashScreen.xcodeproj */,
 				23E9D483BC934294A5354DB0 /* imageCropPicker.xcodeproj */,
 				78729BAA270B4B1C8A8A5EF3 /* RNKeychain.xcodeproj */,
-				C196FD6563E245C4B82FEF3C /* TouchID.xcodeproj */,
 				3FB455A5B37F4267815E0C9E /* RNOpenAppSettings.xcodeproj */,
 				0701F543EFBC4030BB00DB0F /* RNDeviceInfo.xcodeproj */,
 			);
@@ -1067,10 +1022,6 @@
 					ProductGroup = 236E4BE4218099360018F86D /* Products */;
 					ProjectRef = CACAE763869B4F61806D2098 /* SplashScreen.xcodeproj */;
 				},
-				{
-					ProductGroup = 237E6A5721A23AEE0083D6F3 /* Products */;
-					ProjectRef = C196FD6563E245C4B82FEF3C /* TouchID.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1172,27 +1123,6 @@
 			fileType = archive.ar;
 			path = libSplashScreen.a;
 			remoteRef = 236E4BE7218099380018F86D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		237E6A5E21A23AEE0083D6F3 /* libRNKeychain.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNKeychain.a;
-			remoteRef = 237E6A5D21A23AEE0083D6F3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		237E6A6021A23AEE0083D6F3 /* libRNKeychain.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNKeychain.a;
-			remoteRef = 237E6A5F21A23AEE0083D6F3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		237E6A6321A23AEE0083D6F3 /* libTouchID.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTouchID.a;
-			remoteRef = 237E6A6221A23AEE0083D6F3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		23DABCF8214C245800297F40 /* libReactNativeConfig.a */ = {
@@ -1571,7 +1501,6 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
-					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-app-settings/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 				);
@@ -1580,7 +1509,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1611,7 +1539,6 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
-					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-app-settings/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 				);
@@ -1620,7 +1547,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1647,7 +1573,6 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
@@ -1655,7 +1580,6 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
-					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-app-settings/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 				);
@@ -1670,7 +1594,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vic-l.ReactNativeCognitoBoilerplate";
 				PRODUCT_NAME = ReactNativeCognitoBoilerplate;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1682,7 +1605,6 @@
 				CODE_SIGN_ENTITLEMENTS = ReactNativeCognitoBoilerplate/ReactNativeCognitoBoilerplate.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
@@ -1690,7 +1612,6 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
-					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-app-settings/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 				);
@@ -1705,7 +1626,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vic-l.ReactNativeCognitoBoilerplate";
 				PRODUCT_NAME = ReactNativeCognitoBoilerplate;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1729,7 +1649,6 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
-					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-app-settings/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 				);
@@ -1737,7 +1656,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1778,7 +1696,6 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
-					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-app-settings/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 				);
@@ -1786,7 +1703,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1826,7 +1742,6 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
-					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-app-settings/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 				);
@@ -1834,7 +1749,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1874,7 +1788,6 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-crop-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
-					"$(SRCROOT)/../node_modules/react-native-touch-id",
 					"$(SRCROOT)/../node_modules/react-native-app-settings/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
 				);
@@ -1882,7 +1795,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
