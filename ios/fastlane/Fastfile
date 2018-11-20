@@ -1,0 +1,186 @@
+update_fastlane
+
+fastlane_version "2.26.1"
+
+default_platform :ios
+
+before_all do
+  xcode_select ENV["DEVELOPER_DIR"]
+end
+
+platform :ios do
+  desc "Increments all scheme's build number referencing from 1 scheme"
+  lane :bump_build_number do
+    increment_build_number()
+  end
+
+  desc "Increments all scheme's version number referencing from 1 scheme"
+  lane :bump_version_number do
+    increment_version_number(
+      # bump_type: "patch" # default increase patch number
+    )
+  end
+end
+
+platform :ios do
+  before_all do
+    # cocoapods # uncomment if cocoapods is used
+    ENV['FASTLANE_DONT_STORE_PASSWORD']="1" # dont store pw in keychain
+  end
+
+  ["staging", "uat", "production"].each do |env|
+    lane env.to_sym do
+      ENV["ENVFILE"] = '.env.staging'
+      ENV['FASTLANE_PASSWORD']=ENV["#{env.upcase}_APPLE_ID_PASSWORD"]
+
+      produce(
+        username: ENV["#{env.upcase}_APPLE_ID"],
+        app_identifier: ENV["#{env.upcase}_APP_IDENTIFIER"],
+        skip_itc: ENV["#{env.upcase}_SKIP_ITC"] == "true", # return boolean
+        language: "English", # TODO make this dynamic?
+        company_name: ENV["#{env.upcase}_TEAM_NAME"],
+        app_name: ENV["#{env.upcase}_APP_NAME"],
+        team_id: ENV["#{env.upcase}_TEAM_ID"],
+        itc_team_id: ENV["#{env.upcase}_ITC_TEAM_ID"],
+      )
+
+      if env != "production"
+        match(
+          git_url: ENV["#{env.upcase}_CERTS_GIT_URL"],
+          git_branch: ENV["#{env.upcase}_CERTS_GIT_BRANCH"],
+          type: "development",
+          username: ENV["#{env.upcase}_APPLE_ID"],
+          app_identifier: ENV["#{env.upcase}_APP_IDENTIFIER"],
+        )
+      end
+
+      match(
+        git_url: ENV["#{env.upcase}_CERTS_GIT_URL"],
+        git_branch: ENV["#{env.upcase}_CERTS_GIT_BRANCH"],
+        type: ENV["#{env.upcase}_MATCH_TYPE"],
+        username: ENV["#{env.upcase}_APPLE_ID"],
+        app_identifier: ENV["#{env.upcase}_APP_IDENTIFIER"],
+      )
+
+      pem(
+        development: ENV["#{env.upcase}_PUSH_NOTIFICATION_DEV_ENV"] == "true", # return boolean
+        generate_p12: true,
+        force: false,
+        save_private_key: false, # default true
+        output_path: "./fastlane",
+        p12_password: ENV["#{env.upcase}_P12_PASSWORD"],
+        username: ENV["#{env.upcase}_APPLE_ID"],
+        app_identifier: ENV["#{env.upcase}_APP_IDENTIFIER"],
+        team_id: ENV["#{env.upcase}_TEAM_ID"],
+      )
+
+      #### NOTE: comment `update_settings_bundle` functions below if no Settings.bundle
+      # update_settings_bundle(
+      #   key: "appVersion",
+      #   value: ":version (:build)",
+      #   target: ENV["#{env.upcase}_SCHEME"]
+      # )
+
+      # update_settings_bundle(
+      #   key: "buildTimestamp",
+      #   value: Time.now.strftime('%a, %e %b %Y %H:%M %p'),
+      #   target: ENV["#{env.upcase}_SCHEME"]
+      # )
+
+      gym(
+        scheme: ENV["#{env.upcase}_SCHEME"],
+        workspace: ENV["#{env.upcase}_WORKSPACE"],
+        # project: ENV["#{env.upcase}_PROJECT"], # use this if not using cocoapods
+        output_name: ENV["#{env.upcase}_OUTPUT_NAME"],
+        clean: true,
+        output_directory: "./fastlane",
+        silent: false,
+        buildlog_path: "~/Library/Logs/gym",
+        # export_method: "development",
+
+        # destination: "generic/platform=iOS",
+        # use_legacy_build_api: "false",
+      )
+
+      if env == "production"
+        deliver(
+          app_identifier:                         ENV["#{env.upcase}_APP_IDENTIFIER"],
+          username:                               ENV["#{env.upcase}_APPLE_ID"],
+          ipa:                                    ENV["#{env.upcase}_IPA"],
+          platform:                               "ios",
+          force:                                  true,
+          skip_binary_upload:                     true, # testflight will do the upload of the binary
+
+          automatic_release: ENV["#{env.upcase}_AUTOMATIC_RELEASE"] == "true",
+          submit_for_review: ENV["#{env.upcase}_SUBMIT_FOR_REVIEW"] == "true",
+          skip_app_version_update: ENV["#{env.upcase}_SKIP_APP_VERSION_UPDATE"] == "true",
+          skip_screenshots: ENV["#{env.upcase}_SKIP_SCREENSHOTS"] == "true",
+          skip_metadata: ENV["#{env.upcase}_SKIP_METADATA"] == "true",
+          overwrite_screenshots: ENV["#{env.upcase}_OVERWRITE_SCREENSHOTS"] == "true",
+          precheck_include_in_app_purchases: ENV["#{env.upcase}_PRECHECK_INCLUDE_IN_APP_PURCHASES"] == "true",
+          app_rating_config_path: './fastlane/metadata/itunes_rating_config.json', # refer to https://dev.to/jessachandler/setting-up-fastlane-when-you-dont-know-what-you-are-doing--1bph
+          app_icon: './fastlane/metadata/appicon.png',
+
+          # app_version:                          "1.0",
+          # run_precheck_before_submit:           true,
+          # ignore_language_directory_validation: false,
+          # precheck_default_rule_level:          "warn",
+          # edit_live:                            false,
+        )
+
+        pilot(
+          username: ENV["#{env.upcase}_APPLE_ID"],
+          app_identifier: ENV["#{env.upcase}_APP_IDENTIFIER"],
+          app_platform: "ios",
+          ipa: ENV["#{env.upcase}_IPA"],
+          team_id: ENV["#{env.upcase}_ITC_TEAM_ID"],
+          team_name: ENV["#{env.upcase}_COMPANY_NAME"],
+
+          skip_submission: ENV["#{env.upcase}_SKIP_SUBMISSION"] == "true",
+          skip_waiting_for_build_processing: ENV["#{env.upcase}_WAIT_PROCESS"] == "true",
+        )
+      else
+        aws_s3(
+          # All of these are used to make Shenzhen's `ipa distribute:s3` command
+          access_key: ENV["#{env.upcase}_S3_ACCESS_KEY"],
+          secret_access_key: ENV["#{env.upcase}_S3_SECRET_ACCESS_KEY"],
+          bucket: ENV["#{env.upcase}_S3_BUCKET"],
+          region: ENV["#{env.upcase}_S3_REGION"],
+          ipa: ENV["#{env.upcase}_IPA"],                     # Required (if not uploading an APK).
+          app_directory: ENV["#{env.upcase}_APP_DIRECTORY"], # Optional but nice if you want to put multiple apps in same bucket
+          path: '',                                    # default will create alot of files: 'v{CFBundleShortVersionString}_b{CFBundleVersion}/'
+
+          # upload_metadata: true,                     # Upload version.json, plist and HTML. Set to false to skip uploading of these files.
+          # version_file_name: 'app_version.json',     # Name of the file to upload to S3. Defaults to 'version.json'
+          # version_template_path: 'path/to/erb'       # Path to an ERB to configure the structure of the version JSON file
+          # apk: 'AppName.apk',                        # Required (if not uploading an IPA).
+          # dsym: 'AppName.app.dSYM.zip',              # Optional is you use `ipa` to build.
+        )
+      end
+
+      if env == "production"
+        crashlytics(
+          api_token: ENV["PRODUCTION_CRASHLYTICS_API_TOKEN"],
+          build_secret: ENV["PRODUCTION_CRASHLYTICS_BUILD_TOKEN"],
+        )
+
+        slack(
+          message: "#{ENV['SLACK_MENTION']} new :ios: *#{env.upcase}* build pushed to TestFlight  *#{Time.now.strftime('%a, %e %b %Y %H:%M %p')}*",
+          channel: ENV['SLACK_CHANNEL']
+        )
+      else
+        slack(
+          message: "#{ENV['SLACK_MENTION']} new *#{env.upcase}* :ios: build *#{Time.now.strftime('%a, %e %b %Y %H:%M %p')}* @ https://www.codigo.co/codigo-builds/#{ENV["#{env.upcase}_APP_DIRECTORY"]}/index.html",
+          channel: ENV['SLACK_CHANNEL']
+        )
+      end
+    end
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
