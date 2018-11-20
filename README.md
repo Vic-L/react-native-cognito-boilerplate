@@ -34,9 +34,15 @@ This will also run the `prepare` script after `install` to handle some bugs that
 ### Development
 
 To run on iphoneX simulator, run the command `npm run iphoneX`.
+
 To run on iphonePlus simulator, run the command `npm run iphonePlus`.
 
 To run on device, you will need to setup the provisioning profiles first. Then, change the name in the `iphoneDevice` script in `package.json` to your device name and run the command `npm run iphoneDevice`.
+To debug on device,
+* Go to `RCTWebSocketExecutor.m` file in `Xcode`
+* Change `localhost` in the line `NSString *host = [[_bridge bundleURL] host] ?: @"localhost";` to your local machine's ip address
+* Open `http://<LOCAL_MACHINE_IP_ADDRESS>:8081/debugger-ui/` To debug
+* Make sure device and local machine are on the same wifi network
 
 To run different schemes, change the value for the `--scheme` flag in the desired script command in `package.json`.
 
