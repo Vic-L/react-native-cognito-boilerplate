@@ -27,7 +27,7 @@ class Login extends React.Component {
 
     this.state = {
       biometricSupported: null,
-      hasStoredCredentials: false,
+      hasSetupBiometric: false,
       submittedFormBefore: false,
       email: null,
       password: null,
@@ -43,13 +43,13 @@ class Login extends React.Component {
     // Retreive email from AsyncStorage
     try {
       const email = await AsyncStorage.getItem(`${DeviceInfo.getBundleId()}:email`)
+      const hasSetupBiometric = await AsyncStorage.getItem(`${DeviceInfo.getBundleId()}:hasSetupBiometric`)
 
-      if (email) {
-        this.setState({
-          hasStoredCredentials: true,
-          email
-        })
-      }
+
+      this.setState({
+        hasSetupBiometric,
+        email
+      })
     } catch (err) {
       // should not happen
       Alert.alert(
@@ -133,7 +133,7 @@ class Login extends React.Component {
   }
 
   shouldAllowLoginByBiometric() {
-    return this.state.biometricSupported && this.state.hasStoredCredentials
+    return this.state.biometricSupported && this.state.hasSetupBiometric
   }
 
   onChangeEmail(email) {

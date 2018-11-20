@@ -16,15 +16,20 @@ function* saveCredentialsToKeychain({ email, password }) {
 
     // same user sign in again
     if (previousEmail === email) {
-      // do nothing
+      // prompt if hasSetupBiometric is null
+      const hasSetupBiometric = yield call([AsyncStorage, 'getItem'], `${DeviceInfo.getBundleId()}:hasSetupBiometric`)
+      if (_.isNull(hasSetupBiometric)) {
+        yield call(promptBiometricSetup, email, password)
+      }
     } else if (_.isNull(previousEmail)) {
       // previous email is null, so nobody sign in before
       yield call(promptBiometricSetup, email, password)
     } else {
-      // different user sign in; need to remove whatever is present in keychain
+      // different user sign in; need to remove whatever is present in keychain and hasSetupBiometric record
       yield call([Keychain, 'resetGenericPassword'],{
         service: DeviceInfo.getBundleId()
       })
+      yield call([AsyncStorage, removeItem], `${DeviceInfo.getBundleId()}:hasSetupBiometric`)
 
       // prompt to setup biometric
       yield call(promptBiometricSetup, email, password)
@@ -87,4 +92,14 @@ function* setupBiometric(email, password) {
     accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED,
     service: DeviceInfo.getBundleId()
   })
+
+  // record separately whether hasSetupBiometric to determine whether to render login with biometric button in login screen
+  yield call([AsyncStorage, 'setItem'], `${DeviceInfo.getBundleId()}:hasSetupBiometric`, JSON.stringify(true))
+
+  Alert.alert(
+    'Success',
+    'Biometric successfully setup',
+    [{text: 'OK'}],
+    { cancelable: false }
+  )
 }
