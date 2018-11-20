@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import * as Keychain from 'react-native-keychain'
 import TouchID from 'react-native-touch-id'
 import OpenAppSettings from 'react-native-app-settings'
+import DeviceInfo from 'react-native-device-info'
 import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
@@ -77,7 +78,7 @@ class Login extends React.Component {
 
     // Retreive the credentials
     try {
-      const credentials = await Keychain.getGenericPassword()
+      const credentials = await Keychain.getGenericPassword({service: DeviceInfo.getBundleId()})
       if (credentials) {
         this.setState({
           hasStoredCredentials: true,
@@ -227,7 +228,7 @@ class Login extends React.Component {
       passcodeFallback: false // iOS
     }
     try {
-      const credentials = await Keychain.getGenericPassword()
+      const credentials = await Keychain.getGenericPassword({service: DeviceInfo.getBundleId()})
       
       if (credentials) {
         await TouchID.authenticate('Optional text here', optionalConfigObject)
@@ -249,7 +250,7 @@ class Login extends React.Component {
           case 'SYSTEM_CANCELED':
             break
           case 'NOT_SUPPORTED':
-            // library return 'NOT_SUPPORTED' for ios that did not set up touchID, so will prompt to setup
+            // library return 'NOT_SUPPORTED' for ios that did not set up touchID or no fingerprint enrolled, so will prompt to setup
             // NOTE this code will not run on device based on current setup as during componentDidMount, the LOGIN WITH TOUCH ID button is not shown
             // This will run on simulator however as simulator return truthy for TouchId.isSupported() but falsy for TouchId.authenticate()
             Alert.alert(
