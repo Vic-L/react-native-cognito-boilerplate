@@ -16,20 +16,20 @@ function* saveCredentialsToKeychain({ email, password }) {
 
     // same user sign in again
     if (previousEmail === email) {
-      // prompt if hasSetupBiometric is null
-      const hasSetupBiometric = yield call([AsyncStorage, 'getItem'], `${DeviceInfo.getBundleId()}:hasSetupBiometric`)
-      if (_.isNull(hasSetupBiometric)) {
+      // prompt if biometricAssociatedEmail is null
+      const biometricAssociatedEmail = yield call([AsyncStorage, 'getItem'], `${DeviceInfo.getBundleId()}:biometricAssociatedEmail`)
+      if (_.isNull(biometricAssociatedEmail)) {
         yield call(promptBiometricSetup, email, password)
       }
     } else if (_.isNull(previousEmail)) {
       // previous email is null, so nobody sign in before
       yield call(promptBiometricSetup, email, password)
     } else {
-      // different user sign in; need to remove whatever is present in keychain and hasSetupBiometric record
+      // different user sign in; need to remove whatever is present in keychain and biometricAssociatedEmail record
       yield call([Keychain, 'resetGenericPassword'],{
         service: DeviceInfo.getBundleId()
       })
-      yield call([AsyncStorage, 'removeItem'], `${DeviceInfo.getBundleId()}:hasSetupBiometric`)
+      yield call([AsyncStorage, 'removeItem'], `${DeviceInfo.getBundleId()}:biometricAssociatedEmail`)
 
       // prompt to setup biometric
       yield call(promptBiometricSetup, email, password)
@@ -93,8 +93,8 @@ function* setupBiometric(email, password) {
     service: DeviceInfo.getBundleId()
   })
 
-  // record separately whether hasSetupBiometric to determine whether to render login with biometric button in login screen
-  yield call([AsyncStorage, 'setItem'], `${DeviceInfo.getBundleId()}:hasSetupBiometric`, JSON.stringify(true))
+  // record separately whether biometricAssociatedEmail to determine whether to render login with biometric button in login screen
+  yield call([AsyncStorage, 'setItem'], `${DeviceInfo.getBundleId()}:biometricAssociatedEmail`, email)
 
   Alert.alert(
     'Success',
