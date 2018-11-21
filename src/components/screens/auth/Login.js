@@ -165,9 +165,29 @@ class Login extends React.Component {
     this.props.dispatchLoginRequest()
     Auth.signIn(email, password)
     .then(async (user) => {
-      await RequestNotificationPermission()
-      this.props.dispatchLoginSuccess(email, password)
-      this.props.navigation.navigate('Main')
+      if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+        const newAttributes = {}
+        for (const attribute of user.challengeParam.requiredAttributes) {
+          newAttributes[attribute] = "qwe" // random value for required attributes that were not provided if user is created from AWS console
+        }
+        Auth.completeNewPassword(
+          user,
+          password,
+          newAttributes
+        )
+        .then(async (user) => {
+          await this.continueLogin(email, password)
+        })
+        .catch((err) => {
+          Alert.alert(
+            "Alert",
+            err.message || err,
+            [{text: "OK"}]
+          )
+        })
+      } else {
+        await this.continueLogin(email, password)
+      }
     })
     .catch((err) => {
       this.props.dispatchLoginFailure()
@@ -178,6 +198,12 @@ class Login extends React.Component {
         [{text: "OK"}]
       )
     })
+  }
+
+  async continueLogin(email, password) {
+    await RequestNotificationPermission()
+    this.props.dispatchLoginSuccess(email, password)
+    this.props.navigation.navigate('Main')
   }
 
   async onAuthenticateWithBiometric() {
