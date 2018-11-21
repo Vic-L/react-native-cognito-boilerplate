@@ -29,7 +29,7 @@ function* saveCredentialsToKeychain({ email, password }) {
       yield call([Keychain, 'resetGenericPassword'],{
         service: DeviceInfo.getBundleId()
       })
-      yield call([AsyncStorage, removeItem], `${DeviceInfo.getBundleId()}:hasSetupBiometric`)
+      yield call([AsyncStorage, 'removeItem'], `${DeviceInfo.getBundleId()}:hasSetupBiometric`)
 
       // prompt to setup biometric
       yield call(promptBiometricSetup, email, password)
