@@ -152,44 +152,34 @@ class Login extends React.Component {
     this.props.navigation.navigate('ForgotPassword')
   }
 
-  onLogin() {
+  async onLogin() {
     this.setState({
       submittedFormBefore: true
     })
     if (ValidateFormObject('login', _.pick(this.state, ['email', 'password']))) {
-      this.login(this.state.email, this.state.password)
+      await this.login(this.state.email, this.state.password)
     }
   }
 
-  login(email, password) {
+  async login(email, password) {
     this.props.dispatchLoginRequest()
-    Auth.signIn(email, password)
-    .then(async (user) => {
+    try {
+      const user = await Auth.signIn(email, password)
       if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
         const newAttributes = {}
         for (const attribute of user.challengeParam.requiredAttributes) {
           newAttributes[attribute] = "qwe" // random value for required attributes that were not provided if user is created from AWS console
         }
-        Auth.completeNewPassword(
+
+        await Auth.completeNewPassword(
           user,
           password,
           newAttributes
         )
-        .then(async (user) => {
-          await this.continueLogin(email, password)
-        })
-        .catch((err) => {
-          Alert.alert(
-            "Alert",
-            err.message || err,
-            [{text: "OK"}]
-          )
-        })
-      } else {
-        await this.continueLogin(email, password)
       }
-    })
-    .catch((err) => {
+      
+      await this.continueLogin(email, password)
+    } catch (err) {
       this.props.dispatchLoginFailure()
       console.log(err)
       Alert.alert(
@@ -197,7 +187,7 @@ class Login extends React.Component {
         err.message || err,
         [{text: "OK"}]
       )
-    })
+    }
   }
 
   async continueLogin(email, password) {
