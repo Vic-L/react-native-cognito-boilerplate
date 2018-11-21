@@ -1,14 +1,29 @@
 import React from 'react'
 import {
   View,
-  AsyncStorage,
   Alert,
+  Text,
 } from 'react-native'
 import Auth from '@aws-amplify/auth'
 
 import Button from '../../elements/Button'
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      username: null
+    }
+  }
+
+  async componentDidMount() {
+    const user = await Auth.currentAuthenticatedUser()
+    this.setState({
+      username: user.username
+    })
+  }
+
   render() {
     return (
       <View style={{
@@ -16,6 +31,7 @@ class Main extends React.Component {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
+        <Text>{this.state.username}</Text>
         <Button
           text="LOGOUT"
           onPress={this.onLogout.bind(this)}/>
