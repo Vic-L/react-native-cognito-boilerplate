@@ -51,7 +51,9 @@ To run different schemes, change the value for the `--scheme` flag in the desire
 * Replace android keystores.
 * Change `applicationId` in `android/app/build.gradle`.
 * Setup project in firebase.
-* Replace `google-services.json` files in `android/app/src/<BUILD_TYPE>`.
+* Replace `google-services.json` files in `android/app/src/<BUILD_TYPE>`. The correct build type will find the correct `google-services.json` file in the designated location namespaced by the name of the build type. This is setup by [`react-native-config`](https://github.com/luggit/react-native-config/issues/245#issuecomment-386443819).
+
+NOTE: For each environment, the package name will be appended with `applicationIdSuffix`. Refer to `android/app/build.gradle` under `buildTypes` option to see the configurations made to each build type. Use the resultant applicationId to create your android firebase app to get the `google-services.json` file for each environment.
 
 ## Setup
 
