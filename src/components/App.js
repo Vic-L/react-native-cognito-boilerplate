@@ -61,6 +61,8 @@ Auth.configure({
   // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
   userPoolWebClientId: Config.COGNITO_CLIENT_ID,
 
+  // TODO: client secret is not supported and will not work
+
   // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
   mandatorySignIn: false,
 
