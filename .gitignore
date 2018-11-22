@@ -51,10 +51,16 @@ buck-out/
 **/fastlane/*
 !**/Fastfile
 !**/Pluginfile
-!**/.env.sample
 
 # Bundle artifact
 *.jsbundle
 
 # custom
 .env*
+!.env.sample
+
+google-services.json
+
+## android generated files
+android/app/src/main/res
+android/app/src/main/assets
