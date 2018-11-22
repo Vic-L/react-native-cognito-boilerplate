@@ -63,4 +63,5 @@ google-services.json
 
 ## android generated files
 android/app/src/main/res
-android/app/src/main/assets
+android/app/src/main/assets/*
+!android/app/src/main/assets/.gitkeep
