@@ -40,6 +40,10 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         vectorDrawables.useSupportLibrary = true // react-native-image-crop-picker
+
+        // with reference to https://github.com/luggit/react-native-config#advanced-android-setup
+        // to support multi env for react-native config
+        resValue "string", "build_config_package", "com.reactnativecognitoboilerplate"
     }
     splits {
         abi {
