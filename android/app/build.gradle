@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 
 project.ext.envConfigFiles = [
     debug: ".env.development",
+    staging: ".env.staging",
     release: ".env.production",
 ]
 
@@ -91,28 +92,28 @@ android {
     }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            // For each separate APK per architecture, set a unique version code as described here:
-            // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
-            def abi = output.getFilter(OutputFile.ABI)
-            if (abi != null) {  // null for the universal-debug, universal-release variants
-                output.versionCodeOverride =
-                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
-            }
+        variant.outputs.all { output ->
+            def appName = "reactnativecognitoboilerplate"
+            def buildType = variant.buildType.name
+            def date = new Date()
+            //** in case do not want to overwrite build
+            // def formattedDate = date.format('yyyyMMdd')
+            // def newName = "${appName}-${buildType}-${formattedDate}.apk"
+            def newName = "${appName}-${buildType}.apk"
+            outputFileName = new File(newName)
         }
     }
 }
 
 dependencies {
-    compile project(':react-native-device-info')
-    compile project(':react-native-app-settings')
-    compile project(':react-native-keychain')
+    implementation project(':react-native-device-info')
+    implementation project(':react-native-app-settings')
+    implementation project(':react-native-keychain')
     implementation project(':react-native-firebase')
     // Firebase dependencies
-    implementation "com.google.android.gms:play-services-base:15.0.1"
-    implementation "com.google.firebase:firebase-core:16.0.1"
-    implementation "com.google.firebase:firebase-messaging:17.1.0"
+    implementation "com.google.android.gms:play-services-base:16.0.1"
+    implementation "com.google.firebase:firebase-core:16.0.4"
+    implementation "com.google.firebase:firebase-messaging:17.3.4"
     implementation 'me.leolin:ShortcutBadger:1.1.21@aar' // Add this line if you wish to use badge on Android
 
     implementation project(':react-native-image-crop-picker')
