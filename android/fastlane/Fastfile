@@ -1,0 +1,42 @@
+# update_fastlane
+
+fastlane_version '2.108.0'
+
+default_platform :android
+
+platform :android do
+
+  lane :staging do
+    sh('echo pwd')
+
+    sh("cd ../../ && react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res")
+
+    sh("cd ../ && ./gradlew clean")
+
+    gradle(task: "assembleStaging")
+
+    aws_s3(
+      access_key: ENV['STAGING_S3_ACCESS_KEY'],               # Required from user (unless using aws_profile).
+      secret_access_key: ENV['STAGING_S3_SECRET_ACCESS_KEY'], # Required from user (unless using aws_profile).
+      bucket: ENV['STAGING_S3_BUCKET'],                       # Required from user.
+      region: ENV['STAGING_S3_REGION'],                       # Required from user.
+      # following `def appName = "reactnativecognitoboilerplate"` under app/build.gradle
+      apk: "app/build/outputs/apk/staging/reactnativecognitoboilerplate-staging.apk",
+      app_directory: ENV["STAGING_APP_DIRECTORY"],
+      path: '',
+    )
+
+    slack(
+      message: "#{ENV['SLACK_MENTION']} new *STAGING* :android: build *#{Time.now.strftime('%a, %e %b %Y %H:%M %p')}* @ https://s3-#{ENV['STAGING_S3_REGION']}.amazonaws.com/#{ENV['STAGING_S3_BUCKET']}/#{ENV['STAGING_APP_DIRECTORY']}/index.html",
+      channel: ENV['SLACK_CHANNEL']
+    )
+
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
