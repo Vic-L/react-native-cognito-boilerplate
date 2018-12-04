@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "prepare": "cd node_modules/react-native && ./scripts/ios-install-third-party.sh && cd ../../ && cd node_modules/react-native/third-party/glog-0.3.5/ && ../../scripts/ios-configure-glog.sh && cd ../../../../",
+    "cleanIOS": "rm -rf $TMPDIR/metro-cache && rm -rf ./ios/build && watchman watch-del-all && rm -rf $TMPDIR/react-* && lsof -ti :8081 | xargs kill -9 # kill any instance of metro bundler",
     "iphoneX": "ENVFILE=.env.development react-native run-ios --simulator='iPhone X' # --scheme CustomScheme",
     "iphonePlus": "ENVFILE=.env.development react-native run-ios --simulator='iPhone 6 Plus' # --scheme CustomScheme",
     "iphoneDevice": "ENVFILE=.env.development react-native run-ios --device 'Vic’s iPhone'",
