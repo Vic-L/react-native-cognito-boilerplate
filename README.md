@@ -89,6 +89,19 @@ react-native run-ios # start new metro bundler in current terminal
 cd android && ./gradlew clean && cd ..
 ```
 
+## Features
+
+These are features implemented as part of boilerplate. Remove them if your project do not need them.
+
+### Deeplink
+
+Setup for iOS only with reference to [react-navigation guide on deep-linking](https://reactnavigation.org/docs/en/deep-linking.html). To remove, delete the entry in `Info.plist` with the key `CFBundleURLTypes`. Its value should be an array with `CFBundleURLName` and `CFBundleURLSchemes` as `rncb`.
+
+### Push notification
+
+Setup for iOS. Capabilities are enabled.
+Remove accordingly if not using. Remove `pem` lane in `fastlane` when building ipa.
+
 ## Project Notes
 
 ### Launch screen
