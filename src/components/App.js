@@ -47,11 +47,11 @@ import rootReducers from '../reducers'
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
   // identityPoolId: 'XX-XXXX-X:XXXXXXXX-XXXX-1234-abcd-1234567890ab',
-  
+
   // REQUIRED - Amazon Cognito Region
   region: Config.COGNITO_AWS_REGION,
 
-  // OPTIONAL - Amazon Cognito Federated Identity Pool Region 
+  // OPTIONAL - Amazon Cognito Federated Identity Pool Region
   // Required only if it's different from Amazon Cognito Region
   // identityPoolRegion: 'XX-XXXX-X',
 
@@ -80,7 +80,7 @@ Auth.configure({
 
   // OPTIONAL - customized storage object
   // storage: new MyStorage(),
-  
+
   // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
@@ -90,7 +90,7 @@ const middlewares = []
 
 const sagaMiddleware = createSagaMiddleware()
 middlewares.push(sagaMiddleware)
- 
+
 const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers)
 
 // sagas
@@ -137,7 +137,10 @@ const RootStack = createSwitchNavigator(
     Startup: Startup,
     Auth: AuthNavigator,
     App: AppNavigator,
-    BottomTabNavigator: BottomTabNavigator,
+    BottomTabNavigator: {
+      screen: BottomTabNavigator,
+      path: 'bottomTab/:param'
+    },
     DrawerNavigator: DrawerNavigator,
   },
   {
