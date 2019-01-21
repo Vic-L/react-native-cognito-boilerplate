@@ -21,7 +21,10 @@ class Forms extends React.Component {
 
     this.state = {
       imageBase64: null,
-      initialImagePath: ["https://store.donanimhaber.com/ae/0c/c4/ae0cc4f398e19a24a9b0434dcec0c365.png", null][Math.floor(Math.random() * 2)],
+      initialImagePath: [
+        'https://store.donanimhaber.com/ae/0c/c4/ae0cc4f398e19a24a9b0434dcec0c365.png',
+        null
+      ][Math.floor(Math.random() * 2)],
     };
   }
 
@@ -34,29 +37,33 @@ class Forms extends React.Component {
           title='Add image'
           message='Description of what this image is for'
           onCropped={(imageBase64) => {
-            this.setState({imageBase64})
+            this.setState({ imageBase64 });
           }}
           render={({ imagePath }) => {
-            let image = null
+            let image = null;
             if (_.isNil(imagePath)) {
-              image = <Image source={require('../../images/icons/magnifying_glass.jpg')}/>
+              image = <Image source={require('../../images/icons/magnifying_glass.jpg')} />;
             } else {
-              image = <Image 
-                style={{
-                  width: 150,
-                  height: 150,
-                }}
-                source={{uri: imagePath}}/>
+              image = (
+                <Image
+                  style={{
+                    width: 150,
+                    height: 150,
+                  }}
+                  source={{ uri: imagePath }}
+                />
+              );
             }
             return (
               <View>
                 {image}
               </View>
-            )
-          }}/>
+            );
+          }}
+        />
       </Wrapper>
     );
-  };
+  }
 }
 
 export default Forms;

@@ -5,7 +5,6 @@ import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import {
   createStackNavigator,
   createSwitchNavigator,
-  createDrawerNavigator,
 } from 'react-navigation';
 
 import { ApolloProvider } from 'react-apollo';
@@ -15,6 +14,9 @@ import typeDefs from '../clientState/typeDefs';
 import Startup from './screens/Startup';
 import IOSPushNotificationListener from './IOSPushNotificationListener';
 import Main from './screens/app/Main';
+import BottomTabNavigator from './navigators/BottomTabNavigator';
+import AuthNavigator from './navigators/AuthNavigator';
+import DrawerNavigator from './navigators/DrawerNavigator';
 
 const apolloClient = new ApolloClient({
   uri: 'https://fakerql.com/graphql',
@@ -75,7 +77,7 @@ Auth.configure({
 
   // OPTIONAL - Manually set the authentication flow type. Default is 'USER_SRP_AUTH'
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
-})
+});
 
 const AppNavigator = createStackNavigator(
   {
@@ -89,39 +91,33 @@ const AppNavigator = createStackNavigator(
   {
     initialRouteName: 'Main',
   }
-)
-
-////////// ROOT STACK //////////
-
-import BottomTabNavigator from './navigators/BottomTabNavigator'
-import AuthNavigator from './navigators/AuthNavigator'
-import DrawerNavigator from './navigators/DrawerNavigator'
+);
 
 const RootStack = createSwitchNavigator(
   {
-    Startup: Startup,
+    Startup,
     Auth: AuthNavigator,
     App: AppNavigator,
     BottomTabNavigator: {
       screen: BottomTabNavigator,
       path: 'bottomTab/:param'
     },
-    DrawerNavigator: DrawerNavigator,
+    DrawerNavigator,
   },
   {
     initialRouteName: 'Startup',
   }
-)
+);
 
 export default class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={apolloClient}>
         <React.Fragment>
-          <IOSPushNotificationListener/>
-          <RootStack/>
+          <IOSPushNotificationListener />
+          <RootStack />
         </React.Fragment>
       </ApolloProvider>
-    )
+    );
   }
 }

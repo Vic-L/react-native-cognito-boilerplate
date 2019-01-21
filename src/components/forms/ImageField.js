@@ -10,9 +10,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const IMAGE_PICKER_ERROR = {
-  CANCEL_IMAGE_SELECTION: "User cancelled image selection",
-  CANCEL_CAMERA: "User cancelled image selection",
-}
+  CANCEL_IMAGE_SELECTION: 'User cancelled image selection',
+  CANCEL_CAMERA: 'User cancelled image selection',
+};
 
 const Wrapper = styled.TouchableOpacity`
   ${props => props.style}
@@ -20,32 +20,14 @@ const Wrapper = styled.TouchableOpacity`
 
 class ImageField extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       imageBase64: null,
       imagePath: props.initialImagePath, // for initial image eg during edit
       isModalVisible: false,
       isLoadingImage: false
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { imagePath } = this.state
-    if (prevState.imagePath !== imagePath) {
-      this.setState({imagePath})
-    }
-  }
-
-  render() {
-    return (
-      <Wrapper
-        style={this.props.style}
-        onPress={this.showModal}
-        enabled={this.props.disabled || true}>
-        {this.props.render(this.state)}
-     </Wrapper>
-    )
+    };
   }
 
   showModal = () => {
@@ -101,21 +83,25 @@ class ImageField extends React.Component {
       height: 300,
       cropping: true,
       includeBase64: true,
-      loadingLabelText: "Processing" // TODO use phone language
+      loadingLabelText: 'Processing' // TODO use phone language
     }).then(response => {
       this.setState({
         imagePath: response.path,
         imageBase64: response.data
-      })
-      this.props.onCropped(response.data)
+      });
+      this.props.onCropped(response.data);
     }).catch(e => {
       switch (true) {
         case e.message === IMAGE_PICKER_ERROR.CANCEL_CAMERA:
-          break // do nothing
+          break; // do nothing
         default:
-          alert(e)
+          Alert.alert(
+            'Error',
+            JSON.stringify(e),
+            [{ text: 'OK' }]
+          );
       }
-    })
+    });
   }
 
   openGallery = () => {
@@ -124,22 +110,38 @@ class ImageField extends React.Component {
       height: 300,
       cropping: true,
       includeBase64: true,
-      loadingLabelText: "Processing" // TODO use phone language
+      loadingLabelText: 'Processing' // TODO use phone language
     }).then(response => {
       this.setState({
         imagePath: response.path,
         imageBase64: response.data
-      })
-      this.props.onCropped(response.data)
+      });
+      this.props.onCropped(response.data);
     }).catch(e => {
       switch (true) {
         case e.message === IMAGE_PICKER_ERROR.CANCEL_IMAGE_SELECTION:
           // do nothing
-          break
+          break;
         default:
-          alert(e)
+          Alert.alert(
+            'Error',
+            JSON.stringify(e),
+            [{ text: 'OK' }]
+          );
       }
-    })
+    });
+  }
+
+  render() {
+    return (
+      <Wrapper
+        style={this.props.style}
+        onPress={this.showModal}
+        enabled={this.props.disabled || true}
+      >
+        {this.props.render(this.state)}
+     </Wrapper>
+    );
   }
 }
 
@@ -152,6 +154,6 @@ ImageField.propTypes = {
   initialImageBase64: PropTypes.string,
   style: PropTypes.string,
   enabled: PropTypes.bool,
-}
+};
 
-export default ImageField
+export default ImageField;

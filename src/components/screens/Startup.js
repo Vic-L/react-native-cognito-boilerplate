@@ -1,37 +1,37 @@
-import React from 'react'
+import React from 'react';
 import {
   Alert,
-} from 'react-native'
-import SplashScreen from 'react-native-splash-screen'
+} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
-import Auth from '@aws-amplify/auth'
+import Auth from '@aws-amplify/auth';
 
 class Startup extends React.Component {
   componentDidMount() {
     Auth.currentAuthenticatedUser()
-    .then(data => {
-      this.props.navigation.navigate('Main')
+    .then(() => {
+      this.props.navigation.navigate('Main');
     })
     .catch((err) => {
-      if (err === "not authenticated") {
-        this.props.navigation.navigate('Welcome')
+      if (err === 'not authenticated') {
+        this.props.navigation.navigate('Welcome');
       } else {
         Alert.alert(
-          "Alert",
+          'Alert',
           err.message || err,
-          [{text: "OK"}]
-        )
+          [{ text: 'OK' }]
+        );
       }
-    })
+    });
   }
 
   componentWillUnmount() {
-    SplashScreen.hide()
+    SplashScreen.hide();
   }
 
   render() {
-    return null
+    return null;
   }
 }
 
-export default Startup
+export default Startup;

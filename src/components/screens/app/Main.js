@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  View,
   Alert,
   Text,
 } from 'react-native';
@@ -13,22 +12,45 @@ const Wrapper = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-`
+`;
 
 class Main extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       username: null
-    }
+    };
   }
 
   async componentDidMount() {
-    const user = await Auth.currentAuthenticatedUser()
+    const user = await Auth.currentAuthenticatedUser();
     this.setState({
       username: user.username
+    });
+  }
+
+  onTabs() {
+    this.props.navigation.navigate('BottomTabNavigator');
+  }
+
+  onDrawer() {
+    this.props.navigation.navigate('DrawerNavigator');
+  }
+
+  onLogout() {
+    Auth.signOut()
+    .then(() => {
+      this.props.navigation.navigate('Welcome');
     })
+    .catch((err) => {
+      console.log(err);
+      Alert.alert(
+        'Alert',
+        err.message || err,
+        [{ text: 'OK' }]
+      );
+    });
   }
 
   render() {
@@ -37,39 +59,19 @@ class Main extends React.Component {
         <Text>{this.state.username}</Text>
         <Button
           text="LOGOUT"
-          onPress={this.onLogout.bind(this)}/>
+          onPress={this.onLogout.bind(this)}
+        />
         <Button
           text="BottomTabNavigator"
-          onPress={this.onTabs.bind(this)}/>
+          onPress={this.onTabs.bind(this)}
+        />
         <Button
           text="DrawerNavigator"
-          onPress={this.onDrawer.bind(this)}/>
+          onPress={this.onDrawer.bind(this)}
+        />
       </Wrapper>
-    )
-  }
-
-  onTabs() {
-    this.props.navigation.navigate('BottomTabNavigator')
-  }
-
-  onDrawer() {
-    this.props.navigation.navigate('DrawerNavigator')
-  }
-
-  onLogout() {
-    Auth.signOut()
-    .then(() => {
-      this.props.navigation.navigate('Welcome')
-    })
-    .catch((err) => {
-      console.log(err)
-      Alert.alert(
-        "Alert",
-        err.message || err,
-        [{text: "OK"}]
-      )
-    })
+    );
   }
 }
 
-export default Main
+export default Main;

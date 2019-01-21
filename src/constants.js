@@ -3,4 +3,4 @@ export const COLOR = {
   ALTERNATE: 'blue',
   ERROR: 'red',
   BLACK: '#222222'
-}
+};

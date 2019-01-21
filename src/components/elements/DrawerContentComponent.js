@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 import {
   DrawerItems,
-  SafeAreaView
 } from 'react-navigation';
 import styled from 'styled-components';
 

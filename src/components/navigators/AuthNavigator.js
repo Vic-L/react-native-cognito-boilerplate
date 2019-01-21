@@ -1,13 +1,13 @@
 import {
   createStackNavigator,
-} from 'react-navigation'
+} from 'react-navigation';
 
-import Welcome from '../screens/auth/Welcome'
-import Login from '../screens/auth/Login'
-import Signup from '../screens/auth/Signup'
-import ForgotPassword from '../screens/auth/ForgotPassword'
-import ConfirmSignup from '../screens/auth/ConfirmSignup'
-import ForgotPasswordSubmit from '../screens/auth/ForgotPasswordSubmit'
+import Welcome from '../screens/auth/Welcome';
+import Login from '../screens/auth/Login';
+import Signup from '../screens/auth/Signup';
+import ForgotPassword from '../screens/auth/ForgotPassword';
+import ConfirmSignup from '../screens/auth/ConfirmSignup';
+import ForgotPasswordSubmit from '../screens/auth/ForgotPasswordSubmit';
 
 const AuthNavigator = createStackNavigator(
   {
@@ -51,6 +51,6 @@ const AuthNavigator = createStackNavigator(
   {
     initialRouteName: 'Welcome',
   }
-)
+);
 
-export default AuthNavigator
+export default AuthNavigator;

@@ -9,30 +9,31 @@ const Wrapper = styled(KeyboardAwareScrollView)`
 `;
 
 class FormContainer extends React.Component {
-  componentDidUpdate(prevProps) {
-    const keyboardScrollView = this.refs.keyboardAwareScrollView
+  componentDidUpdate() {
+    const keyboardScrollView = this.refs.keyboardAwareScrollView;
     if (keyboardScrollView) {
-      keyboardScrollView.update()
+      keyboardScrollView.update();
     }
   }
 
   render() {
-    const { style, ...otherProps } = this.props
+    const { style, ...otherProps } = this.props;
     return (
       <Wrapper
-        style='padding: 15px;'
+        style={style}
         {...otherProps}
-        ref='keyboardAwareScrollView'>
+        ref='keyboardAwareScrollView'
+      >
 
         {this.props.children}
 
       </Wrapper>
-    )
+    );
   }
 }
 
 FormContainer.propTypes = {
   style: PropTypes.string,
-}
+};
 
-export default FormContainer
+export default FormContainer;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Alert } from 'react-native';
-import { StackActions } from 'react-navigation';
 import Auth from '@aws-amplify/auth';
 import styled from 'styled-components';
 
@@ -20,11 +19,44 @@ const FormWrapper = styled.View`
 
 class ConfirmSignup extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       confirmationCode: null,
-    }
+    };
+  }
+
+  onChangeConfirmationCode(confirmationCode) {
+    this.setState({
+      confirmationCode
+    });
+  }
+
+  onLogin() {
+    Auth.confirmSignUp(
+      this.props.navigation.getParam('username', null), 
+      this.state.confirmationCode,
+      {
+        // Optional. Force user confirmation irrespective of existing alias. By default set to True.
+        forceAliasCreation: true
+      }
+    ).then((data) => {
+      console.log('confirmSignUp', data);
+      this.props.navigation.replace({
+        key: this.props.navigation.getParam('signupScreenKey', null),
+        routeName: 'Login',
+        immediate: true // currently no effect
+      });
+      this.props.navigation.goBack();
+    })
+    .catch((err) => {
+      console.log(err);
+      Alert.alert(
+        'Alert',
+        err.message || err,
+        [{ text: 'OK' }]
+      );
+    });
   }
 
   render() {
@@ -32,50 +64,24 @@ class ConfirmSignup extends React.Component {
       <Wrapper>
 
         <FormWrapper>
+
           <TextField
             label='CONFIRMATION CODE'
             placeholder='Confirmation Code'
             keyboardType='numeric'
             value={this.state.confirmationCode}
-            onChangeText={this.onChangeConfirmationCode.bind(this)}/>
+            onChangeText={this.onChangeConfirmationCode.bind(this)}
+          />
 
           <Button
             text="LOGIN"
-            onPress={this.onLogin.bind(this)}/>
+            onPress={this.onLogin.bind(this)}
+          />
 
         </FormWrapper>
 
       </Wrapper>
-    )
-  }
-
-  onChangeConfirmationCode(confirmationCode) {
-    this.setState({
-      confirmationCode
-    })
-  }
-
-  onLogin() {
-    Auth.confirmSignUp(this.props.navigation.getParam('username', null), this.state.confirmationCode, {
-      // Optional. Force user confirmation irrespective of existing alias. By default set to True.
-      forceAliasCreation: true    
-    }).then((data) => {
-      console.log('confirmSignUp', data)
-      this.props.navigation.replace({
-        key: this.props.navigation.getParam('signupScreenKey', null),
-        routeName: 'Login',
-        immediate: true // currently no effect
-      })
-      this.props.navigation.goBack()
-    })
-    .catch((err) => {
-      console.log(err)
-      Alert.alert(
-        "Alert",
-        err.message || err,
-        [{text: "OK"}]
-      )
-    })
+    );
   }
 }
 

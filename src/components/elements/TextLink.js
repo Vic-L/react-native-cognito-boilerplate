@@ -22,18 +22,16 @@ const TextLink = ({
   onPress,
   textStyle,
   containerStyle,
-}) => {
-  return (
-    <LinkContainer
-      onPress={onPress}
-      style={containerStyle}
-    >
-      <LinkText style={textStyle}>
-        {text}
-      </LinkText>
-    </LinkContainer>
-  )
-}
+}) => (
+  <LinkContainer
+    onPress={onPress}
+    style={containerStyle}
+  >
+    <LinkText style={textStyle}>
+      {text}
+    </LinkText>
+  </LinkContainer>
+);
 
 TextLink.propTypes = {
   text: PropTypes.string.isRequired,
@@ -41,6 +39,6 @@ TextLink.propTypes = {
   
   textStyle: PropTypes.string,
   containerStyle: PropTypes.string,
-}
+};
 
-export default TextLink
+export default TextLink;

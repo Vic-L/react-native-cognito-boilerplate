@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import {
   Text,
@@ -26,9 +25,13 @@ const Wrapper = styled.View`
 `;
 
 class Posts extends React.Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    title: "Screen Post Title",
-    headerLeft: <TouchableOpacity onPress={() => { navigation.openDrawer(); }}><Text>Menu</Text></TouchableOpacity>,
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Screen Post Title',
+    headerLeft: (
+      <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <Text>Menu</Text>
+      </TouchableOpacity>
+    ),
   })
 
   render() {
@@ -37,27 +40,25 @@ class Posts extends React.Component {
         <Button
           text="To Products"
           onPress={() => {
-            this.props.navigation.navigate('Products')
-          }}/>
+            this.props.navigation.navigate('Products');
+          }}
+        />
         <Button
           text="Toggle Drawer"
-          onPress={this.props.navigation.toggleDrawer}/>
+          onPress={this.props.navigation.toggleDrawer}
+        />
         <Text>Posts</Text>
         <Query query={GET_POSTS_QUERY}>
           {({ loading, error, data }) => {
-            if (loading) return <Text>Loading...</Text>
-            if (error) return <Text>Error! {error.message}</Text>
+            if (loading) return <Text>Loading...</Text>;
+            if (error) return <Text>Error! {error.message}</Text>;
 
-            return data.allPosts.map((post) => {
-              return (
-                <Text key={post.id}>{post.title}</Text>
-              )
-            })
+            return data.allPosts.map((post) => <Text key={post.id}>{post.title}</Text>);
           }}
         </Query>
       </Wrapper>
-    )
+    );
   }
 }
 
-export default Posts
+export default Posts;

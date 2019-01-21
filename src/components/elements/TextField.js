@@ -9,40 +9,50 @@ import {
   COLOR,
 } from '../../constants';
 
-const fieldContainerHeight = 60
-const floatLabelFontSize = 12
-const floatLabelLineHeight = 18
-const inputFontSize = 16
-const inputLineHeight = 18
+const fieldContainerHeight = 60;
+const floatLabelFontSize = 12;
+const inputFontSize = 16;
 
 const Wrapper = styled.View`
   padding: 16px;
   height: ${fieldContainerHeight};
   justify-content: center;
   background-color: white;
-`
+`;
 
 const Label = styled.Text`
-  font-size: ${props => props.value ? floatLabelFontSize : inputFontSize};
-  color: ${props => props.value ? (props.hasError ? COLOR.ERROR : COLOR.BLACK) : 'transparent'};
+  font-size: ${props => (props.value ? floatLabelFontSize : inputFontSize)};
+  color: ${props => {
+    if (props.value) {
+      return props.hasError ? COLOR.ERROR : COLOR.BLACK;
+    }
+
+    return 'transparent';
+  }};
   margin-bottom: 4px;
-`
+`;
 
 const Input = styled.TextInput`
   font-size: ${inputFontSize};
-  color: ${props => props.hasError ? COLOR.ERROR : COLOR.BLACK};
+  color: ${props => (props.hasError ? COLOR.ERROR : COLOR.BLACK)};
   border-width: 0;
   padding: 0;
   width: 100%;
-  /* selectionColor: this.props.error ? COLOR.ERROR : COLOR.FONT_BLACK // does not seem to work yet */
-`
 
-// uncontrolle
+  // does not seem to work yet */
+  /* selectionColor: this.props.error ? COLOR.ERROR : COLOR.FONT_BLACK
+`;
+
+// uncontrolled
 class TextField extends React.Component {
-  render() {
-    const { label, value, error, ...props } = this.props
+  focusTextInput = () => {
+    this.refs.input.focus();
+  }
 
-    const hasError = !_.isNil(error) && error !== ""
+  render() {
+    const { label, value, error, ...props } = this.props;
+
+    const hasError = !_.isNil(error) && error !== '';
 
     return (
       <TouchableWithoutFeedback onPress={this.focusTextInput}>
@@ -69,12 +79,8 @@ class TextField extends React.Component {
           />
         </Wrapper>
       </TouchableWithoutFeedback>
-    )
-  }
-
-  focusTextInput = () => {
-    this.refs.input.focus()
+    );
   }
 }
 
-export default TextField
+export default TextField;

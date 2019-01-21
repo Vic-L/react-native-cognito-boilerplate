@@ -11,27 +11,29 @@ const Wrapper = styled.View`
 `;
 
 class Welcome extends React.Component {
+  onLogin() {
+    this.props.navigation.navigate('Login');
+  }
+
+  onSignup() {
+    this.props.navigation.navigate('Signup');
+  }
+
   render() {
     return (
       <Wrapper>
         <Text>Welcome page</Text>
         <Button
           text='LOGIN'
-          onPress={this.onLogin.bind(this)}/>
+          onPress={this.onLogin.bind(this)}
+        />
         <Button
           text='SIGN UP'
-          onPress={this.onSignup.bind(this)}/>
+          onPress={this.onSignup.bind(this)}
+        />
       </Wrapper>
-    )
-  }
-
-  onLogin() {
-    this.props.navigation.navigate('Login')
-  }
-
-  onSignup() {
-    this.props.navigation.navigate('Signup')
+    );
   }
 }
 
-export default Welcome
+export default Welcome;

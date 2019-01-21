@@ -19,55 +19,28 @@ const Wrapper = styled.View`
 
 class ForgotPassword extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       email: null,
-    }
-  }
-
-  render() {
-    return (
-      <Wrapper>
-
-        <FormContainer bounces={false}>
-          <NavbarSpacing/>
-
-          <TextField
-            label='EMAIL'
-            placeholder='Email'
-            value={this.state.email}
-            keyboardType='email-address'
-            autoCapitalize='none'
-            autoFocus={true}
-            returnKeyType='done'
-            onSubmitEditing={this.onForgotPassword.bind(this)}
-            onChangeText={this.onChangeEmail.bind(this)}/>
-
-          <Button
-            text="Submit"
-            onPress={this.onForgotPassword.bind(this)}/>
-
-        </FormContainer>
-
-      </Wrapper>
-    )
+    };
   }
 
   onChangeEmail(email) {
     this.setState({
       email
-    })
+    });
   }
 
   onForgotPassword() {
     Auth.forgotPassword(this.state.email)
-    .then((data) => {
+    .then(() => {
       Alert.alert(
-        "Alert",
-        "A verification code has been sent to your email. Please use it and set your new password on the next page.",
+        'Alert',
+        `A verification code has been sent to your email.
+        Please use it and set your new password on the next page.`,
         [{
-          text: "OK",
+          text: 'OK',
           onPress: () => {
             this.props.navigation.replace({
               key: this.props.navigation.state.key,
@@ -76,19 +49,52 @@ class ForgotPassword extends React.Component {
               params: {
                 email: this.state.email
               }
-            })
+            });
           }
         }]
-      )
+      );
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       Alert.alert(
-        "Alert",
+        'Alert',
         err.message || err,
-        [{text: "OK"}]
-      )
-    })
+        [{ text: 'OK' }]
+      );
+    });
+  }
+
+  render() {
+    return (
+      <Wrapper>
+
+        <FormContainer 
+          style='padding: 15px;'
+          ounces={false}
+        >
+          <NavbarSpacing />
+
+          <TextField
+            label='EMAIL'
+            placeholder='Email'
+            value={this.state.email}
+            keyboardType='email-address'
+            autoCapitalize='none'
+            autoFocus
+            returnKeyType='done'
+            onSubmitEditing={this.onForgotPassword.bind(this)}
+            onChangeText={this.onChangeEmail.bind(this)}
+          />
+
+          <Button
+            text="Submit"
+            onPress={this.onForgotPassword.bind(this)}
+          />
+
+        </FormContainer>
+
+      </Wrapper>
+    );
   }
 }
 

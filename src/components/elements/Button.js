@@ -1,11 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
   COLOR
-} from '../../constants'
+} from '../../constants';
 
 const ButtonContainer = styled.TouchableOpacity`
   padding: 10px;
@@ -20,15 +19,14 @@ const ButtonText = styled.Text`
 const Button = ({
   text,
   onPress,
-}) => {
-  return (
-    <ButtonContainer onPress={onPress}>
-      <ButtonText>
-        {text}
-      </ButtonText>
-    </ButtonContainer>
-  );
-}
+}) => (
+  <ButtonContainer onPress={onPress}>
+    <ButtonText>
+      {text}
+    </ButtonText>
+  </ButtonContainer>
+);
+
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,

@@ -1,9 +1,13 @@
+import React from 'react';
 import {
   createStackNavigator,
-} from 'react-navigation'
+} from 'react-navigation';
+import {
+  Image
+} from 'react-native';
 
-import Posts from '../screens/Posts'
-import Products from '../screens/Products'
+import Posts from '../screens/Posts';
+import Products from '../screens/Products';
 
 const StackNavigator = createStackNavigator(
   {
@@ -22,17 +26,17 @@ const StackNavigator = createStackNavigator(
     },
   },
   {
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       initialRouteName: 'Posts',
       headerMode: 'screen',
       drawerLabel: 'Posts >',
-      drawerIcon: ({ tintColor }) => (
+      drawerIcon: () => (
         <Image
           source={require('../../images/icons/magnifying_glass.jpg')}
         />
       ),
     }),
   }
-)
+);
 
-export default StackNavigator
+export default StackNavigator;

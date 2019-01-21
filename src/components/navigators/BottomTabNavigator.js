@@ -1,9 +1,9 @@
 import {
   createBottomTabNavigator,
-} from 'react-navigation'
+} from 'react-navigation';
 
-import Posts from '../screens/Posts'
-import Forms from '../screens/Forms'
+import Posts from '../screens/Posts';
+import Forms from '../screens/Forms';
 
 const BottomTabNavigator = createBottomTabNavigator({
     Posts: {
@@ -40,6 +40,6 @@ const BottomTabNavigator = createBottomTabNavigator({
       allowFontScaling: true,
     }
   }
-)
+);
 
-export default BottomTabNavigator
+export default BottomTabNavigator;

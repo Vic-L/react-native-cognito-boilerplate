@@ -18,18 +18,68 @@ const Wrapper = styled.View`
 
 const FormWrapper = styled.View`
   flex: 0.8;
-`
+`;
 
 class Signup extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       email: null,
       password: null,
       firstName: null,
       lastName: null,
-    }
+    };
+  }
+
+  onChangeFirstName(firstName) {
+    this.setState({
+      firstName
+    });
+  }
+
+  onChangeLastName(lastName) {
+    this.setState({
+      lastName
+    });
+  }
+
+  onChangeEmail(email) {
+    this.setState({
+      email
+    });
+  }
+
+  onChangePassword(password) {
+    this.setState({
+      password
+    });
+  }
+
+  onSignup() {
+    Auth.signUp({
+      username: uuidv4(),
+      password: this.state.password,
+      attributes: {
+        email: this.state.email,
+        given_name: this.state.firstName,
+        family_name: this.state.lastName,
+      },
+      validationData: []  //optional
+    })
+    .then((data) => {
+      console.log('onSignup', data);
+      this.props.navigation.navigate('ConfirmSignup', { username: data.user.username,
+        signupScreenKey: this.props.navigation.state.key
+      });
+    })
+    .catch((err) => {
+      Alert.alert(
+        'Alert',
+        err.message.replace('PreSignUp failed with error ', ''),
+        [{ text: 'OK' }]
+      );
+    });
   }
 
   render() {
@@ -41,13 +91,15 @@ class Signup extends React.Component {
             label='FIRST NAME'
             placeholder='First Name'
             value={this.state.firstName}
-            onChangeText={this.onChangeFirstName.bind(this)}/>
+            onChangeText={this.onChangeFirstName.bind(this)}
+          />
 
           <TextField
             label='LAST NAME'
             placeholder='Last Name'
             value={this.state.lastName}
-            onChangeText={this.onChangeLastName.bind(this)}/>
+            onChangeText={this.onChangeLastName.bind(this)}
+          />
 
           <TextField
             label='EMAIL'
@@ -55,74 +107,27 @@ class Signup extends React.Component {
             value={this.state.email}
             keyboardType='email-address'
             autoCapitalize='none'
-            onChangeText={this.onChangeEmail.bind(this)}/>
+            onChangeText={this.onChangeEmail.bind(this)}
+          />
 
           <TextField
             label='PASSWORD'
             placeholder='Password'
-            secureTextEntry={true}
+            secureTextEntry
             autoCapitalize='none'
             value={this.state.password}
-            onChangeText={this.onChangePassword.bind(this)}/>
+            onChangeText={this.onChangePassword.bind(this)}
+          />
 
           <Button
             text="SIGN UP"
-            onPress={this.onSignup.bind(this)}/>
+            onPress={this.onSignup.bind(this)}
+          />
 
         </FormWrapper>
 
       </Wrapper>
-    )
-  }
-
-  onChangeFirstName(firstName) {
-    this.setState({
-      firstName
-    })
-  }
-
-  onChangeLastName(lastName) {
-    this.setState({
-      lastName
-    })
-  }
-
-  onChangeEmail(email) {
-    this.setState({
-      email
-    })
-  }
-
-  onChangePassword(password) {
-    this.setState({
-      password
-    })
-  }
-
-  onSignup() {
-    Auth.signUp({
-      username: uuidv4(),
-      password: this.state.password,
-      attributes: {
-          email: this.state.email,
-          given_name: this.state.firstName,
-          family_name: this.state.lastName,
-      },
-      validationData: []  //optional
-    })
-    .then((data) => {
-      console.log('onSignup', data)
-      this.props.navigation.navigate('ConfirmSignup', { username: data.user.username,
-        signupScreenKey: this.props.navigation.state.key
-      })
-    })
-    .catch((err) => {
-      Alert.alert(
-        "Alert",
-        err.message.replace("PreSignUp failed with error ", ""),
-        [{text: "OK"}]
-      )
-    })
+    );
   }
 }
 

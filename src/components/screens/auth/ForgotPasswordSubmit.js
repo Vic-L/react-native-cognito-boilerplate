@@ -21,12 +21,55 @@ const FormWrapper = styled.View`
 
 class ForgotPasswordSubmit extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       verificationCode: null,
       newPassword: null,
-    }
+    };
+  }
+
+  onChangeVerificationCode(verificationCode) {
+    this.setState({
+      verificationCode
+    });
+  }
+
+  onChangeNewPassword(newPassword) {
+    this.setState({
+      newPassword
+    });
+  }
+
+  onForgotPasswordSubmit() {
+    Auth.forgotPasswordSubmit(
+      this.props.navigation.getParam('email', null),
+      this.state.verificationCode,
+      this.state.newPassword,
+    )
+    .then(() => {
+      Alert.alert(
+        'Alert',
+        'Password successfully updated.',
+        [{
+          text: 'OK',
+          onPress: () => {
+            this.props.navigation.navigate('Login', 
+            {
+              email: this.props.navigation.getParam('email', null)
+            });
+          }
+        }]
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+      Alert.alert(
+        'Alert',
+        err.message || err,
+        [{ text: 'OK' }]
+      );
+    });
   }
 
   render() {
@@ -40,65 +83,25 @@ class ForgotPasswordSubmit extends React.Component {
             value={this.state.verificationCode}
             keyboardType='numeric'
             autoCapitalize='none'
-            onChangeText={this.onChangeVerificationCode.bind(this)}/>
+            onChangeText={this.onChangeVerificationCode.bind(this)}
+          />
 
           <TextField
             label='NEW PASSWORD'
             placeholder='New Password'
-            secureTextEntry={true}
+            secureTextEntry
             autoCapitalize='none'
             value={this.state.newPassword}
-            onChangeText={this.onChangeNewPassword.bind(this)}/>
+            onChangeText={this.onChangeNewPassword.bind(this)}
+          />
           <Button
             text="Submit"
-            onPress={this.onForgotPasswordSubmit.bind(this)}/>
+            onPress={this.onForgotPasswordSubmit.bind(this)}
+          />
         </FormWrapper>
       
       </Wrapper>
-    )
-  }
-
-  onChangeVerificationCode(verificationCode) {
-    this.setState({
-      verificationCode
-    })
-  }
-
-  onChangeNewPassword(newPassword) {
-    this.setState({
-      newPassword
-    })
-  }
-
-  onForgotPasswordSubmit() {
-    Auth.forgotPasswordSubmit(
-      this.props.navigation.getParam('email', null),
-      this.state.verificationCode,
-      this.state.newPassword,
-    )
-    .then(() => {
-      Alert.alert(
-        "Alert",
-        "Password successfully updated.",
-        [{
-          text: "OK",
-          onPress: () => {
-            this.props.navigation.navigate('Login', 
-            {
-              email: this.props.navigation.getParam('email', null)
-            })
-          }
-        }]
-      )
-    })
-    .catch((err) => {
-      console.log(err)
-      Alert.alert(
-        "Alert",
-        err.message || err,
-        [{text: "OK"}]
-      )
-    })
+    );
   }
 }
 

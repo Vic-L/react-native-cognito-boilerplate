@@ -7,12 +7,8 @@ import GetNavbarHeight from '../../services/GetNavbarHeight';
 const Wrapper = styled.View`
   height: ${getStatusBarHeight() + GetNavbarHeight()};
   background-color: transparent;
-`
+`;
 
-const NavbarSpacing = () => {
-  return (
-    <Wrapper />
-  );
-}
+const NavbarSpacing = () => <Wrapper />;
 
 export default NavbarSpacing;
