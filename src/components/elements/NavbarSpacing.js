@@ -1,16 +1,18 @@
-import React from 'react'
-import { View } from 'react-native'
-import { getStatusBarHeight } from 'react-native-status-bar-height'
+import React from 'react';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import styled from 'styled-components';
 
-import GetNavbarHeight from '../../services/GetNavbarHeight'
+import GetNavbarHeight from '../../services/GetNavbarHeight';
+
+const Wrapper = styled.View`
+  height: ${getStatusBarHeight() + GetNavbarHeight()};
+  background-color: transparent;
+`
 
 const NavbarSpacing = () => {
   return (
-    <View style={{
-      height: getStatusBarHeight() + GetNavbarHeight(),
-      backgroundColor: 'transparent'
-    }}/>
-  )
+    <Wrapper />
+  );
 }
 
-export default NavbarSpacing
+export default NavbarSpacing;

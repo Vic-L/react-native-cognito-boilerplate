@@ -1,24 +1,28 @@
-import _ from 'lodash'
-import React from 'react'
+import _ from 'lodash';
+import React from 'react';
 import {
-  View,
   Alert,
   AsyncStorage,
-} from 'react-native'
-import * as Keychain from 'react-native-keychain'
-import OpenAppSettings from 'react-native-app-settings'
-import DeviceInfo from 'react-native-device-info'
-import Auth from '@aws-amplify/auth'
+} from 'react-native';
+import * as Keychain from 'react-native-keychain';
+import OpenAppSettings from 'react-native-app-settings';
+import DeviceInfo from 'react-native-device-info';
+import Auth from '@aws-amplify/auth';
+import styled from 'styled-components';
 
-import TextField from '../../elements/TextField'
-import TextLink from '../../elements/TextLink'
-import Button from '../../elements/Button'
-import FormContainer from '../../elements/FormContainer'
-import NavbarSpacing from '../../elements/NavbarSpacing'
+import TextField from '../../elements/TextField';
+import TextLink from '../../elements/TextLink';
+import Button from '../../elements/Button';
+import FormContainer from '../../elements/FormContainer';
+import NavbarSpacing from '../../elements/NavbarSpacing';
 
-import RequestNotificationPermission from '../../../services/RequestNotificationPermission'
-import ValidateField from '../../../services/ValidateField'
-import ValidateFormObject from '../../../services/ValidateFormObject'
+import RequestNotificationPermission from '../../../services/RequestNotificationPermission';
+import ValidateField from '../../../services/ValidateField';
+import ValidateFormObject from '../../../services/ValidateFormObject';
+
+const Wrapper = styled.View`
+  flex: 1;
+`
 
 class Login extends React.Component {
   constructor(props) {
@@ -74,10 +78,10 @@ class Login extends React.Component {
   render() {
     const { email, password, submittedFormBefore } = this.state
     return (
-      <View style={{ flex: 1 }}>
+      <Wrapper>
 
         <FormContainer
-          style={{ flex: 1, padding: 15 }}
+          style={`padding: 15px;`}
           bounces={false}>
           <NavbarSpacing/>
 
@@ -109,7 +113,7 @@ class Login extends React.Component {
             onSubmitEditing={this.onLogin.bind(this)}/>
 
           <TextLink
-            containerStyle={{alignSelf: 'center'}}
+            containerStyle={`justify-content: center;`}
             text='Forgot password'
             onPress={this.onForgetPassword.bind(this)}/>
 
@@ -127,7 +131,7 @@ class Login extends React.Component {
 
         </FormContainer>
 
-      </View>
+      </Wrapper>
     )
   }
 

@@ -1,12 +1,23 @@
-import React from 'react'
+import React from 'react';
 import {
-  View,
   Alert,
-} from 'react-native'
-import Auth from '@aws-amplify/auth'
+} from 'react-native';
+import Auth from '@aws-amplify/auth';
+import styled from 'styled-components';
 
-import TextField from '../../elements/TextField'
-import Button from '../../elements/Button'
+import TextField from '../../elements/TextField';
+import Button from '../../elements/Button';
+
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const FormWrapper = styled.View`
+  flex: 0.8;
+`;
 
 class ForgotPasswordSubmit extends React.Component {
   constructor(props) {
@@ -20,8 +31,9 @@ class ForgotPasswordSubmit extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-        <View style={{flex: 0.8}}>
+      <Wrapper>
+
+        <FormWrapper>
           <TextField
             label='VERIFICATION CODE'
             placeholder='Verification Code'
@@ -40,8 +52,9 @@ class ForgotPasswordSubmit extends React.Component {
           <Button
             text="Submit"
             onPress={this.onForgotPasswordSubmit.bind(this)}/>
-        </View>
-      </View>
+        </FormWrapper>
+      
+      </Wrapper>
     )
   }
 

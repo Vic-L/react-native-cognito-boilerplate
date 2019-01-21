@@ -1,14 +1,21 @@
-import React from 'react'
+import React from 'react';
 import {
-  View,
   Alert,
-} from 'react-native'
-import Auth from '@aws-amplify/auth'
+} from 'react-native';
+import Auth from '@aws-amplify/auth';
+import styled from 'styled-components';
 
-import TextField from '../../elements/TextField'
-import Button from '../../elements/Button'
-import FormContainer from '../../elements/FormContainer'
-import NavbarSpacing from '../../elements/NavbarSpacing'
+import TextField from '../../elements/TextField';
+import Button from '../../elements/Button';
+import FormContainer from '../../elements/FormContainer';
+import NavbarSpacing from '../../elements/NavbarSpacing';
+
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
 
 class ForgotPassword extends React.Component {
   constructor(props) {
@@ -21,11 +28,9 @@ class ForgotPassword extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <Wrapper>
 
-        <FormContainer
-          style={{ flex: 1, padding: 15 }}
-          bounces={false}>
+        <FormContainer bounces={false}>
           <NavbarSpacing/>
 
           <TextField
@@ -44,7 +49,8 @@ class ForgotPassword extends React.Component {
             onPress={this.onForgotPassword.bind(this)}/>
 
         </FormContainer>
-      </View>
+
+      </Wrapper>
     )
   }
 

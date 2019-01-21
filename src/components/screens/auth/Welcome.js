@@ -1,20 +1,27 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import { Text } from 'react-native';
+import styled from 'styled-components';
 
-import Button from '../../elements/Button'
+import Button from '../../elements/Button';
+
+const Wrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
 class Welcome extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Wrapper>
         <Text>Welcome page</Text>
         <Button
-          text="LOGIN"
+          text='LOGIN'
           onPress={this.onLogin.bind(this)}/>
         <Button
-          text="SIGN UP"
+          text='SIGN UP'
           onPress={this.onSignup.bind(this)}/>
-      </View>
+      </Wrapper>
     )
   }
 

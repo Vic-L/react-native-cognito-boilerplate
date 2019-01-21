@@ -1,15 +1,41 @@
-import _ from 'lodash'
-import React from 'react'
+import _ from 'lodash';
+import React from 'react';
 import {
-  View,
-  Text,
-  TextInput,
   TouchableWithoutFeedback
-} from 'react-native'
+} from 'react-native';
+import styled from 'styled-components';
 
 import { 
   COLOR,
-} from '../../constants'
+} from '../../constants';
+
+const fieldContainerHeight = 60
+const floatLabelFontSize = 12
+const floatLabelLineHeight = 18
+const inputFontSize = 16
+const inputLineHeight = 18
+
+const Wrapper = styled.View`
+  padding: 16px;
+  height: ${fieldContainerHeight};
+  justify-content: center;
+  background-color: white;
+`
+
+const Label = styled.Text`
+  font-size: ${props => props.value ? floatLabelFontSize : inputFontSize};
+  color: ${props => props.value ? (props.hasError ? COLOR.ERROR : COLOR.BLACK) : 'transparent'};
+  margin-bottom: 4px;
+`
+
+const Input = styled.TextInput`
+  font-size: ${inputFontSize};
+  color: ${props => props.hasError ? COLOR.ERROR : COLOR.BLACK};
+  border-width: 0;
+  padding: 0;
+  width: 100%;
+  /* selectionColor: this.props.error ? COLOR.ERROR : COLOR.FONT_BLACK // does not seem to work yet */
+`
 
 // uncontrolle
 class TextField extends React.Component {
@@ -18,55 +44,30 @@ class TextField extends React.Component {
 
     const hasError = !_.isNil(error) && error !== ""
 
-    const fieldContainerHeight = 60
-    const floatLabelFontSize = 12
-    const floatLabelLineHeight = 18
-    const inputFontSize = 16
-    const inputLineHeight = 18
-
-    const labelStyle = {
-      fontSize: value ? floatLabelFontSize : inputFontSize,
-      color: value ? (hasError ? COLOR.ERROR : COLOR.BLACK) : 'transparent',
-      marginBottom: 4,
-    }
-
-    const inputStyle = {
-      fontSize: inputFontSize,
-      color: hasError ? COLOR.ERROR : COLOR.BLACK,
-      borderWidth: 0,
-      padding: 0,
-      width: '100%',
-      // selectionColor: this.props.error ? COLOR.ERROR : COLOR.FONT_BLACK // does not seem to work yet
-    }
-
-    const fieldContainerStyle = {
-      padding: 16,
-      height: fieldContainerHeight,
-      justifyContent: 'center',
-      backgroundColor: 'white',
-    }
-
     return (
       <TouchableWithoutFeedback onPress={this.focusTextInput}>
-        <View style={fieldContainerStyle}>
+        <Wrapper>
           {
             value ? (
-              <Text style={labelStyle}>
+              <Label
+                value={value}
+                hasError={hasError}
+              >
                 {label}
-              </Text>
+              </Label>
             ) : (
               null
             )
           }
-          <TextInput
+          <Input
             {...props}
             ref='input'
             placeholderTextColor={hasError ? COLOR.ERROR : 'gray'}
             value={value}
+            hasError={hasError}
             underlineColorAndroid='transparent'
-            style={inputStyle}
           />
-        </View>
+        </Wrapper>
       </TouchableWithoutFeedback>
     )
   }

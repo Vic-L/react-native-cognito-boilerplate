@@ -1,13 +1,21 @@
-import React from 'react'
-import {
-  Text,
-  TouchableOpacity
-} from 'react-native'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { 
   COLOR,
-} from '../../constants'
+} from '../../constants';
+
+const LinkContainer = styled.TouchableOpacity`
+  color: ${COLOR.PRIMARY};
+  align-self: center;
+  ${props => props.style}
+`;
+
+const LinkText = styled.Text`
+  margin-top: 5px;
+  margin-bottom: 5px;
+`;
 
 const TextLink = ({
   text,
@@ -16,19 +24,14 @@ const TextLink = ({
   containerStyle,
 }) => {
   return (
-    <TouchableOpacity
+    <LinkContainer
       onPress={onPress}
-      style={{
-        marginVertical: 5,
-        ...containerStyle
-      }}>
-      <Text style={{
-        color: COLOR.PRIMARY,
-        ...textStyle
-      }}>
+      style={containerStyle}
+    >
+      <LinkText style={textStyle}>
         {text}
-      </Text>
-    </TouchableOpacity>
+      </LinkText>
+    </LinkContainer>
   )
 }
 
@@ -36,8 +39,8 @@ TextLink.propTypes = {
   text: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   
-  textStyle: PropTypes.object,
-  containerStyle: PropTypes.object,
+  textStyle: PropTypes.string,
+  containerStyle: PropTypes.string,
 }
 
 export default TextLink

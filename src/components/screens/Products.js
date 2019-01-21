@@ -1,11 +1,11 @@
-import _ from 'lodash'
-import React from 'react'
+import _ from 'lodash';
+import React from 'react';
 import {
-  View,
   Text,
-} from 'react-native'
-import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
+} from 'react-native';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+import styled from 'styled-components';
 
 const GET_PRODUCTS_QUERY = gql`
   query getProducts {
@@ -16,14 +16,16 @@ const GET_PRODUCTS_QUERY = gql`
   }
 `;
 
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
 class Products extends React.Component {
   render() {
     return (
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <Wrapper>
         <Text>Products</Text>
         <Query query={GET_PRODUCTS_QUERY}>
           {({ loading, error, data }) => {
@@ -37,9 +39,9 @@ class Products extends React.Component {
             })
           }}
         </Query>
-      </View>
+      </Wrapper>
     )
   }
 }
 
-export default Products
+export default Products;

@@ -1,12 +1,19 @@
-import React from 'react'
+import React from 'react';
 import {
   View,
   Alert,
   Text,
-} from 'react-native'
-import Auth from '@aws-amplify/auth'
+} from 'react-native';
+import Auth from '@aws-amplify/auth';
+import styled from 'styled-components';
 
-import Button from '../../elements/Button'
+import Button from '../../elements/Button';
+
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`
 
 class Main extends React.Component {
   constructor(props) {
@@ -26,11 +33,7 @@ class Main extends React.Component {
 
   render() {
     return (
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <Wrapper>
         <Text>{this.state.username}</Text>
         <Button
           text="LOGOUT"
@@ -41,7 +44,7 @@ class Main extends React.Component {
         <Button
           text="DrawerNavigator"
           onPress={this.onDrawer.bind(this)}/>
-      </View>
+      </Wrapper>
     )
   }
 

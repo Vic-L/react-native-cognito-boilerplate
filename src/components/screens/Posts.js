@@ -1,14 +1,14 @@
-import _ from 'lodash'
-import React from 'react'
+import _ from 'lodash';
+import React from 'react';
 import {
-  View,
   Text,
   TouchableOpacity,
-} from 'react-native'
-import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
+} from 'react-native';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+import styled from 'styled-components';
 
-import Button from '../elements/Button'
+import Button from '../elements/Button';
 
 const GET_POSTS_QUERY = gql`
   query getPosts {
@@ -19,6 +19,12 @@ const GET_POSTS_QUERY = gql`
   }
 `;
 
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
 class Posts extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: "Screen Post Title",
@@ -27,11 +33,7 @@ class Posts extends React.Component {
 
   render() {
     return (
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <Wrapper>
         <Button
           text="To Products"
           onPress={() => {
@@ -53,7 +55,7 @@ class Posts extends React.Component {
             })
           }}
         </Query>
-      </View>
+      </Wrapper>
     )
   }
 }

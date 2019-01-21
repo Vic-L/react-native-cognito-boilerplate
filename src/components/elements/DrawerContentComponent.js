@@ -1,26 +1,25 @@
-import React from 'react'
+import React from 'react';
 import {
   Text,
   ScrollView,
-} from 'react-native'
+} from 'react-native';
 import {
   DrawerItems,
   SafeAreaView
-} from 'react-navigation'
+} from 'react-navigation';
+import styled from 'styled-components';
+
+const Wrapper = styled.SafeAreaView`
+  flex: 1;
+`;
 
 const DrawerContentComponent = (props) => (
   <ScrollView>
-    <SafeAreaView style={styles.containerStyle} forceInset={{ top: 'always', horizontal: 'never' }}>
+    <Wrapper forceInset={{ top: 'always', horizontal: 'never' }}>
       <Text>App Title</Text>
       <DrawerItems {...props} />
-    </SafeAreaView>
+    </Wrapper>
   </ScrollView>
 );
 
-const styles = {
-  containerStyle: {
-    flex: 1,
-  },
-}
-
-export default DrawerContentComponent
+export default DrawerContentComponent;

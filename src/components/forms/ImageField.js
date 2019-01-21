@@ -1,18 +1,22 @@
-import React from 'react'
+import React from 'react';
 import {
-  TouchableOpacity,
   Keyboard,
   ActionSheetIOS,
   Platform,
   Alert,
-} from 'react-native'
-import ImagePicker from 'react-native-image-crop-picker'
-import PropTypes from 'prop-types'
+} from 'react-native';
+import ImagePicker from 'react-native-image-crop-picker';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const IMAGE_PICKER_ERROR = {
   CANCEL_IMAGE_SELECTION: "User cancelled image selection",
   CANCEL_CAMERA: "User cancelled image selection",
 }
+
+const Wrapper = styled.TouchableOpacity`
+  ${props => props.style}
+`;
 
 class ImageField extends React.Component {
   constructor(props) {
@@ -35,12 +39,12 @@ class ImageField extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity
+      <Wrapper
         style={this.props.style}
         onPress={this.showModal}
         enabled={this.props.disabled || true}>
         {this.props.render(this.state)}
-     </TouchableOpacity>
+     </Wrapper>
     )
   }
 
@@ -146,7 +150,7 @@ ImageField.propTypes = {
 
   initialImagePath: PropTypes.string,
   initialImageBase64: PropTypes.string,
-  style: PropTypes.object,
+  style: PropTypes.string,
   enabled: PropTypes.bool,
 }
 

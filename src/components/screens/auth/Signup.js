@@ -1,13 +1,24 @@
-import React from 'react'
+import React from 'react';
 import {
-  View,
   Alert
-} from 'react-native'
-import uuidv4 from 'uuid/v4'
-import Auth from '@aws-amplify/auth'
+} from 'react-native';
+import uuidv4 from 'uuid/v4';
+import Auth from '@aws-amplify/auth';
+import styled from 'styled-components';
 
-import TextField from '../../elements/TextField'
-import Button from '../../elements/Button'
+import TextField from '../../elements/TextField';
+import Button from '../../elements/Button';
+
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const FormWrapper = styled.View`
+  flex: 0.8;
+`
 
 class Signup extends React.Component {
   constructor(props) {
@@ -23,9 +34,9 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+      <Wrapper>
 
-        <View style={{ flex: 0.8 }}>
+        <FormWrapper>
           <TextField
             label='FIRST NAME'
             placeholder='First Name'
@@ -58,9 +69,9 @@ class Signup extends React.Component {
             text="SIGN UP"
             onPress={this.onSignup.bind(this)}/>
 
-        </View>
+        </FormWrapper>
 
-      </View>
+      </Wrapper>
     )
   }
 

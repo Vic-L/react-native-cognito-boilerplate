@@ -1,30 +1,33 @@
-import _ from 'lodash'
-import React from 'react'
+import _ from 'lodash';
+import React from 'react';
 import {
   View,
   Image,
   Text,
-} from 'react-native'
+} from 'react-native';
+import styled from 'styled-components';
 
-import ImageField from '../forms/ImageField'
+import ImageField from '../forms/ImageField';
+
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
 
 class Forms extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       imageBase64: null,
       initialImagePath: ["https://store.donanimhaber.com/ae/0c/c4/ae0cc4f398e19a24a9b0434dcec0c365.png", null][Math.floor(Math.random() * 2)],
-    }
+    };
   }
 
   render() {
     return (
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <Wrapper>
         <Text>Forms</Text>
         <ImageField
           initialImagePath={this.state.initialImagePath}
@@ -38,7 +41,6 @@ class Forms extends React.Component {
             if (_.isNil(imagePath)) {
               image = <Image source={require('../../images/icons/magnifying_glass.jpg')}/>
             } else {
-              debugger
               image = <Image 
                 style={{
                   width: 150,
@@ -52,9 +54,9 @@ class Forms extends React.Component {
               </View>
             )
           }}/>
-      </View>
-    )
-  }
+      </Wrapper>
+    );
+  };
 }
 
-export default Forms
+export default Forms;

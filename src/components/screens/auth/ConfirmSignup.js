@@ -1,10 +1,22 @@
-import React from 'react'
-import { View, Alert } from 'react-native'
-import { StackActions } from 'react-navigation'
-import Auth from '@aws-amplify/auth'
+import React from 'react';
+import { Alert } from 'react-native';
+import { StackActions } from 'react-navigation';
+import Auth from '@aws-amplify/auth';
+import styled from 'styled-components';
 
-import TextField from '../../elements/TextField'
-import Button from '../../elements/Button'
+import TextField from '../../elements/TextField';
+import Button from '../../elements/Button';
+
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const FormWrapper = styled.View`
+  flex: 0.8;
+`;
 
 class ConfirmSignup extends React.Component {
   constructor(props) {
@@ -17,9 +29,9 @@ class ConfirmSignup extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+      <Wrapper>
 
-        <View style={{ flex: 0.8 }}>
+        <FormWrapper>
           <TextField
             label='CONFIRMATION CODE'
             placeholder='Confirmation Code'
@@ -31,9 +43,9 @@ class ConfirmSignup extends React.Component {
             text="LOGIN"
             onPress={this.onLogin.bind(this)}/>
 
-        </View>
+        </FormWrapper>
 
-      </View>
+      </Wrapper>
     )
   }
 
