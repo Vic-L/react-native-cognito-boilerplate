@@ -33,6 +33,24 @@ This will also run the `prepare` script after `install` to handle some bugs that
 
 ### Development
 
+#### eslint
+
+Project eslint file config is installed via the command below (credits to [this video](https://www.youtube.com/watch?v=lEtWF3_FR2w)).
+```
+npm install --save-dev eslint-config-rallycoding
+```
+
+Note: when installing `sublimelinter-contrib-eslint` via `Package Control`, it is not present. Use `SublimeLinter-eslint` instead.
+
+Create `.eslintrc` file in `frontend` project directory and enter the content below.
+```
+{
+  "extends": "rallycoding"
+}
+```
+
+#### Setup
+
 To run on iphoneX simulator, run the command `npm run iphoneX`.
 
 To run on iphonePlus simulator, run the command `npm run iphonePlus`.
