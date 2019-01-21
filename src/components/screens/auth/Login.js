@@ -5,7 +5,6 @@ import {
   AsyncStorage,
 } from 'react-native';
 import * as Keychain from 'react-native-keychain';
-import OpenAppSettings from 'react-native-app-settings';
 import DeviceInfo from 'react-native-device-info';
 import Auth from '@aws-amplify/auth';
 import styled from 'styled-components';
