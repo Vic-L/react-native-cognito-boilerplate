@@ -3,7 +3,6 @@ import {
   View,
   Alert,
 } from 'react-native'
-import { connect } from 'react-redux'
 import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
@@ -59,14 +58,12 @@ class ForgotPasswordSubmit extends React.Component {
   }
 
   onForgotPasswordSubmit() {
-    this.props.dispatchForgotPasswordSubmitRequest()
     Auth.forgotPasswordSubmit(
       this.props.navigation.getParam('email', null),
       this.state.verificationCode,
       this.state.newPassword,
     )
     .then(() => {
-      this.props.dispatchForgotPasswordSubmitSuccess()
       Alert.alert(
         "Alert",
         "Password successfully updated.",
@@ -83,7 +80,6 @@ class ForgotPasswordSubmit extends React.Component {
     })
     .catch((err) => {
       console.log(err)
-      this.props.dispatchForgotPasswordSubmitFailure()
       Alert.alert(
         "Alert",
         err.message || err,
@@ -93,21 +89,4 @@ class ForgotPasswordSubmit extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchForgotPasswordSubmitRequest: () => {
-      console.log('dispatching', 'FORGOT_PASSWORD_SUBMIT_REQUEST')
-      dispatch({type: 'FORGOT_PASSWORD_SUBMIT_REQUEST'})
-    },
-    dispatchForgotPasswordSubmitSuccess: () => {
-      console.log('dispatching', 'FORGOT_PASSWORD_SUBMIT_SUCCESS')
-      dispatch({type: 'FORGOT_PASSWORD_SUBMIT_SUCCESS'})
-    },
-    dispatchForgotPasswordSubmitFailure: () => {
-      console.log('dispatching', 'FORGOT_PASSWORD_SUBMIT_FAILURE')
-      dispatch({type: 'FORGOT_PASSWORD_SUBMIT_FAILURE'})
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(ForgotPasswordSubmit)
+export default ForgotPasswordSubmit;

@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Alert } from 'react-native'
-import { connect } from 'react-redux'
 import { StackActions } from 'react-navigation'
 import Auth from '@aws-amplify/auth'
 
@@ -45,12 +44,10 @@ class ConfirmSignup extends React.Component {
   }
 
   onLogin() {
-    this.props.dispatchConfirmSignupRequest()
     Auth.confirmSignUp(this.props.navigation.getParam('username', null), this.state.confirmationCode, {
       // Optional. Force user confirmation irrespective of existing alias. By default set to True.
       forceAliasCreation: true    
     }).then((data) => {
-      this.props.dispatchConfirmSignupSuccess()
       console.log('confirmSignUp', data)
       this.props.navigation.replace({
         key: this.props.navigation.getParam('signupScreenKey', null),
@@ -60,7 +57,6 @@ class ConfirmSignup extends React.Component {
       this.props.navigation.goBack()
     })
     .catch((err) => {
-      this.props.dispatchConfirmSignupFailure()
       console.log(err)
       Alert.alert(
         "Alert",
@@ -71,21 +67,4 @@ class ConfirmSignup extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchConfirmSignupRequest: () => {
-      console.log('dispatching', 'CONFIRM_SIGNUP_REQUEST')
-      dispatch({type: 'CONFIRM_SIGNUP_REQUEST'})
-    },
-    dispatchConfirmSignupSuccess: () => {
-      console.log('dispatching', 'CONFIRM_SIGNUP_SUCCESS')
-      dispatch({type: 'CONFIRM_SIGNUP_SUCCESS'})
-    },
-    dispatchConfirmSignupFailure: () => {
-      console.log('dispatching', 'CONFIRM_SIGNUP_FAILURE')
-      dispatch({type: 'CONFIRM_SIGNUP_FAILURE'})
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(ConfirmSignup)
+export default ConfirmSignup;

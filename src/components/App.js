@@ -1,34 +1,29 @@
-import React from 'react'
+import React from 'react';
+import Config from 'react-native-config';
+import Auth from '@aws-amplify/auth';
+import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import {
-  View,
-  Image,
-} from 'react-native'
-import createSagaMiddleware from 'redux-saga'
-import {
-  compose,
-  createStore,
-  applyMiddleware
-} from 'redux'
-import { Provider } from  'react-redux'
-import Config from 'react-native-config'
-import Auth from '@aws-amplify/auth'
+  createStackNavigator,
+  createSwitchNavigator,
+  createDrawerNavigator,
+} from 'react-navigation';
 
-// apollo
-import { ApolloClient } from 'apollo-client'
-import { ApolloProvider } from 'react-apollo'
-import { HttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
-import {createNetworkStatusNotifier} from 'react-apollo-network-status'
-
-// for listening to `loading` value in each graphql query/mutation on global level
-const {
-  NetworkStatusNotifier,
-  link: networkStatusNotifierLink
-} = createNetworkStatusNotifier()
+import { ApolloProvider } from 'react-apollo';
+import defaults from '../clientState/defaults';
+import resolvers from '../clientState/resolvers';
+import typeDefs from '../clientState/typeDefs';
+import Startup from './screens/Startup';
+import IOSPushNotificationListener from './IOSPushNotificationListener';
+import Main from './screens/app/Main';
 
 const apolloClient = new ApolloClient({
-  link: networkStatusNotifierLink.concat(new HttpLink({ uri: 'https://fakerql.com/graphql' })),
+  uri: 'https://fakerql.com/graphql',
   cache: new InMemoryCache(),
+  clientState: {
+    defaults,
+    resolvers,
+    typeDefs,
+  },
   defaultOptions: {
     watchQuery: {
       fetchPolicy: 'network-only',
@@ -39,10 +34,7 @@ const apolloClient = new ApolloClient({
       errorPolicy: 'all',
     },
   }
-})
-
-// redux related
-import rootReducers from '../reducers'
+});
 
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -85,33 +77,6 @@ Auth.configure({
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
 
-// middlewares
-const middlewares = []
-
-const sagaMiddleware = createSagaMiddleware()
-middlewares.push(sagaMiddleware)
-
-const store = compose(applyMiddleware(...middlewares))(createStore)(rootReducers)
-
-// sagas
-import sagas from '../sagas'
-sagaMiddleware.run(sagas, store.dispatch)
-
-// screens
-import {
-  createStackNavigator,
-  createSwitchNavigator,
-  createDrawerNavigator,
-} from 'react-navigation'
-/// components
-/// misc
-import Startup from './screens/Startup'
-import Loader from './screens/Loader'
-import IOSPushNotificationListener from './IOSPushNotificationListener'
-
-//// appstack
-import Main from './screens/app/Main'
-
 const AppNavigator = createStackNavigator(
   {
     Main: {
@@ -152,15 +117,10 @@ export default class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={apolloClient}>
-        <Provider store={store}>
-          <View style={{flex: 1}}>
-            <IOSPushNotificationListener/>
-            <RootStack/>
-            <NetworkStatusNotifier render={({loading, error}) => (
-              <Loader loading={loading} error={error}/>
-            )}/>
-          </View>
-        </Provider>
+        <React.Fragment>
+          <IOSPushNotificationListener/>
+          <RootStack/>
+        </React.Fragment>
       </ApolloProvider>
     )
   }

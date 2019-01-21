@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import {
   View,
   Alert
@@ -90,7 +89,6 @@ class Signup extends React.Component {
   }
 
   onSignup() {
-    this.props.dispatchSignupRequest()
     Auth.signUp({
       username: uuidv4(),
       password: this.state.password,
@@ -102,14 +100,12 @@ class Signup extends React.Component {
       validationData: []  //optional
     })
     .then((data) => {
-      this.props.dispatchSignupSuccess()
       console.log('onSignup', data)
       this.props.navigation.navigate('ConfirmSignup', { username: data.user.username,
         signupScreenKey: this.props.navigation.state.key
       })
     })
     .catch((err) => {
-      this.props.dispatchSignupFailure()
       Alert.alert(
         "Alert",
         err.message.replace("PreSignUp failed with error ", ""),
@@ -119,21 +115,4 @@ class Signup extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchSignupRequest: () => {
-      console.log('dispatching', 'SIGNUP_REQUEST')
-      dispatch({type: 'SIGNUP_REQUEST'})
-    },
-    dispatchSignupSuccess: () => {
-      console.log('dispatching', 'SIGNUP_SUCCESS')
-      dispatch({type: 'SIGNUP_SUCCESS'})
-    },
-    dispatchSignupFailure: () => {
-      console.log('dispatching', 'SIGNUP_FAILURE')
-      dispatch({type: 'SIGNUP_FAILURE'})
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Signup)
+export default Signup;

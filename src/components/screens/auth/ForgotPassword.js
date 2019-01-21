@@ -3,7 +3,6 @@ import {
   View,
   Alert,
 } from 'react-native'
-import { connect } from 'react-redux'
 import Auth from '@aws-amplify/auth'
 
 import TextField from '../../elements/TextField'
@@ -56,10 +55,8 @@ class ForgotPassword extends React.Component {
   }
 
   onForgotPassword() {
-    this.props.dispatchForgotPasswordRequest()
     Auth.forgotPassword(this.state.email)
     .then((data) => {
-      this.props.dispatchForgotPasswordSuccess()
       Alert.alert(
         "Alert",
         "A verification code has been sent to your email. Please use it and set your new password on the next page.",
@@ -80,7 +77,6 @@ class ForgotPassword extends React.Component {
     })
     .catch((err) => {
       console.log(err)
-      this.props.dispatchForgotPasswordFailure()
       Alert.alert(
         "Alert",
         err.message || err,
@@ -90,21 +86,4 @@ class ForgotPassword extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchForgotPasswordRequest: () => {
-      console.log('dispatching', 'FORGOT_PASSWORD_REQUEST')
-      dispatch({type: 'FORGOT_PASSWORD_REQUEST'})
-    },
-    dispatchForgotPasswordSuccess: () => {
-      console.log('dispatching', 'FORGOT_PASSWORD_SUCCESS')
-      dispatch({type: 'FORGOT_PASSWORD_SUCCESS'})
-    },
-    dispatchForgotPasswordFailure: () => {
-      console.log('dispatching', 'FORGOT_PASSWORD_FAILURE')
-      dispatch({type: 'FORGOT_PASSWORD_FAILURE'})
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(ForgotPassword)
+export default ForgotPassword;

@@ -5,7 +5,6 @@ import {
   Alert,
   AsyncStorage,
 } from 'react-native'
-import { connect } from 'react-redux'
 import * as Keychain from 'react-native-keychain'
 import OpenAppSettings from 'react-native-app-settings'
 import DeviceInfo from 'react-native-device-info'
@@ -164,7 +163,6 @@ class Login extends React.Component {
   }
 
   async login(email, password) {
-    this.props.dispatchLoginRequest()
     try {
       const user = await Auth.signIn(email, password)
       if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
@@ -182,7 +180,6 @@ class Login extends React.Component {
       
       await this.continueLogin(email, password)
     } catch (err) {
-      this.props.dispatchLoginFailure()
       console.log(err)
       Alert.alert(
         "Alert",
@@ -194,7 +191,6 @@ class Login extends React.Component {
 
   async continueLogin(email, password) {
     await RequestNotificationPermission()
-    this.props.dispatchLoginSuccess(email, password)
     this.props.navigation.navigate('Main')
   }
 
@@ -227,25 +223,4 @@ class Login extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchLoginRequest: () => {
-      console.log('dispatching', 'LOGIN_REQUEST')
-      dispatch({type: 'LOGIN_REQUEST'})
-    },
-    dispatchLoginSuccess: (email, password) => {
-      console.log('dispatching', 'LOGIN_SUCCESS')
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        email,
-        password
-      })
-    },
-    dispatchLoginFailure: () => {
-      console.log('dispatching', 'LOGIN_FAILURE')
-      dispatch({type: 'LOGIN_FAILURE'})
-    }
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Login)
+export default Login;
