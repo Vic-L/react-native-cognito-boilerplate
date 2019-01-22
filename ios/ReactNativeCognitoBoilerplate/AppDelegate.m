@@ -26,6 +26,12 @@
   #else
     jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   #endif
+  
+  for (NSString *fontFamilyName in [UIFont familyNames]) {
+    for (NSString *fontName in [UIFont fontNamesForFamilyName:fontFamilyName]) {
+      NSLog(@"Family: %@ Font: %@", fontFamilyName, fontName);
+    }
+  }
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"ReactNativeCognitoBoilerplate"
