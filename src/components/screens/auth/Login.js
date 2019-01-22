@@ -11,13 +11,16 @@ import styled from 'styled-components';
 
 import TextField from '../../elements/TextField';
 import TextLink from '../../elements/TextLink';
-import Button from '../../elements/Button';
+import ButtonWithLoader from '../../elements/ButtonWithLoader';
 import FormContainer from '../../elements/FormContainer';
 import NavbarSpacing from '../../elements/NavbarSpacing';
 
 import RequestNotificationPermission from '../../../services/RequestNotificationPermission';
 import ValidateField from '../../../services/ValidateField';
 import ValidateFormObject from '../../../services/ValidateFormObject';
+import {
+  COLOR
+} from '../../../constants';
 
 const Wrapper = styled.View`
   flex: 1;
@@ -34,6 +37,9 @@ class Login extends React.Component {
       email: null,
       password: null,
     };
+
+    this.loginButton = React.createRef();
+    this.biometricButton = React.createRef();
   }
 
   async componentDidMount() {
@@ -77,18 +83,21 @@ class Login extends React.Component {
   }
 
   onChangeEmail(email) {
+    this.loginButton.current.reset();
     this.setState({
       email
     });
   }
 
   onChangePassword(password) {
+    this.loginButton.current.reset();
     this.setState({
       password
     });
   }
 
   onForgetPassword() {
+    this.loginButton.current.reset();
     this.props.navigation.navigate('ForgotPassword');
   }
 
@@ -98,10 +107,13 @@ class Login extends React.Component {
     });
     if (ValidateFormObject('login', _.pick(this.state, ['email', 'password']))) {
       await this.login(this.state.email, this.state.password);
+    } else {
+      this.loginButton.current.error();
     }
   }
 
   async onAuthenticateWithBiometric() {
+    this.biometricButton.current.load();
     try {
       const credentials = await Keychain.getGenericPassword({
         service: DeviceInfo.getBundleId()
@@ -110,6 +122,7 @@ class Login extends React.Component {
       if (credentials) {
         this.login(credentials.username, credentials.password);
       } else {
+        this.biometricButton.current.reset();
         Alert.alert(
           'Alert',
           'No credentials stored; should not happen',
@@ -118,6 +131,7 @@ class Login extends React.Component {
         );
       }
     } catch (err) {
+      this.biometricButton.current.reset();
       if (err.message !== 'User canceled the operation.') {
         Alert.alert(
           'Alert',
@@ -154,6 +168,7 @@ class Login extends React.Component {
       }
       
       await RequestNotificationPermission();
+      this.loginButton.current.success();
       this.props.navigation.navigate('Main');
     } catch (err) {
       console.log(err);
@@ -162,6 +177,7 @@ class Login extends React.Component {
         err.message || err,
         [{ text: 'OK' }]
       );
+      this.loginButton.current.error();
     }
   }
 
@@ -211,15 +227,29 @@ class Login extends React.Component {
             onPress={this.onForgetPassword.bind(this)}
           />
 
-          <Button
-            text="LOGIN"
+          <ButtonWithLoader
+            backgroundColor={COLOR.ALTERNATE}
+            style={{
+              alignSelf: 'center',
+            }}
+            noBorder
+            shakeOnError
+            label="LOGIN"
+            ref={this.loginButton}
             onPress={this.onLogin.bind(this)}
           />
 
           {
             this.shouldAllowLoginByBiometric() ? (
-              <Button
-                text="LOGIN WITH Biometric"
+              <ButtonWithLoader
+                label='LOGIN WITH Biometric'
+                backgroundColor={COLOR.ALTERNATE}
+                style={{
+                  alignSelf: 'center',
+                }}
+                noBorder
+                shakeOnError
+                ref={this.biometricButton}
                 onPress={this.onAuthenticateWithBiometric.bind(this)}
               />
             ) : null
