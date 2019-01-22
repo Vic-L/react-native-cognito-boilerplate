@@ -66,6 +66,10 @@
 		949383D1583D46B5996F801D /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2619CB3208B34B23930A2273 /* libRNDeviceInfo-tvOS.a */; };
 		9D4F9DB7078A4E3FB2CA203C /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B8B71B8F1BE4CB49D5A4EE9 /* libRNKeychain.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		79481D613F5E4E9B94C9D0B1 /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC006CA15EDF417F862F9867 /* Karla-Bold.ttf */; };
+		7042CE87748F472B9D11341A /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 846D61495D11471E932EA1A7 /* Karla-BoldItalic.ttf */; };
+		9952A7A4439344339CCCE6DB /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FBEE3BF5B0DF449FA5015B01 /* Karla-Italic.ttf */; };
+		1A29EC99E4F847ED955CC519 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AA89577F1324A6286883CAD /* Karla-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -488,6 +492,10 @@
 		CACAE763869B4F61806D2098 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		ECB43E64DCAF492F90670E65 /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		F1DFCEA224CC4F709745390A /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
+		CC006CA15EDF417F862F9867 /* Karla-Bold.ttf */ = {isa = PBXFileReference; name = "Karla-Bold.ttf"; path = "../assets/fonts/Karla-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		846D61495D11471E932EA1A7 /* Karla-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Karla-BoldItalic.ttf"; path = "../assets/fonts/Karla-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FBEE3BF5B0DF449FA5015B01 /* Karla-Italic.ttf */ = {isa = PBXFileReference; name = "Karla-Italic.ttf"; path = "../assets/fonts/Karla-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0AA89577F1324A6286883CAD /* Karla-Regular.ttf */ = {isa = PBXFileReference; name = "Karla-Regular.ttf"; path = "../assets/fonts/Karla-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -853,6 +861,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				23DABCCE214C245500297F40 /* Recovered References */,
+				7AB48841F344488B80D2D7D3 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -878,6 +887,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		7AB48841F344488B80D2D7D3 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				CC006CA15EDF417F862F9867 /* Karla-Bold.ttf */,
+				846D61495D11471E932EA1A7 /* Karla-BoldItalic.ttf */,
+				FBEE3BF5B0DF449FA5015B01 /* Karla-Italic.ttf */,
+				0AA89577F1324A6286883CAD /* Karla-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1447,6 +1468,10 @@
 				238FDB7F21F687F2009CA3A5 /* SimpleLineIcons.ttf in Resources */,
 				238FDB7E21F687F2009CA3A5 /* EvilIcons.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				79481D613F5E4E9B94C9D0B1 /* Karla-Bold.ttf in Resources */,
+				7042CE87748F472B9D11341A /* Karla-BoldItalic.ttf in Resources */,
+				9952A7A4439344339CCCE6DB /* Karla-Italic.ttf in Resources */,
+				1A29EC99E4F847ED955CC519 /* Karla-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

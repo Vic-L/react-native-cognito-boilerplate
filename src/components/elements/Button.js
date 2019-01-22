@@ -14,6 +14,7 @@ const ButtonContainer = styled.TouchableOpacity`
 
 const ButtonText = styled.Text`
   color: white;
+  font-family: 'Karla-Regular';
 `;
 
 const Button = ({

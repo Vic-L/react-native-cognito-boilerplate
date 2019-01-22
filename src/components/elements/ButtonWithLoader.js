@@ -74,6 +74,7 @@ const ButtonWithLoader = React.forwardRef(({
     labelStyle={{
       backgroundColor: 'transparent',
       color: 'white',
+      fontFamily: 'Karla-Bold',
       ...labelStyle,
     }}
     iconStyle={{

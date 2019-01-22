@@ -31,6 +31,16 @@ react-native start reset-cache # in another window
 ```
 This will also run the `prepare` script after `install` to handle some bugs that [affect ios builds on Xcode 10](https://github.com/facebook/react-native/issues/20774).
 
+#### react-native-vector-icons
+
+[Installed manually on iOS](https://github.com/oblador/react-native-vector-icons).
+
+#### fonts
+
+Follow this [medium article](https://medium.com/react-native-training/react-native-custom-fonts-ccc9aacf9e5e).
+
+Note that `Android will read from the filename whilst iOS will read from the full name property` of the font files, so rename to files to follow the respective full name to avoid extra conditional logic.
+
 ### Development
 
 #### eslint
