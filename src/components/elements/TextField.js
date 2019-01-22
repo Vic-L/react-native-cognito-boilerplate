@@ -4,6 +4,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { 
   COLOR,
@@ -18,6 +19,7 @@ const Wrapper = styled.View`
   height: ${FIELD_CONTAINER_HEIGHT};
   justify-content: center;
   background-color: white;
+  ${props => props.style};
 `;
 
 const Label = styled.Text`
@@ -30,6 +32,7 @@ const Label = styled.Text`
     return 'transparent';
   }};
   margin-bottom: 4px;
+  ${props => props.style};
 `;
 
 const Input = styled.TextInput`
@@ -38,6 +41,7 @@ const Input = styled.TextInput`
   border-width: 0;
   padding: 0;
   width: 100%;
+  ${props => props.style};
 
   // does not seem to work yet */
   /* selectionColor: this.props.error ? COLOR.ERROR : COLOR.FONT_BLACK
@@ -50,16 +54,25 @@ class TextField extends React.Component {
   }
 
   render() {
-    const { label, value, error, ...props } = this.props;
+    const {
+      label,
+      value,
+      error,
+      containerStyle,
+      inputStyle,
+      labelStyle,
+      ...props,
+    } = this.props;
 
     const hasError = !_.isNil(error) && error !== '';
 
     return (
       <TouchableWithoutFeedback onPress={this.focusTextInput}>
-        <Wrapper>
+        <Wrapper style={containerStyle}>
           {
             value ? (
               <Label
+                style={labelStyle}
                 value={value}
                 hasError={hasError}
               >
@@ -71,6 +84,7 @@ class TextField extends React.Component {
           }
           <Input
             {...props}
+            style={inputStyle}
             ref='input'
             placeholderTextColor={hasError ? COLOR.ERROR : 'gray'}
             value={value}
@@ -82,5 +96,13 @@ class TextField extends React.Component {
     );
   }
 }
+
+TextField.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  error: PropTypes.string,
+  containerStyle: PropTypes.string,
+  labelStyle: PropTypes.string,
+};
 
 export default TextField;
