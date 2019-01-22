@@ -9,19 +9,19 @@ import {
   COLOR,
 } from '../../constants';
 
-const fieldContainerHeight = 60;
-const floatLabelFontSize = 12;
-const inputFontSize = 16;
+const FIELD_CONTAINER_HEIGHT = 60;
+const FLOAT_LABEL_FONT_SIZE = 12;
+const INPUT_FONT_SIZE = 16;
 
 const Wrapper = styled.View`
   padding: 16px;
-  height: ${fieldContainerHeight};
+  height: ${FIELD_CONTAINER_HEIGHT};
   justify-content: center;
   background-color: white;
 `;
 
 const Label = styled.Text`
-  font-size: ${props => (props.value ? floatLabelFontSize : inputFontSize)};
+  font-size: ${props => (props.value ? FLOAT_LABEL_FONT_SIZE : INPUT_FONT_SIZE)};
   color: ${props => {
     if (props.value) {
       return props.hasError ? COLOR.ERROR : COLOR.BLACK;
@@ -33,7 +33,7 @@ const Label = styled.Text`
 `;
 
 const Input = styled.TextInput`
-  font-size: ${inputFontSize};
+  font-size: ${INPUT_FONT_SIZE};
   color: ${props => (props.hasError ? COLOR.ERROR : COLOR.BLACK)};
   border-width: 0;
   padding: 0;
