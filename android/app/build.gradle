@@ -111,6 +111,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-gesture-handler')
     implementation project(':rn-fetch-blob')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-device-info')
