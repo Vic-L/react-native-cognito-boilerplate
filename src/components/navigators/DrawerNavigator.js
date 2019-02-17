@@ -7,6 +7,7 @@ import {
 
 import StackNavigator from './StackNavigator';
 import Products from '../screens/Products';
+import Introduction from '../screens/Introduction';
 import DrawerContentComponent from '../elements/DrawerContentComponent';
 
 const DrawerNavigatorConfig = {
@@ -54,12 +55,13 @@ const DrawerNavigatorConfig = {
 
 const DrawerNavigator = createDrawerNavigator(
   {
+    Introduction,
     Posts: StackNavigator,
     Products,
   },
   {
     ...DrawerNavigatorConfig,
-    initialRouteName: 'Posts',
+    initialRouteName: 'Introduction',
   },
 );
 
