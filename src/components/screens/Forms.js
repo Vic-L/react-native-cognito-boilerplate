@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import styled from 'styled-components';
 
-import ImageField from '../forms/ImageField';
+import ImageField from '../elements/ImageField';
 
 import {
   CachedImage,
