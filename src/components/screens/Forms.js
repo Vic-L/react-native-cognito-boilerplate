@@ -38,8 +38,8 @@ class Forms extends React.Component {
           message='Description of what this image is for'
           onCropped={(imageBase64) => {
             this.setState({ imageBase64 });
-          }}
-          render={({ imagePath }) => {
+          }}>
+          {({ imagePath }) => {
             let image = null;
             if (_.isNil(imagePath)) {
               image = <Image source={require('../../images/icons/magnifying_glass.jpg')} />;
@@ -60,7 +60,7 @@ class Forms extends React.Component {
               </View>
             );
           }}
-        />
+        </ImageField>
       </Wrapper>
     );
   }

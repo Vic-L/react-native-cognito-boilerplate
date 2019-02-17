@@ -31,9 +31,9 @@ class ImageField extends React.Component {
   }
 
   showModal = () => {
-    Keyboard.dismiss()
+    Keyboard.dismiss();
 
-    const { title, message } = this.props
+    const { title, message } = this.props;
 
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions({
@@ -44,36 +44,36 @@ class ImageField extends React.Component {
       }, (buttonIndex) => {
         switch (true) {
           case buttonIndex === 0:
-            this.openCamera()
-            break
+            this.openCamera();
+            break;
           case buttonIndex === 1:
-            this.openGallery()
-            break
+            this.openGallery();
+            break;
           default:
             // do nothing
         }
-      })
+      });
     } else {
       Alert.alert(
         title,
         message,
         [
-          {text: 'Cancel'},
+          { text: 'Cancel' },
           {
             text: 'Gallery',
             onPress: () => {
-              this.openGallery()
+              this.openGallery();
             }
           },
           {
             text: 'Camera',
             onPress: () => {
-              this.openCamera()
+              this.openCamera();
             }
           },
         ],
         { cancelable: true }
-      )
+      );
     }
   }
 
@@ -95,6 +95,7 @@ class ImageField extends React.Component {
         case e.message === IMAGE_PICKER_ERROR.CANCEL_CAMERA:
           break; // do nothing
         default:
+          console.log(JSON.stringify(e));
           Alert.alert(
             'Error',
             JSON.stringify(e),
@@ -123,6 +124,7 @@ class ImageField extends React.Component {
           // do nothing
           break;
         default:
+          console.log(JSON.stringify(e));
           Alert.alert(
             'Error',
             JSON.stringify(e),
@@ -139,7 +141,7 @@ class ImageField extends React.Component {
         onPress={this.showModal}
         enabled={this.props.disabled || true}
       >
-        {this.props.render(this.state)}
+        {this.props.children(this.state)}
      </Wrapper>
     );
   }
