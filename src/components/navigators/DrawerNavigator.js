@@ -5,7 +5,7 @@ import {
   createDrawerNavigator,
 } from 'react-navigation';
 
-import StackNavigator from './StackNavigator';
+import MapNavigator from './MapNavigator';
 import Products from '../screens/Products';
 import Introduction from '../screens/Introduction';
 import DrawerContentComponent from '../elements/DrawerContentComponent';
@@ -56,7 +56,12 @@ const DrawerNavigatorConfig = {
 const DrawerNavigator = createDrawerNavigator(
   {
     Introduction,
-    Posts: StackNavigator,
+    MapNavigator: {
+      screen: MapNavigator,
+      navigationOptions: {
+        drawerLabel: 'Map',
+      },
+    },
     Products,
   },
   {

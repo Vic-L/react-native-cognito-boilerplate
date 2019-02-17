@@ -37,6 +37,10 @@ const Introduction = props => (
       { '\n' }
       { '\n' }
       DrawerNavigator is next to give access to all the other types of navigators/screens.
+      { '\n' }
+      MapNavigator is a StackNavigator that will demonstrate a navigation
+      { '\n' }
+      to another page on click of top right button in header.
     </Explanation>
 
     <Button
