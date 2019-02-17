@@ -61,7 +61,7 @@ class TextField extends React.Component {
       containerStyle,
       inputStyle,
       labelStyle,
-      ...props,
+      ...props
     } = this.props;
 
     const hasError = !_.isNil(error) && error !== '';

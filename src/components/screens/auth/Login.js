@@ -187,7 +187,9 @@ class Login extends React.Component {
       <Wrapper>
 
         <FormContainer
-          style='padding: 15px;'
+          contentContainerStyle={{
+            padding: 15,
+          }}
           bounces={false}
         >
           <NavbarSpacing />

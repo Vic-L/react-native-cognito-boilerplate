@@ -1,11 +1,10 @@
 import React from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
 const Wrapper = styled(KeyboardAwareScrollView)`
-  flex: 1;
-  ${props => props.style}
+  width: 100%;
+  height: 100%;
 `;
 
 class FormContainer extends React.Component {
@@ -17,11 +16,9 @@ class FormContainer extends React.Component {
   }
 
   render() {
-    const { style, ...otherProps } = this.props;
     return (
       <Wrapper
-        style={style}
-        {...otherProps}
+        {...this.props}
         ref='keyboardAwareScrollView'
       >
 
@@ -31,9 +28,5 @@ class FormContainer extends React.Component {
     );
   }
 }
-
-FormContainer.propTypes = {
-  style: PropTypes.string,
-};
 
 export default FormContainer;

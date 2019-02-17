@@ -68,9 +68,11 @@ class ForgotPassword extends React.Component {
     return (
       <Wrapper>
 
-        <FormContainer 
-          style='padding: 15px;'
-          ounces={false}
+        <FormContainer
+          contentContainerStyle={{
+            padding: 15,
+          }}
+          bounces={false}
         >
           <NavbarSpacing />
 
