@@ -9,7 +9,7 @@ const BottomTabNavigator = createBottomTabNavigator(
   {
     Posts: {
       screen: Posts,
-      navigationOptions: {
+      defaultNavigationOptions: {
         // tabBarIcon: TODO,
         tabBarLabel: 'My Posts',
       },

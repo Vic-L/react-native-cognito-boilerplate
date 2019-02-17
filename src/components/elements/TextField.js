@@ -18,7 +18,7 @@ const Wrapper = styled.View`
   padding: 16px;
   height: ${FIELD_CONTAINER_HEIGHT};
   justify-content: center;
-  background-color: white;
+  background-color: #ededed;
   ${props => props.style};
 `;
 

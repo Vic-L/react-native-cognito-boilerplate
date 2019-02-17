@@ -1,6 +1,7 @@
 import {
   createSwitchNavigator,
 } from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 
 import Startup from '../screens/Startup';
 import BottomTabNavigator from './BottomTabNavigator';
@@ -22,4 +23,4 @@ const RootStackNavigator = createSwitchNavigator(
   },
 );
 
-export default RootStackNavigator;
+export default createAppContainer(RootStackNavigator);

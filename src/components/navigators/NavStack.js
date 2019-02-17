@@ -13,20 +13,20 @@ const StackNavigator = createStackNavigator(
   {
     Posts: {
       screen: Posts,
-      navigationOptions: {
+      defaultNavigationOptions: {
         headerTitle: 'Posts',
       },
     },
     Products: {
       screen: Products,
-      navigationOptions: {
+      defaultNavigationOptions: {
         headerTransparent: true,
         headerTitle: 'Products',
       },
     },
   },
   {
-    navigationOptions: () => ({
+    defaultNavigationOptions: () => ({
       initialRouteName: 'Posts',
       headerMode: 'screen',
       drawerLabel: 'Posts >',
