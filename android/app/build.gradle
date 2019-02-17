@@ -115,7 +115,6 @@ dependencies {
     implementation project(':rn-fetch-blob')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-device-info')
-    implementation project(':react-native-app-settings')
     implementation project(':react-native-keychain')
     implementation project(':react-native-firebase')
     // Firebase dependencies

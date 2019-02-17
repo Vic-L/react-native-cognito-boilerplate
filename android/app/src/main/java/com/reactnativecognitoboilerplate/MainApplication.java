@@ -7,7 +7,6 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.krazylabs.OpenAppSettingsPackage;
 import com.oblador.keychain.KeychainPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -41,7 +40,6 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new ReactNativeConfigPackage(),
             new RNDeviceInfo(),
-            new OpenAppSettingsPackage(),
             new KeychainPackage(),
             new PickerPackage(),
             new SplashScreenReactPackage(),
