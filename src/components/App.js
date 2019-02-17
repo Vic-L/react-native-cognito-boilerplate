@@ -11,12 +11,9 @@ import { ApolloProvider } from 'react-apollo';
 import defaults from '../apollo/defaults';
 import resolvers from '../apollo/resolvers';
 import typeDefs from '../apollo/typeDefs';
-import Startup from './screens/Startup';
 import IOSPushNotificationListener from './IOSPushNotificationListener';
 import Main from './screens/app/Main';
-import BottomTabNavigator from './navigators/BottomTabNavigator';
-import AuthNavigator from './navigators/AuthNavigator';
-import DrawerNavigator from './navigators/DrawerNavigator';
+import RootStackNavigator from './navigators/RootStackNavigator';
 
 const apolloClient = new ApolloClient({
   uri: Config.API_URL,
@@ -79,28 +76,13 @@ Auth.configure({
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
 });
 
-const RootStack = createSwitchNavigator(
-  {
-    Startup,
-    Auth: AuthNavigator,
-    BottomTabNavigator: {
-      screen: BottomTabNavigator,
-      path: 'bottomTab/:param'
-    },
-    Drawer: DrawerNavigator,
-  },
-  {
-    initialRouteName: 'Startup',
-  }
-);
-
 export default class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={apolloClient}>
         <React.Fragment>
           <IOSPushNotificationListener />
-          <RootStack />
+          <RootStackNavigator />
         </React.Fragment>
       </ApolloProvider>
     );
