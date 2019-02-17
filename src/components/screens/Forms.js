@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
 import {
-  View,
   Text,
 } from 'react-native';
 import styled from 'styled-components';
@@ -23,6 +22,12 @@ const Wrapper = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
+`;
+
+const ImageContainer = styled.View`
+  background-color: blue;
+  width: 150px;
+  height: 150px;
 `;
 
 class Forms extends React.Component {
@@ -60,20 +65,14 @@ class Forms extends React.Component {
                     imagePath
                   ]}
                 >
-                  <Image
-                    style={{
-                      width: 150,
-                      height: 150,
-                    }}
-                    source={{ uri: imagePath }}
-                  />
+                  <Image source={{ uri: imagePath }} />
                 </ImageCacheProvider>
               );
             }
             return (
-              <View>
+              <ImageContainer>
                 {image}
-              </View>
+              </ImageContainer>
             );
           }}
         </ImageField>
