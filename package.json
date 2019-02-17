@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "postinstall": "./node_modules/react-native-maps/enable-google-maps ios/GoogleMaps/**",
     "prepare": "cd node_modules/react-native && ./scripts/ios-install-third-party.sh && cd ../../ && cd node_modules/react-native/third-party/glog-0.3.5/ && ../../scripts/ios-configure-glog.sh && cd ../../../../",
     "cleanRN": "rm -rf /tmp/metro-bundler-cache-* && rm -rf /tmp/haste-map-react-native-packager-*",
     "cleanIOS": "rm -rf $TMPDIR/metro-cache && rm -rf ./ios/build && watchman watch-del-all && rm -rf $TMPDIR/react-* && lsof -ti :8081 | xargs kill -9 # kill any instance of metro bundler",

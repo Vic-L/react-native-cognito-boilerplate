@@ -11,14 +11,22 @@
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
 #import <React/RCTPushNotificationManager.h>
+#import "ReactNativeConfig.h"
 
 // for deep linking
 #import <React/RCTLinkingManager.h>
+
+// @import GoogleMaps; // Google iOS SDK instructions
+#import <GoogleMaps/GoogleMaps.h> // react-native-maps instructions
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  NSString *googleMapsAPIKey = [ReactNativeConfig envFor:@"GOOGLE_MAPS_API_KEY"];
+
+  [GMSServices provideAPIKey:googleMapsAPIKey];
+
   NSURL *jsCodeLocation;
 
   #ifdef DEBUG
