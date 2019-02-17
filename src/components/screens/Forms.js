@@ -2,12 +2,22 @@ import _ from 'lodash';
 import React from 'react';
 import {
   View,
-  Image,
   Text,
 } from 'react-native';
 import styled from 'styled-components';
 
 import ImageField from '../forms/ImageField';
+
+import {
+  CachedImage,
+  ImageCacheProvider
+} from 'react-native-cached-image';
+
+const Image = styled(CachedImage)`
+  width: 100%;
+  height: undefined; /* https://stackoverflow.com/a/53482563/2667545 */
+  aspect-ratio: 1;
+`;
 
 const Wrapper = styled.View`
   flex: 1;
@@ -45,13 +55,19 @@ class Forms extends React.Component {
               image = <Image source={require('../../images/icons/magnifying_glass.jpg')} />;
             } else {
               image = (
-                <Image
-                  style={{
-                    width: 150,
-                    height: 150,
-                  }}
-                  source={{ uri: imagePath }}
-                />
+                <ImageCacheProvider
+                  urlsToPreload={[
+                    imagePath
+                  ]}
+                >
+                  <Image
+                    style={{
+                      width: 150,
+                      height: 150,
+                    }}
+                    source={{ uri: imagePath }}
+                  />
+                </ImageCacheProvider>
               );
             }
             return (
