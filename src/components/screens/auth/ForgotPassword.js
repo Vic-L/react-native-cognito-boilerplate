@@ -69,6 +69,9 @@ class ForgotPassword extends React.Component {
       <Wrapper>
 
         <FormContainer
+          css={`
+            background-color: red;
+          `}
           contentContainerStyle={{
             padding: 15,
           }}
