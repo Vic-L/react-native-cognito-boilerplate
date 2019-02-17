@@ -19,7 +19,7 @@ import RequestNotificationPermission from '../../../services/RequestNotification
 import ValidateField from '../../../services/ValidateField';
 import ValidateFormObject from '../../../services/ValidateFormObject';
 import {
-  COLOR
+  COLOR,
 } from '../../../constants';
 
 const Wrapper = styled.View`
@@ -40,9 +40,18 @@ class Login extends React.Component {
 
     this.loginButton = React.createRef();
     this.biometricButton = React.createRef();
+
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onLogin = this.onLogin.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onLogin = this.onLogin.bind(this);
+    this.onForgetPassword = this.onForgetPassword.bind(this);
+    this.onLogin = this.onLogin.bind(this);
+    this.onAuthenticateWithBiometric = this.onAuthenticateWithBiometric.bind(this);
   }
 
   async componentDidMount() {
+    const { navigation } = this.props;
     // check if biometricSupported to determine if should show button or not
     // return null if not supported
     const biometricSupported = await Keychain.getSupportedBiometryType();
@@ -52,13 +61,13 @@ class Login extends React.Component {
     try {
       const email = await AsyncStorage.getItem(`${DeviceInfo.getBundleId()}:email`);
       const biometricAssociatedEmail = await AsyncStorage.getItem(
-        `${DeviceInfo.getBundleId()}:biometricAssociatedEmail`
+        `${DeviceInfo.getBundleId()}:biometricAssociatedEmail`,
       );
 
 
       this.setState({
         biometricAssociatedEmail,
-        email
+        email,
       });
     } catch (err) {
       // should not happen
@@ -66,47 +75,53 @@ class Login extends React.Component {
         'Alert',
         err.message,
         [{ text: 'OK' }],
-        { cancelable: false }
+        { cancelable: false },
       );
     }
 
-    this.props.navigation.addListener(
+    navigation.addListener(
       'willFocus',
       (payload) => {
         if (!_.isNil(payload.state.params)) {
           this.setState({
-            email: payload.state.params.email || null
+            email: payload.state.params.email || null,
           });
         }
-      }
+      },
     );
   }
 
   onChangeEmail(email) {
     this.loginButton.current.reset();
     this.setState({
-      email
+      email,
     });
   }
 
   onChangePassword(password) {
     this.loginButton.current.reset();
     this.setState({
-      password
+      password,
     });
   }
 
   onForgetPassword() {
+    const { navigation } = this.props;
     this.loginButton.current.reset();
-    this.props.navigation.navigate('ForgotPassword');
+    navigation.navigate('ForgotPassword');
   }
 
   async onLogin() {
+    const {
+      email,
+      password,
+    } = this.state;
+
     this.setState({
-      submittedFormBefore: true
+      submittedFormBefore: true,
     });
     if (ValidateFormObject('login', _.pick(this.state, ['email', 'password']))) {
-      await this.login(this.state.email, this.state.password);
+      await this.login(email, password);
     } else {
       this.loginButton.current.error();
     }
@@ -116,9 +131,9 @@ class Login extends React.Component {
     this.biometricButton.current.load();
     try {
       const credentials = await Keychain.getGenericPassword({
-        service: DeviceInfo.getBundleId()
+        service: DeviceInfo.getBundleId(),
       });
-      
+
       if (credentials) {
         this.login(credentials.username, credentials.password);
       } else {
@@ -127,7 +142,7 @@ class Login extends React.Component {
           'Alert',
           'No credentials stored; should not happen',
           [{ text: 'OK' }],
-          { cancelable: false }
+          { cancelable: false },
         );
       }
     } catch (err) {
@@ -137,19 +152,26 @@ class Login extends React.Component {
           'Alert',
           JSON.stringify(err),
           [{ text: 'OK' }],
-          { cancelable: false }
+          { cancelable: false },
         );
       }
     }
   }
 
   shouldAllowLoginByBiometric() {
-    return this.state.biometricSupported &&
-      this.state.biometricAssociatedEmail &&
-      this.state.biometricAssociatedEmail === this.state.email;
+    const {
+      biometricSupported,
+      biometricAssociatedEmail,
+      email,
+    } = this.state;
+    return biometricSupported
+      && biometricAssociatedEmail
+      && biometricAssociatedEmail === email;
   }
 
   async login(email, password) {
+    const { navigation } = this.props;
+
     try {
       const user = await Auth.signIn(email, password);
       if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
@@ -163,19 +185,19 @@ class Login extends React.Component {
         await Auth.completeNewPassword(
           user,
           password,
-          newAttributes
+          newAttributes,
         );
       }
-      
+
       await RequestNotificationPermission();
       this.loginButton.current.success();
-      this.props.navigation.navigate('Drawer');
+      navigation.navigate('Drawer');
     } catch (err) {
       console.log(err);
       Alert.alert(
         'Alert',
         err.message || err,
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
       this.loginButton.current.error();
     }
@@ -195,38 +217,39 @@ class Login extends React.Component {
           <NavbarSpacing />
 
           <TextField
-            label='EMAIL'
-            placeholder='Email'
+            label="EMAIL"
+            placeholder="Email"
             value={email}
             error={ValidateField('login-email', email, submittedFormBefore)}
-            keyboardType='email-address'
-            autoCapitalize='none'
+            keyboardType="email-address"
+            autoCapitalize="none"
             onSubmitEditing={() => {
-              this.refs.passwordField.refs.input.focus();
+              this.passwordField.refs.input.focus();
             }}
             autoFocus
-            returnKeyType='next'
-            onChangeText={this.onChangeEmail.bind(this)}
+            returnKeyType="next"
+            onChangeText={this.onChangeEmail}
           />
 
           <TextField
-            ref='passwordField'
-            label='PASSWORD'
-            placeholder='Password'
+            ref={(component) => {
+              this.passwordField = component;
+            }}
+            label="PASSWORD"
+            placeholder="Password"
             secureTextEntry
-            autoCapitalize='none'
-            onSubmitEditing={this.onLogin.bind(this)}
-            returnKeyType='done'
+            autoCapitalize="none"
+            onSubmitEditing={this.onLogin}
+            returnKeyType="done"
             value={password}
             error={ValidateField('login-password', password, submittedFormBefore)}
-            onChangeText={this.onChangePassword.bind(this)}
-            onSubmitEditing={this.onLogin.bind(this)}
+            onChangeText={this.onChangePassword}
           />
 
           <TextLink
-            containerStyle={'justify-content: center;'}
-            text='Forgot password'
-            onPress={this.onForgetPassword.bind(this)}
+            containerStyle="justify-content: center;"
+            text="Forgot password"
+            onPress={this.onForgetPassword}
           />
 
           <ButtonWithLoader
@@ -238,13 +261,13 @@ class Login extends React.Component {
             shakeOnError
             label="LOGIN"
             ref={this.loginButton}
-            onPress={this.onLogin.bind(this)}
+            onPress={this.onLogin}
           />
 
           {
             this.shouldAllowLoginByBiometric() ? (
               <ButtonWithLoader
-                label='LOGIN WITH Biometric'
+                label="LOGIN WITH Biometric"
                 backgroundColor={COLOR.ALTERNATE}
                 style={{
                   alignSelf: 'center',
@@ -252,7 +275,7 @@ class Login extends React.Component {
                 noBorder
                 shakeOnError
                 ref={this.biometricButton}
-                onPress={this.onAuthenticateWithBiometric.bind(this)}
+                onPress={this.onAuthenticateWithBiometric}
               />
             ) : null
           }

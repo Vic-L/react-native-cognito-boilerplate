@@ -3,7 +3,7 @@ import {
   createStackNavigator,
 } from 'react-navigation';
 import {
-  Image
+  Image,
 } from 'react-native';
 
 import Posts from '../screens/Posts';
@@ -15,14 +15,14 @@ const StackNavigator = createStackNavigator(
       screen: Posts,
       navigationOptions: {
         headerTitle: 'Posts',
-      }
+      },
     },
     Products: {
       screen: Products,
       navigationOptions: {
         headerTransparent: true,
         headerTitle: 'Products',
-      }
+      },
     },
   },
   {
@@ -36,7 +36,7 @@ const StackNavigator = createStackNavigator(
         />
       ),
     }),
-  }
+  },
 );
 
 export default StackNavigator;

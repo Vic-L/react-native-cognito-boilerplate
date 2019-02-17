@@ -38,9 +38,9 @@ class Products extends React.Component {
         { text: 'No' },
         {
           text: 'Yes',
-          onPress: refetch
+          onPress: refetch,
         },
-      ]
+      ],
     );
   }
 
@@ -49,7 +49,12 @@ class Products extends React.Component {
       <Wrapper>
         <Text>Products</Text>
         <Query query={GET_PRODUCTS_QUERY}>
-          {({ loading, error, data, refetch }) => {
+          {({
+            loading,
+            error,
+            data,
+            refetch,
+          }) => {
             const { current: button } = this.refetchButton;
 
             if (loading) {
@@ -62,21 +67,21 @@ class Products extends React.Component {
               if (button) {
                 button.reset();
               }
-              return <Text>Error! {error.message}</Text>;
+              return <Text>{`Error! ${error.message}`}</Text>;
             }
 
             if (button) {
               button.reset();
             }
 
-            const productsList = data.allProducts.map((product) => 
+            const productsList = data.allProducts.map(product => (
               <Text key={product.id}>{product.name}</Text>
-            );
+            ));
 
             return (
               <React.Fragment>
                 <ButtonWithLoader
-                  label='Refetch'
+                  label="Refetch"
                   style={{
                     alignSelf: 'center',
                   }}

@@ -1,25 +1,25 @@
-const PASSWORD_MIN_LENGTH = 6;
-
 import validation from 'validate.js';
+
+const PASSWORD_MIN_LENGTH = 6;
 
 const constraints = {
   // login form
   'login-email': {
     presence: {
-      message: '^Please enter an email address'
+      message: '^Please enter an email address',
     },
     email: {
-      message: '^Please enter a valid email address'
-    }
+      message: '^Please enter a valid email address',
+    },
   },
   'login-password': {
     presence: {
-      message: '^Please enter a password'
+      message: '^Please enter a password',
     },
     length: {
       minimum: PASSWORD_MIN_LENGTH,
-      message: `^Please enter at least ${PASSWORD_MIN_LENGTH} characters`
-    }
+      message: `^Please enter at least ${PASSWORD_MIN_LENGTH} characters`,
+    },
   },
 };
 

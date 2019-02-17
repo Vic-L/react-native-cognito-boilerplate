@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import React from 'react';
 import {
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { 
+import {
   COLOR,
 } from '../../constants';
 
@@ -24,7 +24,7 @@ const Wrapper = styled.View`
 
 const Label = styled.Text`
   font-size: ${props => (props.value ? FLOAT_LABEL_FONT_SIZE : INPUT_FONT_SIZE)};
-  color: ${props => {
+  color: ${(props) => {
     if (props.value) {
       return props.hasError ? COLOR.ERROR : COLOR.BLACK;
     }
@@ -49,8 +49,14 @@ const Input = styled.TextInput`
 
 // uncontrolled
 class TextField extends React.Component {
-  focusTextInput = () => {
-    this.refs.input.focus();
+  constructor(props) {
+    super(props);
+
+    this.focusTextInput = this.focusTextInput.bind(this);
+  }
+
+  focusTextInput() {
+    this.input.focus();
   }
 
   render() {
@@ -84,12 +90,14 @@ class TextField extends React.Component {
           }
           <Input
             {...props}
-            style={inputStyle}
-            ref='input'
+            css={inputStyle}
+            ref={(component) => {
+              this.input = component;
+            }}
             placeholderTextColor={hasError ? COLOR.ERROR : 'gray'}
             value={value}
             hasError={hasError}
-            underlineColorAndroid='transparent'
+            underlineColorAndroid="transparent"
           />
         </Wrapper>
       </TouchableWithoutFeedback>
@@ -103,6 +111,15 @@ TextField.propTypes = {
   error: PropTypes.string,
   containerStyle: PropTypes.string,
   labelStyle: PropTypes.string,
+  inputStyle: PropTypes.string,
+};
+
+TextField.defaultProps = {
+  value: null,
+  error: null,
+  containerStyle: null,
+  labelStyle: null,
+  inputStyle: null,
 };
 
 export default TextField;

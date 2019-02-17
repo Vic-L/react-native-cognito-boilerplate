@@ -18,7 +18,7 @@ const DrawerNavigatorConfig = {
   contentComponent: DrawerContentComponent,
   contentOptions: {
     // the array of routes, can be modified or overridden
-    items: ['Products', 'Posts'], 
+    items: ['Products', 'Posts'],
     // key identifying the active route
     // activeItemKey: 'something',
     // label and icon color of the active label
@@ -30,21 +30,21 @@ const DrawerNavigatorConfig = {
     // background color of the inactive label
     inactiveBackgroundColor: 'black',
     // function to be invoked when an item is pressed
-    // onItemPress(route), 
+    // onItemPress(route),
     // style object for the content section
-    // itemsContainerStyle, 
+    // itemsContainerStyle,
     // style object for the single item, which can contain an Icon and/or a Label
-    // itemStyle, 
+    // itemStyle,
     // style object to overwrite Text style inside content section, when your label is a string
-    // labelStyle, 
+    // labelStyle,
     // style object to overwrite Text style of the active label,
     // when your label is a string (merged with labelStyle)
-    // activeLabelStyle, 
+    // activeLabelStyle,
     // style object to overwrite Text style of the inactive label,
     // when your label is a string (merged with labelStyle)
-    // inactiveLabelStyle, 
+    // inactiveLabelStyle,
     // style object to overwrite View icon container styles.
-    // iconContainerStyle, 
+    // iconContainerStyle,
   },
   // - Enable native animations. Default is true.
   useNativeAnimations: true,
@@ -59,8 +59,8 @@ const DrawerNavigator = createDrawerNavigator(
   },
   {
     ...DrawerNavigatorConfig,
-    initialRouteName: 'Posts'
-  }
+    initialRouteName: 'Posts',
+  },
 );
 
 export default DrawerNavigator;

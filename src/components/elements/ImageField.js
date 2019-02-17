@@ -26,11 +26,13 @@ class ImageField extends React.Component {
       imageBase64: null,
       imagePath: props.initialImagePath, // for initial image eg during edit
       isModalVisible: false,
-      isLoadingImage: false
+      isLoadingImage: false,
     };
+
+    this.showModal = this.showModal.bind(this);
   }
 
-  showModal = () => {
+  showModal() {
     Keyboard.dismiss();
 
     const { title, message } = this.props;
@@ -40,7 +42,7 @@ class ImageField extends React.Component {
         options: ['Camera', 'Library', 'Cancel'], // TODO use phone language option?
         cancelButtonIndex: 2,
         title,
-        message
+        message,
       }, (buttonIndex) => {
         switch (true) {
           case buttonIndex === 0:
@@ -63,34 +65,36 @@ class ImageField extends React.Component {
             text: 'Gallery',
             onPress: () => {
               this.openGallery();
-            }
+            },
           },
           {
             text: 'Camera',
             onPress: () => {
               this.openCamera();
-            }
+            },
           },
         ],
-        { cancelable: true }
+        { cancelable: true },
       );
     }
   }
 
-  openCamera = () => {
+  openCamera() {
     ImagePicker.openCamera({
       width: 300,
       height: 300,
       cropping: true,
       includeBase64: true,
-      loadingLabelText: 'Processing' // TODO use phone language
-    }).then(response => {
+      // TODO use phone language
+      loadingLabelText: 'Processing',
+    }).then((response) => {
+      const { onCropped } = this.props;
       this.setState({
         imagePath: response.path,
-        imageBase64: response.data
+        imageBase64: response.data,
       });
-      this.props.onCropped(response.data);
-    }).catch(e => {
+      onCropped(response.data);
+    }).catch((e) => {
       switch (true) {
         case e.message === IMAGE_PICKER_ERROR.CANCEL_CAMERA:
           break; // do nothing
@@ -99,26 +103,28 @@ class ImageField extends React.Component {
           Alert.alert(
             'Error',
             JSON.stringify(e),
-            [{ text: 'OK' }]
+            [{ text: 'OK' }],
           );
       }
     });
   }
 
-  openGallery = () => {
+  openGallery() {
     ImagePicker.openPicker({
       width: 300,
       height: 300,
       cropping: true,
       includeBase64: true,
-      loadingLabelText: 'Processing' // TODO use phone language
-    }).then(response => {
+      // TODO use phone language
+      loadingLabelText: 'Processing',
+    }).then((response) => {
+      const { onCropped } = this.props;
       this.setState({
         imagePath: response.path,
-        imageBase64: response.data
+        imageBase64: response.data,
       });
-      this.props.onCropped(response.data);
-    }).catch(e => {
+      onCropped(response.data);
+    }).catch((e) => {
       switch (true) {
         case e.message === IMAGE_PICKER_ERROR.CANCEL_IMAGE_SELECTION:
           // do nothing
@@ -128,21 +134,25 @@ class ImageField extends React.Component {
           Alert.alert(
             'Error',
             JSON.stringify(e),
-            [{ text: 'OK' }]
+            [{ text: 'OK' }],
           );
       }
     });
   }
 
   render() {
+    const {
+      disabled,
+      children,
+    } = this.props;
+
     return (
       <Wrapper
-        style={this.props.style}
         onPress={this.showModal}
-        enabled={this.props.disabled || true}
+        enabled={disabled}
       >
-        {this.props.children(this.state)}
-     </Wrapper>
+        {children(this.state)}
+      </Wrapper>
     );
   }
 }
@@ -153,9 +163,14 @@ ImageField.propTypes = {
   onCropped: PropTypes.func.isRequired,
 
   initialImagePath: PropTypes.string,
-  initialImageBase64: PropTypes.string,
-  style: PropTypes.string,
-  enabled: PropTypes.bool,
+  disabled: PropTypes.bool,
+  children: PropTypes.node,
+};
+
+ImageField.defaultProps = {
+  disabled: true,
+  initialImagePath: require('../../images/icons/magnifying_glass.jpg'),
+  children: null,
 };
 
 export default ImageField;

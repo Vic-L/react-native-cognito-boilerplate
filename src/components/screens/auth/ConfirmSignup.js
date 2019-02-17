@@ -24,58 +24,65 @@ class ConfirmSignup extends React.Component {
     this.state = {
       confirmationCode: null,
     };
+
+    this.onChangeConfirmationCode = this.onChangeConfirmationCode.bind(this);
   }
 
   onChangeConfirmationCode(confirmationCode) {
     this.setState({
-      confirmationCode
+      confirmationCode,
     });
   }
 
-  onLogin() {
-    Auth.confirmSignUp(
-      this.props.navigation.getParam('username', null), 
-      this.state.confirmationCode,
-      {
-        // Optional. Force user confirmation irrespective of existing alias. By default set to True.
-        forceAliasCreation: true
-      }
-    ).then((data) => {
+  async onLogin() {
+    const { navigation } = this.props;
+    const { confirmationCode } = this.state;
+    try {
+      const data = await Auth.confirmSignUp(
+        navigation.getParam('username', null),
+        confirmationCode,
+        {
+          // Optional. Force user confirmation irrespective of existing alias.
+          // By default set to True.
+          forceAliasCreation: true,
+        },
+      );
+
       console.log('confirmSignUp', data);
-      this.props.navigation.replace({
-        key: this.props.navigation.getParam('signupScreenKey', null),
+      navigation.replace({
+        key: navigation.getParam('signupScreenKey', null),
         routeName: 'Login',
-        immediate: true // currently no effect
+        immediate: true, // currently no effect
       });
-      this.props.navigation.goBack();
-    })
-    .catch((err) => {
+      navigation.goBack();
+    } catch (err) {
       console.log(err);
       Alert.alert(
         'Alert',
         err.message || err,
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
-    });
+    }
   }
 
   render() {
+    const { confirmationCode } = this.state;
     return (
       <Wrapper>
 
         <FormWrapper>
 
           <TextField
-            label='CONFIRMATION CODE'
-            placeholder='Confirmation Code'
-            keyboardType='numeric'
-            value={this.state.confirmationCode}
-            onChangeText={this.onChangeConfirmationCode.bind(this)}
+            label="CONFIRMATION CODE"
+            placeholder="Confirmation Code"
+            keyboardType="numeric"
+            value={confirmationCode}
+            onChangeText={this.onChangeConfirmationCode}
           />
 
           <Button
             text="LOGIN"
-            onPress={this.onLogin.bind(this)}
+            onPress={this.onLogin}
           />
 
         </FormWrapper>

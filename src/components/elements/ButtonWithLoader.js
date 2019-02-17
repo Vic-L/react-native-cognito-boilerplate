@@ -1,8 +1,9 @@
 import React from 'react';
+import { ViewPropTypes } from 'react-native';
 import Btn from 'react-native-micro-animated-button';
 import PropTypes from 'prop-types';
 import {
-  COLOR
+  COLOR,
 } from '../../constants';
 
 /*
@@ -62,14 +63,13 @@ const ButtonWithLoader = React.forwardRef(({
   iconStyle,
   ...otherProps
 },
-  ref
-) => (
+ref) => (
   <Btn
     backgroundColor={COLOR.PRIMARY}
     label={label}
     onPress={onPress}
     ref={ref}
-    foregroundColor='white'
+    foregroundColor="white"
     errorBackgroundColor={COLOR.ERROR}
     labelStyle={{
       backgroundColor: 'transparent',
@@ -79,7 +79,7 @@ const ButtonWithLoader = React.forwardRef(({
     }}
     iconStyle={{
       color: 'white',
-      ...iconStyle
+      ...iconStyle,
     }}
     {...otherProps}
   />
@@ -88,6 +88,13 @@ const ButtonWithLoader = React.forwardRef(({
 ButtonWithLoader.propTypes = {
   label: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
+  labelStyle: ViewPropTypes.style,
+  iconStyle: ViewPropTypes.style,
+};
+
+ButtonWithLoader.defaultProps = {
+  labelStyle: {},
+  iconStyle: {},
 };
 
 export default ButtonWithLoader;

@@ -14,43 +14,43 @@ const AuthNavigator = createStackNavigator(
     Welcome: {
       screen: Welcome,
       navigationOptions: {
-        headerTransparent: true
-      }
+        headerTransparent: true,
+      },
     },
     Login: {
       screen: Login,
       navigationOptions: {
-        headerTransparent: true
-      }
+        headerTransparent: true,
+      },
     },
     ForgotPassword: {
       screen: ForgotPassword,
       navigationOptions: {
-        headerTransparent: true
-      }
+        headerTransparent: true,
+      },
     },
     Signup: {
       screen: Signup,
       navigationOptions: {
-        headerTransparent: true
-      }
+        headerTransparent: true,
+      },
     },
     ConfirmSignup: {
       screen: ConfirmSignup,
       navigationOptions: {
-        headerTransparent: true
-      }
+        headerTransparent: true,
+      },
     },
     ForgotPasswordSubmit: {
       screen: ForgotPasswordSubmit,
       navigationOptions: {
-        headerTransparent: true
-      }
+        headerTransparent: true,
+      },
     },
   },
   {
     initialRouteName: 'Welcome',
-  }
+  },
 );
 
 export default AuthNavigator;

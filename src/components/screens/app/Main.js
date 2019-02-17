@@ -19,55 +19,62 @@ class Main extends React.Component {
     super(props);
 
     this.state = {
-      username: null
+      username: null,
     };
+
+    this.onLogout = this.onLogout.bind(this);
+    this.onTabs = this.onTabs.bind(this);
+    this.onDrawer = this.onDrawer.bind(this);
   }
 
   async componentDidMount() {
     const user = await Auth.currentAuthenticatedUser();
     this.setState({
-      username: user.username
+      username: user.username,
     });
   }
 
   onTabs() {
-    this.props.navigation.navigate('BottomTabNavigator');
+    const { navigation } = this.props;
+    navigation.navigate('BottomTabNavigator');
   }
 
   onDrawer() {
-    this.props.navigation.navigate('DrawerNavigator');
+    const { navigation } = this.props;
+    navigation.navigate('DrawerNavigator');
   }
 
-  onLogout() {
-    Auth.signOut()
-    .then(() => {
-      this.props.navigation.navigate('Welcome');
-    })
-    .catch((err) => {
+  async onLogout() {
+    const { navigation } = this.props;
+    try {
+      await Auth.signOut();
+      navigation.navigate('Welcome');
+    } catch (err) {
       console.log(err);
       Alert.alert(
         'Alert',
         err.message || err,
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
-    });
+    }
   }
 
   render() {
+    const { username } = this.state;
     return (
       <Wrapper>
-        <Text>{this.state.username}</Text>
+        <Text>{username}</Text>
         <Button
           text="LOGOUT"
-          onPress={this.onLogout.bind(this)}
+          onPress={this.onLogout}
         />
         <Button
           text="BottomTabNavigator"
-          onPress={this.onTabs.bind(this)}
+          onPress={this.onTabs}
         />
         <Button
           text="DrawerNavigator"
-          onPress={this.onDrawer.bind(this)}
+          onPress={this.onDrawer}
         />
       </Wrapper>
     );

@@ -3,7 +3,7 @@ import {
   createStackNavigator,
 } from 'react-navigation';
 import {
-  Image
+  Image,
 } from 'react-native';
 
 import Posts from '../screens/Posts';
@@ -15,14 +15,14 @@ const StackNavigator = createStackNavigator(
       screen: Posts,
       navigationOptions: {
         headerTitle: 'StackNav Posts Header',
-      }
+      },
     },
     Products: {
       screen: Products,
       navigationOptions: {
         headerTransparent: true,
         headerTitle: 'StackNav Products Header',
-      }
+      },
     },
   },
   {
@@ -31,12 +31,10 @@ const StackNavigator = createStackNavigator(
       headerMode: 'screen',
       drawerLabel: 'Posts >',
       drawerIcon: () => (
-        <Image
-          source={require('../../images/icons/magnifying_glass.jpg')}
-        />
+        <Image source={require('../../images/icons/magnifying_glass.jpg')} />
       ),
     }),
-  }
+  },
 );
 
 export default StackNavigator;

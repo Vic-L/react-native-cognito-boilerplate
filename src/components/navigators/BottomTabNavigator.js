@@ -5,13 +5,14 @@ import {
 import Posts from '../screens/Posts';
 import Forms from '../screens/Forms';
 
-const BottomTabNavigator = createBottomTabNavigator({
+const BottomTabNavigator = createBottomTabNavigator(
+  {
     Posts: {
       screen: Posts,
       navigationOptions: {
         // tabBarIcon: TODO,
-        tabBarLabel: 'My Posts'
-      }
+        tabBarLabel: 'My Posts',
+      },
     },
     Forms: {
       screen: Forms,
@@ -34,12 +35,12 @@ const BottomTabNavigator = createBottomTabNavigator({
       style: {},
       labelStyle: {
         fontSize: 12,
-        color: 'blue'
+        color: 'blue',
       },
       tabStyle: {},
       allowFontScaling: true,
-    }
-  }
+    },
+  },
 );
 
 export default BottomTabNavigator;

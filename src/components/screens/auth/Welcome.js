@@ -11,12 +11,21 @@ const Wrapper = styled.View`
 `;
 
 class Welcome extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onLogin = this.onLogin.bind(this);
+    this.onSignup = this.onSignup.bind(this);
+  }
+
   onLogin() {
-    this.props.navigation.navigate('Login');
+    const { navigation } = this.props;
+    navigation.navigate('Login');
   }
 
   onSignup() {
-    this.props.navigation.navigate('Signup');
+    const { navigation } = this.props;
+    navigation.navigate('Signup');
   }
 
   render() {
@@ -24,12 +33,12 @@ class Welcome extends React.Component {
       <Wrapper>
         <Text>Welcome page</Text>
         <Button
-          text='LOGIN'
-          onPress={this.onLogin.bind(this)}
+          text="LOGIN"
+          onPress={this.onLogin}
         />
         <Button
-          text='SIGN UP'
-          onPress={this.onSignup.bind(this)}
+          text="SIGN UP"
+          onPress={this.onSignup}
         />
       </Wrapper>
     );

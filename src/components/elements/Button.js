@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import {
-  COLOR
+  COLOR,
 } from '../../constants';
 
 const ButtonContainer = styled.TouchableOpacity`

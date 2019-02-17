@@ -4,13 +4,12 @@ import {
   Text,
 } from 'react-native';
 import styled from 'styled-components';
-
-import ImageField from '../elements/ImageField';
-
 import {
   CachedImage,
-  ImageCacheProvider
+  ImageCacheProvider,
 } from 'react-native-cached-image';
+
+import ImageField from '../elements/ImageField';
 
 const Image = styled(CachedImage)`
   width: 100%;
@@ -38,22 +37,29 @@ class Forms extends React.Component {
       imageBase64: null,
       initialImagePath: [
         'https://store.donanimhaber.com/ae/0c/c4/ae0cc4f398e19a24a9b0434dcec0c365.png',
-        null
+        null,
       ][Math.floor(Math.random() * 2)],
     };
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { imageBase64 } = prevState;
+    console.log(imageBase64);
+  }
+
   render() {
+    const { initialImagePath } = this.state;
     return (
       <Wrapper>
         <Text>Forms</Text>
         <ImageField
-          initialImagePath={this.state.initialImagePath}
-          title='Add image'
-          message='Description of what this image is for'
+          initialImagePath={initialImagePath}
+          title="Add image"
+          message="Description of what this image is for"
           onCropped={(imageBase64) => {
             this.setState({ imageBase64 });
-          }}>
+          }}
+        >
           {({ imagePath }) => {
             let image = null;
             if (_.isNil(imagePath)) {
@@ -62,7 +68,7 @@ class Forms extends React.Component {
               image = (
                 <ImageCacheProvider
                   urlsToPreload={[
-                    imagePath
+                    imagePath,
                   ]}
                 >
                   <Image source={{ uri: imagePath }} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Alert
+  Alert,
 } from 'react-native';
 import uuidv4 from 'uuid/v4';
 import Auth from '@aws-amplify/auth';
@@ -30,98 +30,122 @@ class Signup extends React.Component {
       firstName: null,
       lastName: null,
     };
+
+    this.onChangeFirstName = this.onChangeFirstName.bind(this);
+    this.onChangeLastName = this.onChangeLastName.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onSignup = this.onSignup.bind(this);
   }
 
   onChangeFirstName(firstName) {
     this.setState({
-      firstName
+      firstName,
     });
   }
 
   onChangeLastName(lastName) {
     this.setState({
-      lastName
+      lastName,
     });
   }
 
   onChangeEmail(email) {
     this.setState({
-      email
+      email,
     });
   }
 
   onChangePassword(password) {
     this.setState({
-      password
+      password,
     });
   }
 
-  onSignup() {
-    Auth.signUp({
-      username: uuidv4(),
-      password: this.state.password,
-      attributes: {
-        email: this.state.email,
-        given_name: this.state.firstName,
-        family_name: this.state.lastName,
-      },
-      validationData: []  //optional
-    })
-    .then((data) => {
-      console.log('onSignup', data);
-      this.props.navigation.navigate('ConfirmSignup', { username: data.user.username,
-        signupScreenKey: this.props.navigation.state.key
+  async onSignup() {
+    const {
+      password,
+      email,
+      firstName,
+      lastName,
+    } = this.state;
+
+    const { navigation } = this.props;
+
+    try {
+      const data = await Auth.signUp({
+        username: uuidv4(),
+        password,
+        attributes: {
+          email,
+          firstName,
+          lastName,
+        },
+        validationData: [], // optional
       });
-    })
-    .catch((err) => {
+
+      console.log('onSignup', data);
+      navigation.navigate('ConfirmSignup', {
+        username: data.user.username,
+        signupScreenKey: navigation.state.key,
+      });
+    } catch (err) {
+      console.log(err);
       Alert.alert(
         'Alert',
         err.message.replace('PreSignUp failed with error ', ''),
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
-    });
+    }
   }
 
   render() {
+    const {
+      password,
+      email,
+      firstName,
+      lastName,
+    } = this.state;
+
     return (
       <Wrapper>
 
         <FormWrapper>
           <TextField
-            label='FIRST NAME'
-            placeholder='First Name'
-            value={this.state.firstName}
-            onChangeText={this.onChangeFirstName.bind(this)}
+            label="FIRST NAME"
+            placeholder="First Name"
+            value={firstName}
+            onChangeText={this.onChangeFirstName}
           />
 
           <TextField
-            label='LAST NAME'
-            placeholder='Last Name'
-            value={this.state.lastName}
-            onChangeText={this.onChangeLastName.bind(this)}
+            label="LAST NAME"
+            placeholder="Last Name"
+            value={lastName}
+            onChangeText={this.onChangeLastName}
           />
 
           <TextField
-            label='EMAIL'
-            placeholder='Email'
-            value={this.state.email}
-            keyboardType='email-address'
-            autoCapitalize='none'
-            onChangeText={this.onChangeEmail.bind(this)}
+            label="EMAIL"
+            placeholder="Email"
+            value={email}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            onChangeText={this.onChangeEmail}
           />
 
           <TextField
-            label='PASSWORD'
-            placeholder='Password'
+            label="PASSWORD"
+            placeholder="Password"
             secureTextEntry
-            autoCapitalize='none'
-            value={this.state.password}
-            onChangeText={this.onChangePassword.bind(this)}
+            autoCapitalize="none"
+            value={password}
+            onChangeText={this.onChangePassword}
           />
 
           <Button
             text="SIGN UP"
-            onPress={this.onSignup.bind(this)}
+            onPress={this.onSignup}
           />
 
         </FormWrapper>

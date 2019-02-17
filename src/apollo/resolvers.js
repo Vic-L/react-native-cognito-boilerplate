@@ -16,9 +16,9 @@ const resolvers = {
           body,
           actions: actions.map(action => ({
             __typename: 'AlertAction',
-            ...action
-          }))
-        }
+            ...action,
+          })),
+        },
       };
       mutate(cache, payload);
       return null;
@@ -36,8 +36,8 @@ const resolvers = {
         },
         selectedAlertResponse: {
           __typename: 'SelectedAlertResponse',
-          alertResponse: action.alertResponse
-        }
+          alertResponse: action.alertResponse,
+        },
       };
       mutate(cache, payload);
       return null;
@@ -49,13 +49,13 @@ const resolvers = {
       const payload = {
         selectedAlertResponse: {
           __typename: 'SelectedAlertResponse',
-          alertResponse
-        }
+          alertResponse,
+        },
       };
       mutate(cache, payload);
       return null;
-    }
-  }
+    },
+  },
 };
 
 export default resolvers;

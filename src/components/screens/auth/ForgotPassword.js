@@ -24,17 +24,24 @@ class ForgotPassword extends React.Component {
     this.state = {
       email: null,
     };
+
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onForgotPassword = this.onForgotPassword.bind(this);
   }
 
   onChangeEmail(email) {
     this.setState({
-      email
+      email,
     });
   }
 
-  onForgotPassword() {
-    Auth.forgotPassword(this.state.email)
-    .then(() => {
+  async onForgotPassword() {
+    const { email } = this.state;
+    const { navigation } = this.props;
+
+    try {
+      await Auth.forgotPassword(email);
+
       Alert.alert(
         'Alert',
         `A verification code has been sent to your email.
@@ -42,36 +49,34 @@ class ForgotPassword extends React.Component {
         [{
           text: 'OK',
           onPress: () => {
-            this.props.navigation.replace({
-              key: this.props.navigation.state.key,
+            navigation.replace({
+              key: navigation.state.key,
               routeName: 'ForgotPasswordSubmit',
               immediate: true, // currently no effect
               params: {
-                email: this.state.email
-              }
+                email,
+              },
             });
-          }
-        }]
+          },
+        }],
       );
-    })
-    .catch((err) => {
+    } catch (err) {
       console.log(err);
       Alert.alert(
         'Alert',
         err.message || err,
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
-    });
+    }
   }
 
   render() {
+    const { email } = this.state;
     return (
       <Wrapper>
 
         <FormContainer
-          css={`
-            background-color: red;
-          `}
+          css="background-color: red;"
           contentContainerStyle={{
             padding: 15,
           }}
@@ -80,20 +85,20 @@ class ForgotPassword extends React.Component {
           <NavbarSpacing />
 
           <TextField
-            label='EMAIL'
-            placeholder='Email'
-            value={this.state.email}
-            keyboardType='email-address'
-            autoCapitalize='none'
+            label="EMAIL"
+            placeholder="Email"
+            value={email}
+            keyboardType="email-address"
+            autoCapitalize="none"
             autoFocus
-            returnKeyType='done'
-            onSubmitEditing={this.onForgotPassword.bind(this)}
-            onChangeText={this.onChangeEmail.bind(this)}
+            returnKeyType="done"
+            onSubmitEditing={this.onForgotPassword}
+            onChangeText={this.onChangeEmail}
           />
 
           <Button
             text="Submit"
-            onPress={this.onForgotPassword.bind(this)}
+            onPress={this.onForgotPassword}
           />
 
         </FormContainer>

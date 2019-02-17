@@ -3,12 +3,12 @@ const defaults = {
     __typename: 'Alert',
     title: null,
     body: null,
-    actions: null
+    actions: null,
   },
   selectedAlertResponse: {
     __typename: 'SelectedAlertResponse',
-    alertResponse: null
-  }
+    alertResponse: null,
+  },
 };
 
 export default defaults;

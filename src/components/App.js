@@ -2,17 +2,12 @@ import React from 'react';
 import Config from 'react-native-config';
 import Auth from '@aws-amplify/auth';
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
-import {
-  createStackNavigator,
-  createSwitchNavigator,
-} from 'react-navigation';
 
 import { ApolloProvider } from 'react-apollo';
 import defaults from '../apollo/defaults';
 import resolvers from '../apollo/resolvers';
 import typeDefs from '../apollo/typeDefs';
 import IOSPushNotificationListener from './IOSPushNotificationListener';
-import Main from './screens/app/Main';
 import RootStackNavigator from './navigators/RootStackNavigator';
 
 const apolloClient = new ApolloClient({
@@ -32,7 +27,7 @@ const apolloClient = new ApolloClient({
       fetchPolicy: 'network-only',
       errorPolicy: 'all',
     },
-  }
+  },
 });
 
 Auth.configure({
@@ -76,15 +71,13 @@ Auth.configure({
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
 });
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <ApolloProvider client={apolloClient}>
-        <React.Fragment>
-          <IOSPushNotificationListener />
-          <RootStackNavigator />
-        </React.Fragment>
-      </ApolloProvider>
-    );
-  }
-}
+const App = () => (
+  <ApolloProvider client={apolloClient}>
+    <React.Fragment>
+      <IOSPushNotificationListener />
+      <RootStackNavigator />
+    </React.Fragment>
+  </ApolloProvider>
+);
+
+export default App;

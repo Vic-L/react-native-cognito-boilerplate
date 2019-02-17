@@ -3,7 +3,6 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 
@@ -27,25 +26,26 @@ class Posts extends React.Component {
   })
 
   render() {
+    const { navigation } = this.props;
     return (
       <Wrapper>
         <Button
           text="To Products"
           onPress={() => {
-            this.props.navigation.navigate('Products');
+            navigation.navigate('Products');
           }}
         />
         <Button
           text="Toggle Drawer"
-          onPress={this.props.navigation.toggleDrawer}
+          onPress={navigation.toggleDrawer}
         />
         <Text>Pokemons</Text>
         <Query query={GET_POKEMONS}>
           {({ loading, error, data }) => {
             if (loading) return <Text>Loading...</Text>;
-            if (error) return <Text>Error! {error.message}</Text>;
+            if (error) return <Text>{`Error! ${error.message}`}</Text>;
 
-            return data.pokemons.map((pokemon) => <Text key={pokemon.id}>{pokemon.name}</Text>);
+            return data.pokemons.map(pokemon => <Text key={pokemon.id}>{pokemon.name}</Text>);
           }}
         </Query>
       </Wrapper>

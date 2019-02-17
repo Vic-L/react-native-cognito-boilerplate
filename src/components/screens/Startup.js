@@ -7,22 +7,22 @@ import SplashScreen from 'react-native-splash-screen';
 import Auth from '@aws-amplify/auth';
 
 class Startup extends React.Component {
-  componentDidMount() {
-    Auth.currentAuthenticatedUser()
-    .then(() => {
-      this.props.navigation.navigate('Drawer');
-    })
-    .catch((err) => {
+  async componentDidMount() {
+    const { navigation } = this.props;
+    try {
+      await Auth.currentAuthenticatedUser();
+      navigation.navigate('Drawer');
+    } catch (err) {
       if (err === 'not authenticated') {
-        this.props.navigation.navigate('Welcome');
+        navigation.navigate('Welcome');
       } else {
         Alert.alert(
           'Alert',
           err.message || err,
-          [{ text: 'OK' }]
+          [{ text: 'OK' }],
         );
       }
-    });
+    }
   }
 
   componentWillUnmount() {

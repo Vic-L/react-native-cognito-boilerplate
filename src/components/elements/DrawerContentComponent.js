@@ -12,7 +12,7 @@ const Wrapper = styled.SafeAreaView`
   flex: 1;
 `;
 
-const DrawerContentComponent = (props) => (
+const DrawerContentComponent = props => (
   <ScrollView>
     <Wrapper forceInset={{ top: 'always', horizontal: 'never' }}>
       <Text>App Title</Text>

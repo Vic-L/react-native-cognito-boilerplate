@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { 
+import {
   COLOR,
 } from '../../constants';
 
@@ -36,9 +36,13 @@ const TextLink = ({
 TextLink.propTypes = {
   text: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
-  
   textStyle: PropTypes.string,
   containerStyle: PropTypes.string,
+};
+
+TextLink.defaultProps = {
+  textStyle: '',
+  containerStyle: '',
 };
 
 export default TextLink;
