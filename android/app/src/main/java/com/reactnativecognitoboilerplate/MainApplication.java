@@ -45,8 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
             new SplashScreenReactPackage(),
             new RNAWSCognitoPackage(),
             new RNFirebasePackage(),
-            new RNFirebaseMessagingPackage(),
-            new ReactNativeConfigPackage()
+            new RNFirebaseMessagingPackage()
       );
     }
 
