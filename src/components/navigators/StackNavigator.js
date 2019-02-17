@@ -8,6 +8,7 @@ import {
 
 import Posts from '../screens/Posts';
 import Products from '../screens/Products';
+import GetNavigationHeaderMode from '../../services/GetNavigationHeaderMode';
 
 const StackNavigator = createStackNavigator(
   {
@@ -28,7 +29,7 @@ const StackNavigator = createStackNavigator(
   {
     defaultNavigationOptions: () => ({
       initialRouteName: 'Posts',
-      headerMode: 'screen',
+      headerMode: GetNavigationHeaderMode(),
       drawerLabel: 'Posts >',
       drawerIcon: () => (
         <Image source={require('../../images/icons/magnifying_glass.jpg')} />
