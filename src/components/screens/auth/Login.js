@@ -169,7 +169,7 @@ class Login extends React.Component {
       
       await RequestNotificationPermission();
       this.loginButton.current.success();
-      this.props.navigation.navigate('Main');
+      this.props.navigation.navigate('Drawer');
     } catch (err) {
       console.log(err);
       Alert.alert(

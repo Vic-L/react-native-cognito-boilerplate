@@ -79,30 +79,15 @@ Auth.configure({
   // authenticationFlowType: 'USER_PASSWORD_AUTH'
 });
 
-const AppNavigator = createStackNavigator(
-  {
-    Main: {
-      screen: Main,
-      navigationOptions: {
-        headerTransparent: true
-      }
-    },
-  },
-  {
-    initialRouteName: 'Main',
-  }
-);
-
 const RootStack = createSwitchNavigator(
   {
     Startup,
     Auth: AuthNavigator,
-    App: AppNavigator,
     BottomTabNavigator: {
       screen: BottomTabNavigator,
       path: 'bottomTab/:param'
     },
-    DrawerNavigator,
+    Drawer: DrawerNavigator,
   },
   {
     initialRouteName: 'Startup',
