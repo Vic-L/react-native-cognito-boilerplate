@@ -20,3 +20,12 @@ export const GET_SELECTED_ALERT_RESPONSE = gql`
     }
   }
 `;
+
+export const GET_POKEMONS = gql`
+  {
+    pokemons(first: 10) {
+      id
+      name
+    }
+  }
+`;

@@ -8,9 +8,9 @@ import {
 } from 'react-navigation';
 
 import { ApolloProvider } from 'react-apollo';
-import defaults from '../clientState/defaults';
-import resolvers from '../clientState/resolvers';
-import typeDefs from '../clientState/typeDefs';
+import defaults from '../apollo/defaults';
+import resolvers from '../apollo/resolvers';
+import typeDefs from '../apollo/typeDefs';
 import Startup from './screens/Startup';
 import IOSPushNotificationListener from './IOSPushNotificationListener';
 import Main from './screens/app/Main';
@@ -19,7 +19,7 @@ import AuthNavigator from './navigators/AuthNavigator';
 import DrawerNavigator from './navigators/DrawerNavigator';
 
 const apolloClient = new ApolloClient({
-  uri: 'https://fakerql.com/graphql',
+  uri: Config.API_URL,
   cache: new InMemoryCache(),
   clientState: {
     defaults,

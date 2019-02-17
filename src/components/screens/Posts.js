@@ -8,15 +8,7 @@ import { Query } from 'react-apollo';
 import styled from 'styled-components';
 
 import Button from '../elements/Button';
-
-const GET_POSTS_QUERY = gql`
-  query getPosts {
-    allPosts(count:4) {
-      id
-      title
-    }
-  }
-`;
+import { GET_POKEMONS } from '../../apollo/queries';
 
 const Wrapper = styled.View`
   flex: 1;
@@ -47,13 +39,13 @@ class Posts extends React.Component {
           text="Toggle Drawer"
           onPress={this.props.navigation.toggleDrawer}
         />
-        <Text>Posts</Text>
-        <Query query={GET_POSTS_QUERY}>
+        <Text>Pokemons</Text>
+        <Query query={GET_POKEMONS}>
           {({ loading, error, data }) => {
             if (loading) return <Text>Loading...</Text>;
             if (error) return <Text>Error! {error.message}</Text>;
 
-            return data.allPosts.map((post) => <Text key={post.id}>{post.title}</Text>);
+            return data.pokemons.map((pokemon) => <Text key={pokemon.id}>{pokemon.name}</Text>);
           }}
         </Query>
       </Wrapper>
