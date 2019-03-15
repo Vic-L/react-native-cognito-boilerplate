@@ -16,5 +16,6 @@
 #   public *;
 #}
 
+# react-native-firebase
 -keep class io.invertase.firebase.** { *; }
 -dontwarn io.invertase.firebase.**
