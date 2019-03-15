@@ -5,7 +5,7 @@ import {
 
 async function importFirebase() {
   const firebase = await import('react-native-firebase');
-  return firebase.default.default;
+  return firebase.default;
 }
 
 export default async function RequestNotificationPermission() {
