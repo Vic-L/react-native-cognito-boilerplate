@@ -11,7 +11,7 @@
     "iphoneX": "ENVFILE=.env.development react-native run-ios --simulator='iPhone X' # --scheme CustomScheme",
     "iphonePlus": "ENVFILE=.env.development react-native run-ios --simulator='iPhone 6 Plus' # --scheme CustomScheme",
     "iphoneDevice": "ENVFILE=.env.development react-native run-ios --device 'Vic’s iPhone'",
-    "android": "cd android && ./gradlew clean && cd .. && react-native run-android",
+    "androidDebug": "cd android && ENVFILE=.env.development ./gradlew clean && cd .. && ENVFILE=.env.development react-native run-android",
     "test": "jest"
   },
   "dependencies": {
@@ -24,7 +24,7 @@
     "prop-types": "^15.7.2",
     "react": "16.8.4",
     "react-apollo": "^2.5.2",
-    "react-native": "0.59.1",
+    "react-native": "0.58.6",
     "react-native-cached-image": "github:fungilation/react-native-cached-image",
     "react-native-config": "^0.11.7",
     "react-native-device-info": "^1.0.0",
