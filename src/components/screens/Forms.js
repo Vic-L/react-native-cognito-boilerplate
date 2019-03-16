@@ -4,18 +4,8 @@ import {
   Text,
 } from 'react-native';
 import styled from 'styled-components';
-import {
-  CachedImage,
-  ImageCacheProvider,
-} from 'react-native-cached-image';
 
 import ImageField from '../elements/ImageField';
-
-const Image = styled(CachedImage)`
-  width: 100%;
-  height: undefined; /* https://stackoverflow.com/a/53482563/2667545 */
-  aspect-ratio: 1;
-`;
 
 const Wrapper = styled.View`
   flex: 1;
@@ -29,52 +19,57 @@ const ImageContainer = styled.View`
   height: 150px;
 `;
 
+const Image = styled.Image`
+  width: 100%;
+  height: undefined; /* https://stackoverflow.com/a/53482563/2667545 */
+  aspect-ratio: 1;
+`;
+
 class Forms extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       imageBase64: null,
-      initialImagePath: [
+      // randomly set initial image path (edit vs create)
+      imagePath: [
         'https://store.donanimhaber.com/ae/0c/c4/ae0cc4f398e19a24a9b0434dcec0c365.png',
         null,
       ][Math.floor(Math.random() * 2)],
     };
+
+    this.onCropped = this.onCropped.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { imageBase64 } = prevState;
-    console.log(imageBase64);
+  onCropped(imageBase64, imagePath) {
+    this.setState({ imageBase64, imagePath });
   }
 
   render() {
-    const { initialImagePath } = this.state;
+    const {
+      imagePath,
+      imageBase64,
+    } = this.state;
+
     return (
       <Wrapper>
         <Text>Forms</Text>
         <ImageField
-          initialImagePath={initialImagePath}
           title="Add image"
           message="Description of what this image is for"
-          onCropped={(imageBase64) => {
-            this.setState({ imageBase64 });
-          }}
+          onCropped={this.onCropped}
         >
-          {({ imagePath }) => {
+          {() => {
             let image = null;
-            if (_.isNil(imagePath)) {
+            if (
+              _.isNull(imagePath)
+              && _.isNull(imageBase64)
+            ) {
               image = <Image source={require('../../images/icons/magnifying_glass.jpg')} />;
             } else {
-              image = (
-                <ImageCacheProvider
-                  urlsToPreload={[
-                    imagePath,
-                  ]}
-                >
-                  <Image source={{ uri: imagePath }} />
-                </ImageCacheProvider>
-              );
+              image = <Image source={{ uri: imagePath }} />;
             }
+
             return (
               <ImageContainer>
                 {image}

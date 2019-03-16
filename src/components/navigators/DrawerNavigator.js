@@ -6,6 +6,7 @@ import {
 } from 'react-navigation';
 
 import MapNavigator from './MapNavigator';
+import FormNavigator from './FormNavigator';
 import Products from '../screens/Products';
 import Introduction from '../screens/Introduction';
 import DrawerContentComponent from '../elements/DrawerContentComponent';
@@ -19,7 +20,10 @@ const DrawerNavigatorConfig = {
   contentComponent: DrawerContentComponent,
   contentOptions: {
     // the array of routes, can be modified or overridden
-    items: ['Products', 'Posts'],
+    items: [
+      'Products',
+      'Forms',
+    ],
     // key identifying the active route
     // activeItemKey: 'something',
     // label and icon color of the active label
@@ -63,6 +67,12 @@ const DrawerNavigator = createDrawerNavigator(
       },
     },
     Products,
+    FormNavigator: {
+      screen: FormNavigator,
+      navigationOptions: {
+        drawerLabel: 'Forms',
+      },
+    },
   },
   {
     ...DrawerNavigatorConfig,

@@ -15,7 +15,6 @@ const IMAGE_PICKER_ERROR = {
 };
 
 const Wrapper = styled.TouchableOpacity`
-  ${props => props.style}
 `;
 
 class ImageField extends React.Component {
@@ -23,9 +22,6 @@ class ImageField extends React.Component {
     super(props);
 
     this.state = {
-      imageBase64: null,
-      imagePath: props.initialImagePath, // for initial image eg during edit
-      isModalVisible: false,
       isLoadingImage: false,
     };
 
@@ -89,11 +85,7 @@ class ImageField extends React.Component {
       loadingLabelText: 'Processing',
     }).then((response) => {
       const { onCropped } = this.props;
-      this.setState({
-        imagePath: response.path,
-        imageBase64: response.data,
-      });
-      onCropped(response.data);
+      onCropped(response.data, response.path);
     }).catch((e) => {
       switch (true) {
         case e.message === IMAGE_PICKER_ERROR.CANCEL_CAMERA:
@@ -119,11 +111,7 @@ class ImageField extends React.Component {
       loadingLabelText: 'Processing',
     }).then((response) => {
       const { onCropped } = this.props;
-      this.setState({
-        imagePath: response.path,
-        imageBase64: response.data,
-      });
-      onCropped(response.data);
+      onCropped(response.data, response.path);
     }).catch((e) => {
       switch (true) {
         case e.message === IMAGE_PICKER_ERROR.CANCEL_IMAGE_SELECTION:
@@ -144,14 +132,16 @@ class ImageField extends React.Component {
     const {
       disabled,
       children,
+      ...otherProps
     } = this.props;
 
     return (
       <Wrapper
         onPress={this.showModal}
-        enabled={disabled}
+        disabled={disabled}
+        {...otherProps}
       >
-        {children(this.state)}
+        {children()}
       </Wrapper>
     );
   }
@@ -162,14 +152,12 @@ ImageField.propTypes = {
   message: PropTypes.string.isRequired,
   onCropped: PropTypes.func.isRequired,
 
-  initialImagePath: PropTypes.string,
   disabled: PropTypes.bool,
   children: PropTypes.node,
 };
 
 ImageField.defaultProps = {
-  disabled: true,
-  initialImagePath: require('../../images/icons/magnifying_glass.jpg'),
+  disabled: false,
   children: null,
 };
 
