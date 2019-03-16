@@ -19,7 +19,6 @@ const Wrapper = styled.View`
   height: ${FIELD_CONTAINER_HEIGHT};
   justify-content: center;
   background-color: #ededed;
-  ${props => props.style};
 `;
 
 const Label = styled.Text`
@@ -32,7 +31,6 @@ const Label = styled.Text`
     return 'transparent';
   }};
   margin-bottom: 4px;
-  ${props => props.style};
 `;
 
 const Input = styled.TextInput`
@@ -40,8 +38,7 @@ const Input = styled.TextInput`
   color: ${props => (props.hasError ? COLOR.ERROR : COLOR.BLACK)};
   border-width: 0;
   padding: 0;
-  width: 100%;
-  ${props => props.style};
+  width: 100%;${props => props.style};
 
   // does not seem to work yet */
   /* selectionColor: this.props.error ? COLOR.ERROR : COLOR.FONT_BLACK
@@ -64,9 +61,9 @@ class TextField extends React.Component {
       label,
       value,
       error,
-      containerStyle,
-      inputStyle,
-      labelStyle,
+      containerCss,
+      inputCss,
+      labelCss,
       ...props
     } = this.props;
 
@@ -74,11 +71,11 @@ class TextField extends React.Component {
 
     return (
       <TouchableWithoutFeedback onPress={this.focusTextInput}>
-        <Wrapper style={containerStyle}>
+        <Wrapper css={containerCss}>
           {
             value ? (
               <Label
-                style={labelStyle}
+                css={labelCss}
                 value={value}
                 hasError={hasError}
               >
@@ -90,7 +87,7 @@ class TextField extends React.Component {
           }
           <Input
             {...props}
-            css={inputStyle}
+            css={inputCss}
             ref={(component) => {
               this.input = component;
             }}
@@ -107,19 +104,21 @@ class TextField extends React.Component {
 
 TextField.propTypes = {
   label: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+
   value: PropTypes.string,
   error: PropTypes.string,
-  containerStyle: PropTypes.string,
-  labelStyle: PropTypes.string,
-  inputStyle: PropTypes.string,
+  containerCss: PropTypes.string,
+  labelCss: PropTypes.string,
+  inputCss: PropTypes.string,
 };
 
 TextField.defaultProps = {
   value: null,
   error: null,
-  containerStyle: null,
-  labelStyle: null,
-  inputStyle: null,
+  containerCss: null,
+  labelCss: null,
+  inputCss: null,
 };
 
 export default TextField;
