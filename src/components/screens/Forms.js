@@ -5,14 +5,9 @@ import {
 } from 'react-native';
 import styled from 'styled-components';
 
+import FormContainer from '../elements/FormContainer';
 import ImageField from '../elements/ImageField';
 import TextField from '../elements/TextField';
-
-const Wrapper = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
 
 const ImageContainer = styled.View`
   background-color: blue;
@@ -62,17 +57,8 @@ class Forms extends React.Component {
     } = this.state;
 
     return (
-      <Wrapper>
+      <FormContainer>
         <Text>Forms</Text>
-
-        <Text>TextField</Text>
-        <TextField
-          label="LABEL"
-          value={textFieldValue}
-          error={null}
-          placeholder="Placeholder"
-          onChangeText={this.onChangeTextField}
-        />
 
         <Text>ImageField</Text>
         <ImageField
@@ -98,7 +84,17 @@ class Forms extends React.Component {
             );
           }}
         </ImageField>
-      </Wrapper>
+
+        <Text>TextField</Text>
+        <TextField
+          label="LABEL"
+          value={textFieldValue}
+          error={null}
+          placeholder="Placeholder"
+          onChangeText={this.onChangeTextField}
+        />
+
+      </FormContainer>
     );
   }
 }

@@ -224,7 +224,7 @@ class Login extends React.Component {
             keyboardType="email-address"
             autoCapitalize="none"
             onSubmitEditing={() => {
-              this.passwordField.refs.input.focus();
+              this.passwordField.input.focus();
             }}
             autoFocus
             returnKeyType="next"
@@ -232,9 +232,7 @@ class Login extends React.Component {
           />
 
           <TextField
-            ref={(component) => {
-              this.passwordField = component;
-            }}
+            ref={this.passwordField}
             label="PASSWORD"
             placeholder="Password"
             secureTextEntry

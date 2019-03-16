@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+  ScrollView,
+  Platform,
+} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -9,24 +13,36 @@ const Wrapper = styled(KeyboardAwareScrollView)`
 `;
 
 class FormContainer extends React.Component {
-  componentDidUpdate() {
-    const keyboardScrollView = this.keyboardAwareScrollView;
-    if (keyboardScrollView) {
-      keyboardScrollView.update();
-    }
+  constructor(props) {
+    super(props);
+
+    this.keyboardAwareScrollView = React.createRef();
   }
 
   render() {
-    const { children } = this.props;
+    const {
+      children,
+      ...otherProps
+    } = this.props;
+
+    if (Platform.OS === 'ios') {
+      return (
+        <Wrapper
+          {...this.props}
+          ref={this.keyboardAwareScrollView}
+        >
+          {children}
+        </Wrapper>
+      );
+    }
 
     return (
       <Wrapper
-        {...this.props}
-        ref={(component) => { this.keyboardAwareScrollView = component; }}
+        as={ScrollView}
+        ref={this.keyboardAwareScrollView}
+        {...otherProps}
       >
-
         {children}
-
       </Wrapper>
     );
   }
