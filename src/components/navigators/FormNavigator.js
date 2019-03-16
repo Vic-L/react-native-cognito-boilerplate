@@ -1,17 +1,20 @@
+import React from 'react';
 import {
   createStackNavigator,
 } from 'react-navigation';
 
+import LeftHeaderDrawer from '../elements/LeftHeaderDrawer';
 import Forms from '../screens/Forms';
 import GetNavigationHeaderMode from '../../services/GetNavigationHeaderMode';
 
-const MapNavigator = createStackNavigator(
+const FormNavigator = createStackNavigator(
   {
     Forms: {
       screen: Forms,
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         headerTitle: 'Forms Stack',
-      },
+        headerLeft: <LeftHeaderDrawer navigation={navigation} />,
+      }),
     },
   },
   {
@@ -22,4 +25,4 @@ const MapNavigator = createStackNavigator(
   },
 );
 
-export default MapNavigator;
+export default FormNavigator;
