@@ -6,8 +6,9 @@ import {
 import styled from 'styled-components';
 
 import FormContainer from '../elements/FormContainer';
-import ImageField from '../elements/ImageField';
-import TextField from '../elements/TextField';
+import ImageField from '../forms/ImageField';
+import TextField from '../forms/TextField';
+import DateField from '../forms/DateField';
 
 const ImageContainer = styled.View`
   background-color: blue;
@@ -87,6 +88,15 @@ class Forms extends React.Component {
 
         <Text>TextField</Text>
         <TextField
+          label="LABEL"
+          value={textFieldValue}
+          error={null}
+          placeholder="Placeholder"
+          onChangeText={this.onChangeTextField}
+        />
+
+        <Text>DateField</Text>
+        <DateField
           label="LABEL"
           value={textFieldValue}
           error={null}

@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import Auth from '@aws-amplify/auth';
 import styled from 'styled-components';
 
-import TextField from '../../elements/TextField';
+import TextField from '../../forms/TextField';
 import Button from '../../elements/Button';
 
 const Wrapper = styled.View`

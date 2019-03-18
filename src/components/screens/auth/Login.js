@@ -9,7 +9,7 @@ import DeviceInfo from 'react-native-device-info';
 import Auth from '@aws-amplify/auth';
 import styled from 'styled-components';
 
-import TextField from '../../elements/TextField';
+import TextField from '../../forms/TextField';
 import TextLink from '../../elements/TextLink';
 import ButtonWithLoader from '../../elements/ButtonWithLoader';
 import FormContainer from '../../elements/FormContainer';

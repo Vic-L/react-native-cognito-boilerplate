@@ -5,7 +5,7 @@ import {
 import Auth from '@aws-amplify/auth';
 import styled from 'styled-components';
 
-import TextField from '../../elements/TextField';
+import TextField from '../../forms/TextField';
 import Button from '../../elements/Button';
 import FormContainer from '../../elements/FormContainer';
 import NavbarSpacing from '../../elements/NavbarSpacing';
